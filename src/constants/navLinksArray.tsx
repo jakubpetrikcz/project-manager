@@ -5,6 +5,11 @@ export const menu: NavLinkType[] = [
 	{
 		name: "Dashboard",
 		icon: <HouseIcon />,
-		path: "#",
+		path: "/",
+	},
+	{
+		name: "My Tasks",
+		icon: <HouseIcon />,
+		path: "/tasks",
 	},
 ];
