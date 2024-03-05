@@ -2,12 +2,14 @@
 
 :root {
 	--primary: #304dff;
+	--primary-hover: #e7eafe;
 	--neutral: #161616;
+	--gray: #797979;
 }
 
 * {
 	box-sizing: border-box;
-  font-family: Inter, sans-serif;
+	font-family: Inter, sans-serif;
 }
 
 html,
@@ -19,6 +21,11 @@ body {
 a {
 	color: inherit;
 	text-decoration: none;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
 }
 
 p,
