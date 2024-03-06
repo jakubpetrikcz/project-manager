@@ -3,7 +3,8 @@ import NavMenu from "../../molecules/NavMenu/NavMenu";
 
 import styles from "./SideBar.module.scss";
 import classNames from "classnames";
-import Button from "../../atoms/Button/Button";
+import { ArrowLeftIcon, ArrowRightIcon } from "../../icons/components";
+import IconButton from "../../atoms/IconButton/IconButton";
 
 const SideBar = () => {
 	const [isOpen, setIsOpen] = useState(true);
@@ -13,8 +14,11 @@ const SideBar = () => {
 			className={classNames(styles.sidebar, { [styles.active]: isOpen })}
 		>
 			<div className={styles.logoContainer}>
-				{isOpen && <h1>Logo</h1>}
-				<Button icon={isOpen ? "/arrow-left.svg" : "/arrow-right.svg"} onClick={() => setIsOpen(!isOpen)} />
+				{isOpen && <img src="/logo.svg" alt="logo" />}
+				<IconButton
+					icon={isOpen ? <ArrowLeftIcon /> : <ArrowRightIcon />}
+					onClick={() => setIsOpen(!isOpen)}
+				/>
 			</div>
 			{isOpen && <NavMenu />}
 		</div>
