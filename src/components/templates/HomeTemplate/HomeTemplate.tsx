@@ -1,16 +1,15 @@
-import { ReactNode } from "react";
 import SideBar from "../../organisms/SideBar/SideBar";
 import { Outlet } from "react-router-dom";
 
-type HomeTemplateProps = {
-	children: ReactNode;
-};
+import styles from "./HomeTemplate.module.scss";
 
-const HomeTemplate: React.FC<HomeTemplateProps> = () => {
+const HomeTemplate = () => {
 	return (
-		<div>
+		<div className={styles.container}>
 			<SideBar />
-			<Outlet />
+			<section className={styles.section}>
+				<Outlet />
+			</section>
 		</div>
 	);
 };

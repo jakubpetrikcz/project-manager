@@ -1,9 +1,12 @@
-// import styles from "./DashboardPage.module.scss";
-
-import HomeTemplate from "../../templates/HomeTemplate/HomeTemplate";
+import styles from "./DashboardPage.module.scss";
 
 const DashboardPage = () => {
-	return <HomeTemplate>DashboardPage</HomeTemplate>;
+	return (
+		<div className={styles.container}>
+			<span>Uvatars Website UI</span>
+			<h1>Uvatars Website UI</h1>
+		</div>
+	);
 };
 
 export default DashboardPage;
