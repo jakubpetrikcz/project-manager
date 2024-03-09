@@ -1,5 +1,17 @@
-.container {
+.section {
+	width: 100%;
+}
+
+.pageHeader {
+	padding: 30px;
+
 	h1 {
 		margin-block: 20px;
 	}
+}
+
+.board {
+	background-color: var(--background);
+	height: 500px;
+	width: 100%;
 }

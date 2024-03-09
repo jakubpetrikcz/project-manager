@@ -5,13 +5,6 @@
 	min-height: 100vh;
 	padding: 30px;
 
-	.logoContainer {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 20px;
-	}
-
 	&.active {
 		max-width: 300px;
 	}

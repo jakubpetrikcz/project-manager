@@ -1,10 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import "./utils.scss";
 
 :root {
+	--white: #ffffff;
+	--black: #000000;
+
 	--primary: #304dff;
 	--primary-hover: #e7eafe;
 	--neutral: #161616;
 	--gray: #797979;
+	--background: #f7f7f7;
 }
 
 * {
@@ -47,4 +52,35 @@ h4,
 h5,
 h6 {
 	font-weight: 700;
+}
+
+p {
+	@include font-size(16px, 16px);
+	line-height: 1.3;
+
+	@include tablet {
+		line-height: 1.8;
+	}
+}
+
+h1 {
+	@include font-size(30px, 52px);
+	line-height: 1.2;
+}
+
+h2 {
+	@include font-size(24px, 38px);
+}
+
+h3 {
+	@include font-size(22px, 34px);
+	line-height: 1.4;
+}
+
+h4 {
+	@include font-size(16px, 24px);
+}
+
+h5 {
+	@include font-size(16px, 20px);
 }

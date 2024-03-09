@@ -7,9 +7,7 @@ const HomeTemplate = () => {
 	return (
 		<div className={styles.container}>
 			<SideBar />
-			<section className={styles.section}>
-				<Outlet />
-			</section>
+			<Outlet />
 		</div>
 	);
 };
