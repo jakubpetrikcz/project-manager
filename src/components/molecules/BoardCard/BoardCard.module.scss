@@ -1,0 +1,28 @@
+.card {
+	border-radius: 10px;
+	padding: 10px;
+	background-color: var(--white);
+	max-width: 300px;
+	display: grid;
+	gap: 10px;
+
+	img {
+		object-fit: cover;
+		border-radius: 10px;
+	}
+
+	.tag {
+		border-radius: 20px;
+		padding: 8px 15px;
+	}
+}
+
+.description {
+    display: flex;
+    justify-content: space-between;
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}

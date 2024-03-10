@@ -4,11 +4,23 @@
 :root {
 	--white: #ffffff;
 	--black: #000000;
+	--gray: #797979;
 
 	--primary: #304dff;
 	--primary-hover: #e7eafe;
+	--warning: #9a3a0d;
+	--warning-hover: #f5f9dd;
+	--success: #008933;
+	--success-hover: #e1f5ec;
+	--error: #ff5278;
+	--error-hover: #ffe8ee;
+	--violet: #461672;
+	--violet-hover: #f3e5fe;
+	--other: #565656;
+	--other-hover: #e1e1e1;
+
 	--neutral: #161616;
-	--gray: #797979;
+
 	--background: #f7f7f7;
 }
 
@@ -21,6 +33,11 @@ html,
 body {
 	padding: 0;
 	margin: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
 }
 
 a {

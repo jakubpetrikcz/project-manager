@@ -1,10 +1,36 @@
 .badge {
     font-size: 0.8rem;
-    border-radius: 100%;
+    border-radius: 50%;
     padding: 5px 8px;
+    max-width: fit-content;
 }
 
 .primary {
 	color: var(--primary);
 	background-color: var(--primary-hover);
+}
+
+.warning {
+    color: var(--warning);
+    background-color: var(--warning-hover);
+}
+
+.success {
+    color: var(--success);
+    background-color: var(--success-hover);
+}
+
+.error {
+    color: var(--error);
+    background-color: var(--error-hover);
+}
+
+.violet {
+    color: var(--violet);
+    background-color: var(--violet-hover);
+}
+
+.other {
+    color: var(--other);
+    background-color: var(--other-hover);
 }

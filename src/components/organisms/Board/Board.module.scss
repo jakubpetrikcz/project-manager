@@ -1,6 +1,5 @@
 .board {
 	background-color: var(--background);
-	height: 500px;
 	width: 100%;
     padding: 20px;
 
@@ -8,5 +7,6 @@
 	.header {
 		display: flex;
 		gap: 20px;
+		margin-bottom: 20px;
 	}
 }
