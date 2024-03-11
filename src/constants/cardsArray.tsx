@@ -1,4 +1,6 @@
-import { BoardHeaderType } from "../types/card";
+import { BadgeEnum } from "../components/atoms/Badge/BadgeEnums";
+import Tag from "../components/atoms/Tag/Tag";
+import { BoardCardType, BoardHeaderType } from "../types/card";
 
 export const boardHeaders: BoardHeaderType[] = [
 	{
@@ -16,5 +18,19 @@ export const boardHeaders: BoardHeaderType[] = [
 	{
 		title: "Review",
 		count: 8,
+	},
+];
+
+export const boardCards: BoardCardType[] = [
+	{
+		title: "Headphone Illustration",
+		text: "Illustration for Empty States",
+		imgSrc: "/img.png",
+		tag: <Tag text="Illustration" variant={BadgeEnum.error} />,
+	},
+	{
+		title: "UI Design Mobile App",
+		text: "Cinema App UI design in figma",
+		tag: <Tag text="UI Design" variant={BadgeEnum.success} />,
 	},
 ];

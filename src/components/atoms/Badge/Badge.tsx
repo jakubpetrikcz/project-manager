@@ -4,7 +4,7 @@ import styles from "./Badge.module.scss";
 import classNames from "classnames";
 import { BadgeEnum } from "./BadgeEnums";
 
-type BadgeProps = {
+export type BadgeProps = {
 	text: string | number;
 	variant?: BadgeEnum;
 	className?: string;

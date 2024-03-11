@@ -5,15 +5,11 @@
 	max-width: 300px;
 	display: grid;
 	gap: 10px;
+	cursor: pointer;
 
-	img {
+	.backgroundImage {
 		object-fit: cover;
 		border-radius: 10px;
-	}
-
-	.tag {
-		border-radius: 20px;
-		padding: 8px 15px;
 	}
 }
 
