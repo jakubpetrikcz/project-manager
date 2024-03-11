@@ -1,7 +1,7 @@
-import SideBar from "../../organisms/SideBar/SideBar";
 import { Outlet } from "react-router-dom";
 
 import styles from "./HomeTemplate.module.scss";
+import { SideBar } from "../../organisms";
 
 const HomeTemplate = () => {
 	return (

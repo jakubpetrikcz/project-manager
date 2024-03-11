@@ -1,10 +1,8 @@
-import BoardHeaderCard from "../../molecules/BoardHeaderCard/BoardHeaderCard";
-
 import styles from "./Board.module.scss";
 import { boardCards, boardHeaders } from "../../../constants/cardsArray";
-import BoardCard from "../../molecules/BoardCard/BoardCard";
+import { BoardCard, BoardHeaderCard } from "../../molecules";
 
-const Board = () => {
+export const Board = () => {
 	return (
 		<div className={styles.board}>
 			<div className={styles.header}>
@@ -20,5 +18,3 @@ const Board = () => {
 		</div>
 	);
 };
-
-export default Board;

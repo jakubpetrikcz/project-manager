@@ -1,5 +1,4 @@
-import { boardHeaders } from "../../../constants/cardsArray";
-import Board from "../../organisms/Board/Board";
+import { Board } from "../../organisms";
 import styles from "./DashboardPage.module.scss";
 
 const DashboardPage = () => {
@@ -10,14 +9,6 @@ const DashboardPage = () => {
 				<h1>Uvatars Website UI</h1>
 			</div>
 			<Board />
-			{/* <div className={styles.board}>
-				{boardHeaders.map((header) => (
-					<div key={header.title}>
-						{header.title}
-						{header.count}
-					</div>
-				))}
-			</div> */}
 		</div>
 	);
 };

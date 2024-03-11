@@ -1,15 +1,15 @@
 import React from "react";
 
 import styles from "./LogoContainer.module.scss";
-import IconButton from "../../atoms/IconButton/IconButton";
 import { ArrowLeftIcon, ArrowRightIcon } from "../../icons/components";
+import { IconButton } from "../../atoms";
 
 type LogoContainerProps = {
 	isOpen: boolean;
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const LogoContainer: React.FC<LogoContainerProps> = ({ isOpen, setIsOpen }) => {
+export const LogoContainer: React.FC<LogoContainerProps> = ({ isOpen, setIsOpen }) => {
 	return (
 		<div className={styles.logoContainer}>
 			{isOpen && <img src="/logo.svg" alt="logo" />}
@@ -20,5 +20,3 @@ const LogoContainer: React.FC<LogoContainerProps> = ({ isOpen, setIsOpen }) => {
 		</div>
 	);
 };
-
-export default LogoContainer;

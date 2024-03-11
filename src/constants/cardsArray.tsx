@@ -1,5 +1,5 @@
+import { Tag } from "../components/atoms";
 import { BadgeEnum } from "../components/atoms/Badge/BadgeEnums";
-import Tag from "../components/atoms/Tag/Tag";
 import { BoardCardType, BoardHeaderType } from "../types/card";
 
 export const boardHeaders: BoardHeaderType[] = [

@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "./NavLink.module.scss";
 import classNames from "classnames";
 
-const NavLink: React.FC<NavLinkType> = ({ name, icon, path }) => {
+export const NavLink: React.FC<NavLinkType> = ({ name, icon, path }) => {
 	const { pathname } = useLocation();
 	const [active, setActive] = useState(false);
 
@@ -13,8 +13,8 @@ const NavLink: React.FC<NavLinkType> = ({ name, icon, path }) => {
 		if (pathname === path) {
 			setActive(true);
 		} else {
-      setActive(false);
-    }
+			setActive(false);
+		}
 	}, [path, pathname]);
 
 	return (
@@ -27,5 +27,3 @@ const NavLink: React.FC<NavLinkType> = ({ name, icon, path }) => {
 		</Link>
 	);
 };
-
-export default NavLink;

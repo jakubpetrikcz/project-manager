@@ -1,9 +1,9 @@
 import { menu } from "../../../constants/navLinksArray";
-import NavLink from "../../atoms/NavLink/NavLink";
+import { NavLink } from "../../atoms";
 
 import styles from "./NavMenu.module.scss";
 
-const NavMenu = () => {
+export const NavMenu = () => {
 	return (
 		<nav className={styles.nav}>
 			<ul>
@@ -21,5 +21,3 @@ const NavMenu = () => {
 		</nav>
 	);
 };
-
-export default NavMenu;

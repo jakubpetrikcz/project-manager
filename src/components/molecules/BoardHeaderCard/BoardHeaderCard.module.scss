@@ -1,20 +1,24 @@
 .card {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 300px;
-    background-color: var(--white);
-    border-radius: 10px;
-    padding: 15px; 
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	max-width: 300px;
+	background-color: var(--white);
+	border-radius: 10px;
+	padding: 15px;
 
-    .left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--primary);
-    }
+	.left {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		color: var(--primary);
+	}
 
-    img {
-        width: 20px;
-    }
+	.icon {
+		background: none;
+		padding: 0;
+        display: grid;
+        place-items: center;
+	}
 }

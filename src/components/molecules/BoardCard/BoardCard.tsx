@@ -1,11 +1,22 @@
-import styles from "./BoardCard.module.scss";
-import { useState } from "react";
-import BoardCardModal from "../BoardCardModal/BoardCardModal";
-import ModalWindow from "../ModalWindow/ModalWindow";
+import { BoardCardModal, ModalWindow } from "..";
 import { BoardCardType } from "../../../types/card";
+import { Button } from "../../atoms";
+import { VerticalDotsIcon } from "../../icons";
+import styles from "./BoardCard.module.scss";
+import { MouseEvent, useState } from "react";
 
-const BoardCard: React.FC<BoardCardType> = ({ title, text, imgSrc, tag }) => {
+export const BoardCard: React.FC<BoardCardType> = ({
+	title,
+	text,
+	imgSrc,
+	tag,
+}) => {
 	const [showModal, setShowModal] = useState(false);
+
+	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
+		console.log("ahoj");
+	};
 
 	return (
 		<>
@@ -23,7 +34,11 @@ const BoardCard: React.FC<BoardCardType> = ({ title, text, imgSrc, tag }) => {
 						<h5>{title}</h5>
 						<p>{text}</p>
 					</div>
-					<img src="/ellipsis-vertical-solid.svg" alt="icon" />
+					<Button
+						icon={<VerticalDotsIcon />}
+						onClick={(event) => event && openMenu(event)}
+						className={styles.icon}
+					/>
 				</div>
 			</div>
 			{showModal && (
@@ -37,5 +52,3 @@ const BoardCard: React.FC<BoardCardType> = ({ title, text, imgSrc, tag }) => {
 		</>
 	);
 };
-
-export default BoardCard;

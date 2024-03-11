@@ -10,7 +10,7 @@ export type BadgeProps = {
 	className?: string;
 };
 
-const Badge: React.FC<BadgeProps> = ({
+export const Badge: React.FC<BadgeProps> = ({
 	text,
 	variant = BadgeEnum.primary,
 	className,
@@ -21,5 +21,3 @@ const Badge: React.FC<BadgeProps> = ({
 		</div>
 	);
 };
-
-export default Badge;

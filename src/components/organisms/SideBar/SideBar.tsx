@@ -1,11 +1,10 @@
 import { useState } from "react";
-import NavMenu from "../../molecules/NavMenu/NavMenu";
 
 import styles from "./SideBar.module.scss";
 import classNames from "classnames";
-import LogoContainer from "../../molecules/LogoContainer/LogoContainer";
+import { LogoContainer, NavMenu } from "../../molecules";
 
-const SideBar = () => {
+export const SideBar = () => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (
@@ -17,5 +16,3 @@ const SideBar = () => {
 		</div>
 	);
 };
-
-export default SideBar;

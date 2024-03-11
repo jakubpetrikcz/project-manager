@@ -7,12 +7,10 @@ type IconButtonProps = {
 	onClick: () => void;
 };
 
-const IconButton: React.FC<IconButtonProps> = ({ icon, onClick }) => {
+export const IconButton: React.FC<IconButtonProps> = ({ icon, onClick }) => {
 	return (
 		<button className={styles.button} onClick={onClick}>
 			{icon}
 		</button>
 	);
 };
-
-export default IconButton;

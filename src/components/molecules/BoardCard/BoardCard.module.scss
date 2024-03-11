@@ -17,8 +17,9 @@
     display: flex;
     justify-content: space-between;
 
-    img {
-        width: 20px;
-        height: 20px;
+    .icon {
+		background: none;
+		align-self: flex-start;
+		padding: 0;
     }
 }

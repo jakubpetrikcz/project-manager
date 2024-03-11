@@ -1,7 +1,7 @@
 import styles from "./BoardCardModal.module.scss";
 import { BoardCardType } from "../../../types/card";
 
-const BoardCardModal: React.FC<BoardCardType> = ({ title, text, tag }) => {
+export const BoardCardModal: React.FC<BoardCardType> = ({ title, text, tag }) => {
 	return (
 		<div className={styles.content}>
 			<div>
@@ -12,5 +12,3 @@ const BoardCardModal: React.FC<BoardCardType> = ({ title, text, tag }) => {
 		</div>
 	);
 };
-
-export default BoardCardModal;

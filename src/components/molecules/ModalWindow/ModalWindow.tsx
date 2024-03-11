@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 
 import styles from "./ModalWindow.module.scss";
 import classNames from "classnames";
+import { CloseIcon } from "../../icons/components";
+import { Button } from "../../atoms";
 
 type ModalWindowProps = {
 	backgroundImage?: string;
@@ -10,10 +12,10 @@ type ModalWindowProps = {
 	close: () => void;
 };
 
-const ModalWindow: React.FC<ModalWindowProps> = ({
+export const ModalWindow: React.FC<ModalWindowProps> = ({
 	backgroundImage,
 	children,
-    close,
+	close,
 }) => {
 	const modalRoot = document.getElementById("modalRoot");
 
@@ -23,7 +25,11 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
 			<div>
 				<div className={styles.overlay} onClick={close}></div>
 				<div className={styles.modal}>
-					<div className={classNames(styles.top, {[styles.empty]: !backgroundImage})}>
+					<div
+						className={classNames(styles.top, {
+							[styles.empty]: !backgroundImage,
+						})}
+					>
 						{backgroundImage && (
 							<img
 								src={backgroundImage}
@@ -31,9 +37,11 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
 								className={styles.backgroundImage}
 							/>
 						)}
-						<button className={styles.close} onClick={close}>
-							<img src="/xmark-solid.svg" alt="icon" />
-						</button>
+						<Button
+							icon={<CloseIcon />}
+							onClick={close}
+							className={styles.close}
+						/>
 					</div>
 					<div className={styles.bottom}>{children}</div>
 				</div>
@@ -42,5 +50,3 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
 		)
 	);
 };
-
-export default ModalWindow;
