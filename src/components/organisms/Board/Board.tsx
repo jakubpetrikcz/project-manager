@@ -1,8 +1,17 @@
 import styles from "./Board.module.scss";
-import { boardCards, boardHeaders } from "../../../constants/cardsArray";
+import { boardHeaders } from "../../../constants/cardsArray";
 import { BoardCard, BoardHeaderCard } from "../../molecules";
+import { useGetTasksQuery } from "../../../app/service/tasks";
 
 export const Board = () => {
+	const { data: tasks, isLoading, isError } = useGetTasksQuery();
+
+	if (isLoading) return <div>Loading...</div>;
+
+	if (isError || !tasks) return <div>Error</div>;
+
+	console.log(tasks);
+
 	return (
 		<div className={styles.board}>
 			<div className={styles.header}>
@@ -11,8 +20,13 @@ export const Board = () => {
 				))}
 			</div>
 			<div className={styles.content}>
-				{boardCards.map((card) => (
-					<BoardCard key={card.title} {...card} />
+				{tasks.data.map((card) => (
+					<BoardCard
+						key={card.name}
+						title={card.name}
+						text={card.notes}
+						tags={card.tags}
+					/>
 				))}
 			</div>
 		</div>

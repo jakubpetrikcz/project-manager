@@ -1,14 +1,21 @@
 import styles from "./BoardCardModal.module.scss";
 import { BoardCardType } from "../../../types/card";
+import { Tag } from "../../atoms";
 
-export const BoardCardModal: React.FC<BoardCardType> = ({ title, text, tag }) => {
+export const BoardCardModal: React.FC<BoardCardType> = ({
+	title,
+	text,
+	tags,
+}) => {
 	return (
 		<div className={styles.content}>
 			<div>
 				<h3>{title}</h3>
 				<p>{text}</p>
 			</div>
-			{tag}
+			{tags.map((tag) => (
+				<Tag key={tag.gid} text={tag.name} />
+			))}
 		</div>
 	);
 };
