@@ -1,29 +1,52 @@
 import { BoardCardModal, ModalWindow } from "..";
-import { useGetAttachmentsQuery } from "../../../app/service/tasks";
+import {
+	useDeleteTaskMutation,
+	useGetAttachmentsQuery,
+} from "../../../app/service/tasks";
 import { BoardCardType } from "../../../types/card";
 import { BadgeType, Button, Tag } from "../../atoms";
 import { VerticalDotsIcon } from "../../icons";
+import { OptionMenu } from "../OptionMenu";
 import styles from "./BoardCard.module.scss";
-import { MouseEvent, useState } from "react";
+import { useState, MouseEvent } from "react";
 
 type BoardCardProps = BoardCardType & {
 	gid: string;
-}
+};
 
-export const BoardCard: React.FC<BoardCardProps> = ({ title, text, tags, gid }) => {
+export const BoardCard: React.FC<BoardCardProps> = ({
+	title,
+	text,
+	tags,
+	gid,
+}) => {
 	const [showModal, setShowModal] = useState(false);
-	const { data: attachments, isLoading, isError } = useGetAttachmentsQuery(gid);
+	const [showMenu, setShowMenu] = useState(false);
+	const {
+		data: attachments,
+		isLoading,
+		isError,
+	} = useGetAttachmentsQuery(gid);
+	const [deleteTask, { isLoading: isDeleteLoading, isSuccess }] =
+		useDeleteTaskMutation();
 
-	if (isLoading) return <div>Loading...</div>;
+	if (isLoading || isDeleteLoading) return <div>Loading...</div>;
+
+	if (isSuccess) return <div></div>;
 
 	if (isError || !attachments) return <div>Error</div>;
 
 	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
 		event.stopPropagation();
-		console.log("ahoj");
+		setShowMenu(true);
 	};
 
-	const linkRegex = /(https?\\:\/\/)?(www\.)?[^\s]+\.[^\s]+/g; 
+	const deleteItem = async (event: MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
+		deleteTask(gid);
+	};
+
+	const linkRegex = /(https?\\:\/\/)?(www\.)?[^\s]+\.[^\s]+/g;
 
 	const description = text.replace(linkRegex, ""); // TODO do utils funkce (removeLinks)
 
@@ -33,13 +56,14 @@ export const BoardCard: React.FC<BoardCardProps> = ({ title, text, tags, gid }) 
 		<>
 			<div className={styles.card} onClick={() => setShowModal(true)}>
 				{imgSrc && (
-					<img
-						src={imgSrc}
-						className={styles.backgroundImage}
-					/>
+					<img src={imgSrc} className={styles.backgroundImage} />
 				)}
 				{tags.map((tag) => (
-					<Tag key={tag.gid} text={tag.name} variant={tag.color as BadgeType} />
+					<Tag
+						key={tag.gid}
+						text={tag.name}
+						variant={tag.color as BadgeType}
+					/>
 				))}
 				<div className={styles.description}>
 					<div className={styles.text}>
@@ -51,10 +75,19 @@ export const BoardCard: React.FC<BoardCardProps> = ({ title, text, tags, gid }) 
 						onClick={(event) => event && openMenu(event)}
 						className={styles.icon}
 					/>
+					{showMenu && (
+						<OptionMenu
+							onClick={(event) => event && deleteItem(event)}
+							setShowMenu={setShowMenu}
+						/>
+					)}
 				</div>
 			</div>
 			{showModal && (
-				<ModalWindow close={() => setShowModal(false)} backgroundImage={imgSrc}>
+				<ModalWindow
+					close={() => setShowModal(false)}
+					backgroundImage={imgSrc}
+				>
 					<BoardCardModal
 						title={title}
 						text={description}

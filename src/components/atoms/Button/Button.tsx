@@ -2,10 +2,12 @@ import React, { MouseEvent, ReactNode } from "react";
 
 import styles from "./Button.module.scss";
 import classNames from "classnames";
+import { ButtonEnum } from "./ButtonEnums";
 
 type ButtonProps = {
 	text?: string;
 	icon?: ReactNode;
+	variant?: ButtonEnum;
 	onClick: (event?: MouseEvent<HTMLButtonElement>) => void;
 	className?: string;
 };
@@ -13,12 +15,13 @@ type ButtonProps = {
 export const Button: React.FC<ButtonProps> = ({
 	text,
 	icon,
+	variant = ButtonEnum.primary,
 	onClick,
 	className,
 }) => {
 	return (
 		<button
-			className={classNames(styles.button, className)}
+			className={classNames(styles.button, styles[variant], className)}
 			onClick={onClick}
 		>
 			{icon}

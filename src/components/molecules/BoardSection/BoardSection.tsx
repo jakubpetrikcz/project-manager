@@ -16,8 +16,6 @@ export const BoardSection: React.FC<BoardSectionProps> = ({ gid }) => {
 
 	if (isError || !tasks) return <div>Error</div>;
 
-	console.log(tasks);
-
 	return (
 		<section className={styles.section}>
 			{tasks.data.map((card: any) => (

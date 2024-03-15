@@ -1,9 +1,24 @@
 .button {
   border: none;
   cursor: pointer;
+  padding: 10px 8px;
 
   svg {
     width: 20px;
     height: 20px;
+  }
+}
+
+.primary {
+  background-color: var(--primary);
+}
+
+
+.transparent {
+  background: transparent;
+  color: var(--black);
+
+  &:hover {
+    background-color: var(--other-hover);
   }
 }

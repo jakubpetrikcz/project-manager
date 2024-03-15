@@ -18,7 +18,7 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({
 
 	if (isError || !data) return <div>Error</div>;
 
-	console.log(data);
+	// console.log(data);
 
 	return (
 		<div className={styles.card}>

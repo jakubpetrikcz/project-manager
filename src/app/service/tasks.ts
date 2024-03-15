@@ -34,10 +34,12 @@ export const tasksApi = createApi({
 			return headers;
 		},
 	}),
+	tagTypes: ["Task"],
 	endpoints: (builder) => ({
 		getTasks: builder.query({
 			query: (sectionGid) =>
 				`https://app.asana.com/api/1.0/sections/${sectionGid}/tasks?opt_fields=memberships.section.name,notes,name,tags.name,tags.color`,
+			providesTags: ["Task"],
 		}),
 		getAttachments: builder.query({
 			query: (taskGid) =>
@@ -48,8 +50,19 @@ export const tasksApi = createApi({
 			query: () =>
 				`https://app.asana.com/api/1.0/projects/${projectGid}/sections?opt_fields=name`,
 		}),
+		deleteTask: builder.mutation<void, string>({
+			query: (taskGid) => ({
+				url: `https://app.asana.com/api/1.0/tasks/${taskGid}`,
+				method: "DELETE",
+			}),
+			invalidatesTags: ["Task"]
+		}),
 	}),
 });
 
-export const { useGetAttachmentsQuery, useGetSectionsQuery, useGetTasksQuery } =
-	tasksApi;
+export const {
+	useGetAttachmentsQuery,
+	useGetSectionsQuery,
+	useGetTasksQuery,
+	useDeleteTaskMutation,
+} = tasksApi;
