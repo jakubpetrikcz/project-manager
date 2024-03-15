@@ -1,8 +1,12 @@
 .badge {
     font-size: 0.8rem;
-    border-radius: 50%;
+    border-radius: 10px;
     padding: 5px 8px;
     max-width: fit-content;
+
+    &.one {
+        border-radius: 50%;
+    }
 }
 
 .light-blue {

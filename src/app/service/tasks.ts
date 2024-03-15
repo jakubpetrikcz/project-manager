@@ -35,16 +35,21 @@ export const tasksApi = createApi({
 		},
 	}),
 	endpoints: (builder) => ({
-		// TODO: replace TasksResponse with real type of data from getTasks endpoint
-		getTasks: builder.query<TasksResponse, void>({
-			query: () =>
-				`projects/${projectGid}/tasks?opt_fields=notes,name,tags.name,tags.color`,
+		getTasks: builder.query({
+			query: (sectionGid) =>
+				`https://app.asana.com/api/1.0/sections/${sectionGid}/tasks?opt_fields=memberships.section.name,notes,name,tags.name,tags.color`,
 		}),
 		getAttachments: builder.query({
 			query: (taskGid) =>
 				`attachments?parent=${taskGid}&opt_fields=download_url`,
 		}),
+		// TODO: replace any with correct types
+		getSections: builder.query<{ data: any[] }, void>({
+			query: () =>
+				`https://app.asana.com/api/1.0/projects/${projectGid}/sections?opt_fields=name`,
+		}),
 	}),
 });
 
-export const { useGetTasksQuery, useGetAttachmentsQuery } = tasksApi;
+export const { useGetAttachmentsQuery, useGetSectionsQuery, useGetTasksQuery } =
+	tasksApi;

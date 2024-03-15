@@ -1,23 +1,21 @@
-import { Tag } from "../components/atoms";
-import { BadgeEnum } from "../components/atoms/Badge/BadgeTypes";
-import { BoardCardType, BoardHeaderType } from "../types/card";
+import { BoardHeaderType } from "../types/card";
 
 export const boardHeaders: BoardHeaderType[] = [
 	{
 		title: "Open",
-		count: 8,
+		count: "100",
 	},
 	{
 		title: "To do",
-		count: 8,
+		count: "80",
 	},
 	{
 		title: "In work",
-		count: 8,
+		count: "8",
 	},
 	{
 		title: "Review",
-		count: 8,
+		count: "8",
 	},
 ];
 

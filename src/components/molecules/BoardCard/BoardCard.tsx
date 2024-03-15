@@ -29,8 +29,6 @@ export const BoardCard: React.FC<BoardCardProps> = ({ title, text, tags, gid }) 
 
 	const imgSrc = attachments.data[0]?.download_url;
 
-	console.log(tags);
-
 	return (
 		<>
 			<div className={styles.card} onClick={() => setShowModal(true)}>

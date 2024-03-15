@@ -1,33 +1,35 @@
 import styles from "./Board.module.scss";
-import { boardHeaders } from "../../../constants/cardsArray";
-import { BoardCard, BoardHeaderCard } from "../../molecules";
-import { useGetTasksQuery } from "../../../app/service/tasks";
+import { BoardHeaderCard } from "../../molecules";
+import { useGetSectionsQuery } from "../../../app/service/tasks";
+import { BoardSection } from "../../molecules/BoardSection";
 
 export const Board = () => {
-	const { data: tasks, isLoading, isError } = useGetTasksQuery();
+	const {
+		data: headers,
+		isLoading: isHeadersLoading,
+		isError: isHeadersError,
+	} = useGetSectionsQuery();
 
-	if (isLoading) return <div>Loading...</div>;
+	if (isHeadersLoading) return <div>Loading...</div>;
 
-	if (isError || !tasks) return <div>Error</div>;
+	if (isHeadersError || !headers) return <div>Error</div>;
 
-	console.log(tasks);
+	// console.log(headers);
 
 	return (
 		<div className={styles.board}>
 			<div className={styles.header}>
-				{boardHeaders.map((header) => (
-					<BoardHeaderCard key={header.title} {...header} />
+				{headers.data.map((header) => (
+					<BoardHeaderCard
+						key={header.gid}
+						title={header.name}
+						gid={header.gid}
+					/>
 				))}
 			</div>
 			<div className={styles.content}>
-				{tasks.data.map((card) => (
-					<BoardCard
-						key={card.gid}
-						gid={card.gid}
-						title={card.name}
-						text={card.notes}
-						tags={card.tags}
-					/>
+				{headers.data.map((header) => (
+					<BoardSection key={header.gid} gid={header.gid} />
 				))}
 			</div>
 		</div>

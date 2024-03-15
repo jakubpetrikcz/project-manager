@@ -1,6 +1,7 @@
 export type BoardHeaderType = {
+	gid?: string;
 	title: string;
-	count: number;
+	count?: string;
 };
 
 export type BoardCardType = {
