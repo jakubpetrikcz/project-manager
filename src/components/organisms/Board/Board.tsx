@@ -22,7 +22,8 @@ export const Board = () => {
 			<div className={styles.content}>
 				{tasks.data.map((card) => (
 					<BoardCard
-						key={card.name}
+						key={card.gid}
+						gid={card.gid}
 						title={card.name}
 						text={card.notes}
 						tags={card.tags}

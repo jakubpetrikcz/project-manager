@@ -2,17 +2,18 @@ import React from "react";
 
 import styles from "./Badge.module.scss";
 import classNames from "classnames";
-import { BadgeEnum } from "./BadgeEnums";
+import { BadgeType } from ".";
+// import { BadgeEnum } from "./BadgeEnums";
 
 export type BadgeProps = {
 	text: string | number;
-	variant?: BadgeEnum;
+	variant?: BadgeType;
 	className?: string;
 };
 
 export const Badge: React.FC<BadgeProps> = ({
 	text,
-	variant = BadgeEnum.primary,
+	variant = "light-blue",
 	className,
 }) => {
 	return (

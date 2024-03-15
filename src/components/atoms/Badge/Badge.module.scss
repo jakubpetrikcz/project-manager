@@ -5,32 +5,32 @@
     max-width: fit-content;
 }
 
-.primary {
+.light-blue {
 	color: var(--primary);
 	background-color: var(--primary-hover);
 }
 
-.warning {
+.dark-brown {
     color: var(--warning);
     background-color: var(--warning-hover);
 }
 
-.success {
+.light-green {
     color: var(--success);
     background-color: var(--success-hover);
 }
 
-.error {
+.dark-red {
     color: var(--error);
     background-color: var(--error-hover);
 }
 
-.violet {
+.dark-purple {
     color: var(--violet);
     background-color: var(--violet-hover);
 }
 
-.other {
+.none {
     color: var(--other);
     background-color: var(--other-hover);
 }

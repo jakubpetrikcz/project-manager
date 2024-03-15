@@ -40,7 +40,11 @@ export const tasksApi = createApi({
 			query: () =>
 				`projects/${projectGid}/tasks?opt_fields=notes,name,tags.name,tags.color`,
 		}),
+		getAttachments: builder.query({
+			query: (taskGid) =>
+				`attachments?parent=${taskGid}&opt_fields=download_url`,
+		}),
 	}),
 });
 
-export const { useGetTasksQuery } = tasksApi;
+export const { useGetTasksQuery, useGetAttachmentsQuery } = tasksApi;
