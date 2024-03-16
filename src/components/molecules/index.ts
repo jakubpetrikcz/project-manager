@@ -4,3 +4,6 @@ export * from "./BoardHeaderCard";
 export * from "./LogoContainer";
 export * from "./ModalWindow";
 export * from "./NavMenu";
+export * from "./BoardSection";
+export * from "./EditableText";
+export * from "./OptionMenu";

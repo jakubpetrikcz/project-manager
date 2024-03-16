@@ -1,0 +1,8 @@
+@import "/src/styles/utils.scss";
+
+.input {
+    padding: 2px;
+    border-radius: 5px;
+    color: var(--primary);
+    @include font-size(16px, 16px);
+}
