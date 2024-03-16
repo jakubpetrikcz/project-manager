@@ -15,10 +15,14 @@
 		color: var(--primary);
 	}
 
+	.right {
+		position: relative;
+	}
+
 	.icon {
 		background: none;
 		padding: 0;
-        display: grid;
-        place-items: center;
+		display: grid;
+		place-items: center;
 	}
 }

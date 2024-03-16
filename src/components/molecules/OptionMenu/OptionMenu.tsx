@@ -18,6 +18,7 @@ export const OptionMenu: React.FC<OptionMenuProps> = ({
 	useOutsideClick(ref, () => setShowMenu(false));
 
 	return (
+		// TODO: Místo Button odstranit dát children nejspíš
 		<div className={styles.menu} ref={ref}>
 			<Button
 				text="Odstranit"

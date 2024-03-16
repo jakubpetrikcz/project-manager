@@ -1,19 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 import styles from "./EditabletText.module.scss";
 import { TextInput } from "../../atoms";
 
 type EditableTextProps = {
-	initialText: string;
-	updateText: (updatedText: string) => void;
+	isEditing: boolean;
+	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+	text: string;
+	setText: React.Dispatch<React.SetStateAction<string>>;
+	updateText: () => void;
 };
 
 export const EditableText: React.FC<EditableTextProps> = ({
-	initialText,
+	isEditing,
+	setIsEditing,
+	text,
+	setText,
 	updateText,
 }) => {
-	const [isEditing, setIsEditing] = useState(false);
-	const [text, setText] = useState(initialText);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
@@ -31,7 +35,8 @@ export const EditableText: React.FC<EditableTextProps> = ({
 					onChange={(event) => setText(event.target.value)}
 					onBlur={() => {
 						setIsEditing(false);
-						if (initialText !== text) updateText(text || "Untitled section");
+						updateText();
+						if (!text) setText("Untitled section");
 					}}
 					ref={inputRef}
 				/>

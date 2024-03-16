@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, MouseEvent } from "react";
 
 import styles from "./BoardHeaderCard.module.scss";
 import { BoardHeaderType } from "../../../types/card";
@@ -9,9 +9,12 @@ import {
 	useUpdateSectionMutation,
 } from "../../../app/service/tasks";
 import { EditableText } from "../EditableText";
+import { OptionMenu } from "..";
 
 export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
-	// console.log(gid);
+	const [showMenu, setShowMenu] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [text, setText] = useState(title);
 
 	const { data, isLoading, isError } = useGetTasksQuery(gid);
 	const [updateSection] = useUpdateSectionMutation();
@@ -20,22 +23,48 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 
 	if (isError || !data) return <div>Error</div>;
 
-	// console.log(data);
+	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
+		setShowMenu(true);
+	};
 
 	return (
 		<div className={styles.card}>
 			<div className={styles.left}>
 				<EditableText
-					initialText={title}
-					updateText={(updatedText) => updateSection({sectionGid: gid, name: updatedText})}
+					isEditing={isEditing}
+					setIsEditing={setIsEditing}
+					text={text}
+					setText={setText}
+					updateText={() =>
+						updateSection({
+							sectionGid: gid,
+							name: text || "Untitled section",
+						})
+					}
 				/>
 				<Badge text={data.data.length} />
 			</div>
-			<Button
-				icon={<HorizontalDotsIcon />}
-				onClick={() => {}}
-				className={styles.icon}
-			/>
+			<div className={styles.right}>
+				<Button
+					icon={<HorizontalDotsIcon />}
+					onClick={(event) => event && openMenu(event)}
+					className={styles.icon}
+				/>
+				{showMenu && (
+					<OptionMenu
+						onClick={() => {
+							setIsEditing(true);
+							updateSection({
+								sectionGid: gid,
+								name: text || "Untitled section",
+							});
+							setShowMenu(false)
+						}}
+						setShowMenu={setShowMenu}
+					/>
+				)}
+			</div>
 		</div>
 	);
 };
