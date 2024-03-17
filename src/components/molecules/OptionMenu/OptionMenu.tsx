@@ -1,30 +1,23 @@
-import { MouseEvent, useRef } from "react";
-import { Button } from "../../atoms";
-import { ButtonEnum } from "../../atoms/Button/ButtonEnums";
+import { ReactNode, useRef } from "react";
 import styles from "./OptionMenu.module.scss";
 import { useOutsideClick } from "../../../app/hooks";
 
 type OptionMenuProps = {
-	onClick: (event?: MouseEvent<HTMLButtonElement>) => void;
 	setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+	children: ReactNode;
 };
 
 export const OptionMenu: React.FC<OptionMenuProps> = ({
-	onClick,
 	setShowMenu,
+	children,
 }) => {
 	const ref = useRef<HTMLDivElement>(null);
 
 	useOutsideClick(ref, () => setShowMenu(false));
 
 	return (
-		// TODO: Místo Button odstranit dát children nejspíš
 		<div className={styles.menu} ref={ref}>
-			<Button
-				text="Odstranit"
-				variant={ButtonEnum.transparent}
-				onClick={onClick}
-			/>
+			{children}
 		</div>
 	);
 };

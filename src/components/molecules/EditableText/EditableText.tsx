@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import styles from "./EditabletText.module.scss";
 import { TextInput } from "../../atoms";
 
+
 type EditableTextProps = {
 	isEditing: boolean;
 	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,7 +39,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
 						updateText();
 						if (!text) setText("Untitled section");
 					}}
-					ref={inputRef}
+					inputRef={inputRef}
 				/>
 			) : (
 				<span>{text || "Untitled section"}</span>

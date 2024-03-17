@@ -5,6 +5,7 @@ import {
 } from "../../../app/service/tasks";
 import { BoardCardType } from "../../../types/card";
 import { BadgeType, Button, Tag } from "../../atoms";
+import { ButtonEnum } from "../../atoms/Button/ButtonEnums";
 import { VerticalDotsIcon } from "../../icons";
 import { OptionMenu } from "../OptionMenu";
 import styles from "./BoardCard.module.scss";
@@ -76,10 +77,13 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 						className={styles.icon}
 					/>
 					{showMenu && (
-						<OptionMenu
-							onClick={(event) => event && deleteItem(event)}
-							setShowMenu={setShowMenu}
-						/>
+						<OptionMenu setShowMenu={setShowMenu}>
+							<Button
+								text="Odstranit"
+								variant={ButtonEnum.transparent}
+								onClick={(event) => event && deleteItem(event)}
+							/>
+						</OptionMenu>
 					)}
 				</div>
 			</div>

@@ -10,6 +10,7 @@ import {
 } from "../../../app/service/tasks";
 import { EditableText } from "../EditableText";
 import { OptionMenu } from "..";
+import { ButtonEnum } from "../../atoms/Button/ButtonEnums";
 
 export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 	const [showMenu, setShowMenu] = useState(false);
@@ -52,17 +53,20 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 					className={styles.icon}
 				/>
 				{showMenu && (
-					<OptionMenu
-						onClick={() => {
-							setIsEditing(true);
-							updateSection({
-								sectionGid: gid,
-								name: text || "Untitled section",
-							});
-							setShowMenu(false)
-						}}
-						setShowMenu={setShowMenu}
-					/>
+					<OptionMenu setShowMenu={setShowMenu}>
+						<Button
+							text="Přejmenovat"
+							variant={ButtonEnum.transparent}
+							onClick={() => {
+								setIsEditing(true);
+								updateSection({
+									sectionGid: gid,
+									name: text || "Untitled section",
+								});
+								setShowMenu(false);
+							}}
+						/>
+					</OptionMenu>
 				)}
 			</div>
 		</div>
