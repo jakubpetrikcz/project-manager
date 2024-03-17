@@ -1,7 +1,6 @@
 import styles from "./Board.module.scss";
-import { BoardHeaderCard } from "../../molecules";
-import { useGetSectionsQuery } from "../../../app/service/tasks";
-import { BoardSection } from "../../molecules/BoardSection";
+import { BoardHeaderCard, BoardSection } from "../../molecules";
+import { useGetSectionsQuery } from "../../../app/service/sectionsApi";
 
 export const Board = () => {
 	const {
@@ -13,8 +12,6 @@ export const Board = () => {
 	if (isHeadersLoading) return <div>Loading...</div>;
 
 	if (isHeadersError || !headers) return <div>Error</div>;
-
-	// console.log(headers);
 
 	return (
 		<div className={styles.board}>

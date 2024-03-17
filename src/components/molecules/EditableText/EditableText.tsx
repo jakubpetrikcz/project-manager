@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { KeyboardEvent, useEffect, useRef } from "react";
 
 import styles from "./EditabletText.module.scss";
 import { TextInput } from "../../atoms";
-
 
 type EditableTextProps = {
 	isEditing: boolean;
@@ -27,19 +26,27 @@ export const EditableText: React.FC<EditableTextProps> = ({
 		}
 	}, [isEditing]);
 
+	const handleBlur = () => {
+		setIsEditing(false);
+		updateText();
+		if (!text) setText("Untitled section");
+	};
+
+	const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === "Enter") {
+			handleBlur();
+		}
+	};
+
 	return (
 		<div className={styles.editableText} onClick={() => setIsEditing(true)}>
 			{isEditing ? (
-				// TODO: Přidat potvrzení při stisknutí klávesnice Enter
 				<TextInput
 					value={text}
 					onChange={(event) => setText(event.target.value)}
-					onBlur={() => {
-						setIsEditing(false);
-						updateText();
-						if (!text) setText("Untitled section");
-					}}
+					onBlur={handleBlur}
 					inputRef={inputRef}
+					onKeyUp={(event) => handleKeyUp(event)}
 				/>
 			) : (
 				<span>{text || "Untitled section"}</span>

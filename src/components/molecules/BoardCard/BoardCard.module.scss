@@ -13,14 +13,13 @@
 	}
 }
 
-.description {
-    display: flex;
-    justify-content: space-between;
+.title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	position: relative;
 
-    .icon {
-		background: none;
-		align-self: flex-start;
-		padding: 0;
-    }
+	// .icon {
+	// 	align-self: flex-start;
+	// }
 }

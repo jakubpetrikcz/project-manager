@@ -1,6 +1,6 @@
 import { ReactNode, useRef } from "react";
 import styles from "./OptionMenu.module.scss";
-import { useOutsideClick } from "../../../app/hooks";
+import { useOutsideClick } from "../../../hooks";
 
 type OptionMenuProps = {
 	setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;

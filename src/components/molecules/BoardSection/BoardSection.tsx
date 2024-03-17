@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useGetTasksQuery } from "../../../app/service/tasks";
+import { useGetTasksQuery } from "../../../app/service/tasksApi";
 import { BoardCard } from "../BoardCard";
 
 import styles from "./BoardSection.module.scss";
@@ -18,7 +18,7 @@ export const BoardSection: React.FC<BoardSectionProps> = ({ gid }) => {
 
 	return (
 		<section className={styles.section}>
-			{tasks.data.map((card: any) => (
+			{tasks.data.map((card) => (
 				<BoardCard
 					key={card.gid}
 					gid={card.gid}

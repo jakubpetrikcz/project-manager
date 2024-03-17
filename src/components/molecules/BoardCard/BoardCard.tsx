@@ -1,13 +1,12 @@
-import { BoardCardModal, ModalWindow } from "..";
+import { BoardCardModal, ModalWindow, OptionMenu } from "..";
 import {
 	useDeleteTaskMutation,
 	useGetAttachmentsQuery,
-} from "../../../app/service/tasks";
+} from "../../../app/service/tasksApi";
 import { BoardCardType } from "../../../types/card";
-import { BadgeType, Button, Tag } from "../../atoms";
-import { ButtonEnum } from "../../atoms/Button/ButtonEnums";
+import { removeLinks } from "../../../utils/removeLinks";
+import { BadgeType, Button, ButtonEnum, IconButton, Tag } from "../../atoms";
 import { VerticalDotsIcon } from "../../icons";
-import { OptionMenu } from "../OptionMenu";
 import styles from "./BoardCard.module.scss";
 import { useState, MouseEvent } from "react";
 
@@ -47,9 +46,7 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 		deleteTask(gid);
 	};
 
-	const linkRegex = /(https?\\:\/\/)?(www\.)?[^\s]+\.[^\s]+/g;
-
-	const description = text.replace(linkRegex, ""); // TODO do utils funkce (removeLinks)
+	const description = removeLinks(text);
 
 	const imgSrc = attachments.data[0]?.download_url;
 
@@ -66,25 +63,29 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 						variant={tag.color as BadgeType}
 					/>
 				))}
-				<div className={styles.description}>
-					<div className={styles.text}>
-						<h5>{title}</h5>
-						<p>{description}</p>
+				<div>
+					<div className={styles.title}>
+						<div className={styles.text}>
+							<h5>{title}</h5>
+						</div>
+						<IconButton
+							icon={<VerticalDotsIcon />}
+							onClick={(event) => event && openMenu(event)}
+							className={styles.icon}
+						/>
+						{showMenu && (
+							<OptionMenu setShowMenu={setShowMenu}>
+								<Button
+									text="Odstranit"
+									variant={ButtonEnum.transparent}
+									onClick={(event) =>
+										event && deleteItem(event)
+									}
+								/>
+							</OptionMenu>
+						)}
 					</div>
-					<Button
-						icon={<VerticalDotsIcon />}
-						onClick={(event) => event && openMenu(event)}
-						className={styles.icon}
-					/>
-					{showMenu && (
-						<OptionMenu setShowMenu={setShowMenu}>
-							<Button
-								text="Odstranit"
-								variant={ButtonEnum.transparent}
-								onClick={(event) => event && deleteItem(event)}
-							/>
-						</OptionMenu>
-					)}
+					{description && <p>{description}</p>}
 				</div>
 			</div>
 			{showModal && (

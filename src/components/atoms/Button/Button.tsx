@@ -4,7 +4,7 @@ import styles from "./Button.module.scss";
 import classNames from "classnames";
 import { ButtonEnum } from "./ButtonEnums";
 
-type ButtonProps = {
+export type ButtonProps = {
 	text?: string;
 	icon?: ReactNode;
 	variant?: ButtonEnum;

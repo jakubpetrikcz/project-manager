@@ -3,14 +3,10 @@ import React, { useState, MouseEvent } from "react";
 import styles from "./BoardHeaderCard.module.scss";
 import { BoardHeaderType } from "../../../types/card";
 import { HorizontalDotsIcon } from "../../icons";
-import { Badge, Button } from "../../atoms";
-import {
-	useGetTasksQuery,
-	useUpdateSectionMutation,
-} from "../../../app/service/tasks";
-import { EditableText } from "../EditableText";
-import { OptionMenu } from "..";
-import { ButtonEnum } from "../../atoms/Button/ButtonEnums";
+import { Badge, Button, ButtonEnum } from "../../atoms";
+import { useGetTasksQuery } from "../../../app/service/tasksApi";
+import { EditableText, OptionMenu } from "..";
+import { useUpdateSectionMutation } from "../../../app/service/sectionsApi";
 
 export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 	const [showMenu, setShowMenu] = useState(false);
@@ -39,12 +35,12 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 					setText={setText}
 					updateText={() =>
 						updateSection({
-							sectionGid: gid,
+							gid,
 							name: text || "Untitled section",
 						})
 					}
 				/>
-				<Badge text={data.data.length} />
+				<Badge text={data.data.length.toString()} />
 			</div>
 			<div className={styles.right}>
 				<Button
@@ -60,7 +56,7 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 							onClick={() => {
 								setIsEditing(true);
 								updateSection({
-									sectionGid: gid,
+									gid,
 									name: text || "Untitled section",
 								});
 								setShowMenu(false);

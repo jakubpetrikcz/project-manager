@@ -1,18 +1,24 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, MouseEvent } from "react";
 
 import styles from "./IconButton.module.scss";
+import classNames from "classnames";
 
 type IconButtonProps = {
 	icon?: ReactNode;
-	onClick: () => void;
+	onClick: (event?: MouseEvent<HTMLButtonElement>) => void;
+	className?: string;
 };
 
-// TODO: Udělat IconButton pouze pro ty tři tečky a další tlačítka, které mají pouze ikonu bez stylů a vytvořit komponentu třeba MenuButton
-// který bude na ten sidebar
-
-export const IconButton: React.FC<IconButtonProps> = ({ icon, onClick }) => {
+export const IconButton: React.FC<IconButtonProps> = ({
+	icon,
+	onClick,
+	className,
+}) => {
 	return (
-		<button className={styles.button} onClick={onClick}>
+		<button
+			className={classNames(styles.icon, className)}
+			onClick={onClick}
+		>
 			{icon}
 		</button>
 	);
