@@ -94,6 +94,7 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 					backgroundImage={imgSrc}
 				>
 					<BoardCardModal
+						gid={gid}
 						title={title}
 						text={description}
 						tags={tags}

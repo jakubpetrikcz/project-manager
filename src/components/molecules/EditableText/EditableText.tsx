@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect, useRef } from "react";
+import React, { KeyboardEvent, ReactNode, useEffect, useRef } from "react";
 
 import styles from "./EditabletText.module.scss";
 import { TextInput } from "../../atoms";
@@ -9,6 +9,8 @@ type EditableTextProps = {
 	text: string;
 	setText: React.Dispatch<React.SetStateAction<string>>;
 	updateText: () => void;
+	children: ReactNode;
+	emptyText?: string;
 };
 
 export const EditableText: React.FC<EditableTextProps> = ({
@@ -17,6 +19,8 @@ export const EditableText: React.FC<EditableTextProps> = ({
 	text,
 	setText,
 	updateText,
+	children,
+	emptyText,
 }) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -29,7 +33,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
 	const handleBlur = () => {
 		setIsEditing(false);
 		updateText();
-		if (!text) setText("Untitled section");
+		if (!text && emptyText) setText(emptyText);
 	};
 
 	const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -49,7 +53,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
 					onKeyUp={(event) => handleKeyUp(event)}
 				/>
 			) : (
-				<span>{text || "Untitled section"}</span>
+				children
 			)}
 		</div>
 	);

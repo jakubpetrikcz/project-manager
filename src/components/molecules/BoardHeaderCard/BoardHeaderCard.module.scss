@@ -1,3 +1,5 @@
+@import "/src/styles/utils.scss";
+
 .card {
 	display: flex;
 	align-items: center;
@@ -13,6 +15,11 @@
 		align-items: center;
 		gap: 10px;
 		color: var(--primary);
+
+		.text {
+			display: block;
+			padding: 5px;
+		}
 	}
 
 	.right {
@@ -24,5 +31,10 @@
 		padding: 0;
 		display: grid;
 		place-items: center;
+	}
+
+	input {
+		color: var(--primary);
+		@include font-size(16px, 16px);
 	}
 }

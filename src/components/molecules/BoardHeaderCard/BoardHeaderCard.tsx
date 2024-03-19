@@ -39,7 +39,10 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 							name: text || "Untitled section",
 						})
 					}
-				/>
+					emptyText="Untitled section"
+				>
+					<span className={styles.text}>{text || "Untitled section"}</span>
+				</EditableText>
 				<Badge text={data.data.length.toString()} />
 			</div>
 			<div className={styles.right}>

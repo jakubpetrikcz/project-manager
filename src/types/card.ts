@@ -7,6 +7,7 @@ export type BoardHeaderType = {
 };
 
 export type BoardCardType = {
+	gid: string;
 	title: string;
 	text: string;
 	imgSrc?: string;

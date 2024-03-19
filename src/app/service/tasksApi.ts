@@ -28,6 +28,15 @@ export const tasksApi = createApi({
 			query: (taskGid) =>
 				`attachments?parent=${taskGid}&opt_fields=download_url`,
 		}),
+		// TODO: dořešit type
+		updateTask: builder.mutation<void, { gid: string; name?: string, notes?: string }>({
+			query: ({ gid, name, notes }) => ({
+				url: `/tasks/${gid}`,
+				method: "PUT",
+				body: JSON.stringify({ data: { name, notes } }),
+			}),
+			invalidatesTags: ["Task"],
+		}),
 		deleteTask: builder.mutation<void, string>({
 			query: (taskGid) => ({
 				url: `/tasks/${taskGid}`,
@@ -41,5 +50,6 @@ export const tasksApi = createApi({
 export const {
 	useGetAttachmentsQuery,
 	useGetTasksQuery,
+	useUpdateTaskMutation,
 	useDeleteTaskMutation,
 } = tasksApi;

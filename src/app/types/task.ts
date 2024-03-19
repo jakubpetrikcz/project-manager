@@ -10,7 +10,7 @@ export type AttachmentResponse = {
 	data: Attachment[];
 }
 
-type Task = {
+export type Task = {
 	gid: string;
 	memberships: Membership[];
 	name: string;
