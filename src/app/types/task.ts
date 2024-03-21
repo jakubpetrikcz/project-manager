@@ -11,11 +11,11 @@ export type AttachmentResponse = {
 }
 
 export type Task = {
-	gid: string;
+	gid?: string;
 	memberships: Membership[];
 	name: string;
-	notes: string;
-	tags: Tag[];
+	notes?: string;
+	tags?: Tag[];
 };
 
 type Membership = {

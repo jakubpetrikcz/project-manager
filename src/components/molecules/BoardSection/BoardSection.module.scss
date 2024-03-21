@@ -2,4 +2,14 @@
 	display: grid;
     height: max-content;
 	gap: 20px;
+
+	.createButton {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		border-radius: 10px;
+		background-color: var(--gray-element);
+		padding: 5px;
+	}
 }

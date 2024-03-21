@@ -1,17 +1,29 @@
+import { KeyboardEvent, MouseEvent, RefObject, useState } from "react";
 import { BoardCardModal, ModalWindow, OptionMenu } from "..";
 import {
+	useCreateTaskMutation,
 	useDeleteTaskMutation,
 	useGetAttachmentsQuery,
 } from "../../../app/service/tasksApi";
 import { BoardCardType } from "../../../types/card";
 import { removeLinks } from "../../../utils/removeLinks";
-import { BadgeType, Button, ButtonEnum, IconButton, Tag } from "../../atoms";
+import {
+	BadgeType,
+	Button,
+	ButtonEnum,
+	IconButton,
+	Tag,
+	TextInput,
+} from "../../atoms";
 import { VerticalDotsIcon } from "../../icons";
 import styles from "./BoardCard.module.scss";
-import { useState, MouseEvent } from "react";
 
 type BoardCardProps = BoardCardType & {
 	gid: string;
+	inputRef?: RefObject<HTMLInputElement>;
+	editableText?: string;
+	setEditableText?: React.Dispatch<React.SetStateAction<string>>;
+	setIsCreating?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const BoardCard: React.FC<BoardCardProps> = ({
@@ -19,6 +31,10 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 	text,
 	tags,
 	gid,
+	inputRef,
+	editableText,
+	setEditableText,
+	setIsCreating,
 }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [showMenu, setShowMenu] = useState(false);
@@ -26,15 +42,18 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 		data: attachments,
 		isLoading,
 		isError,
-	} = useGetAttachmentsQuery(gid);
+	} = useGetAttachmentsQuery(gid, { skip: !title });
 	const [deleteTask, { isLoading: isDeleteLoading, isSuccess }] =
 		useDeleteTaskMutation();
+	const [createTask, { isLoading: isCreateLoading }] =
+		useCreateTaskMutation();
 
-	if (isLoading || isDeleteLoading) return <div>Loading...</div>;
+	if (isLoading || isDeleteLoading || isCreateLoading)
+		return <div>Loading...</div>;
 
 	if (isSuccess) return <div></div>;
 
-	if (isError || !attachments) return <div>Error</div>;
+	if (isError) return <div>Error</div>;
 
 	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
 		event.stopPropagation();
@@ -48,7 +67,27 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 
 	const description = removeLinks(text);
 
-	const imgSrc = attachments.data[0]?.download_url;
+	const imgSrc = attachments?.data[0]?.download_url;
+
+	const handleKeyUp = async (event: KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === "Enter") {
+			if (editableText) {
+				await createTask({ sectionGid: gid, name: editableText });
+			}
+			setIsCreating?.(false);
+			setEditableText?.("");
+		}
+	};
+
+	const handleBlur = () => {
+		if (!editableText) {
+			setIsCreating?.(false);
+		} else {
+			createTask({ sectionGid: gid, name: editableText });
+			setIsCreating?.(false);
+			setEditableText?.("");
+		}
+	};
 
 	return (
 		<>
@@ -66,7 +105,19 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 				<div>
 					<div className={styles.title}>
 						<div className={styles.text}>
-							<h5>{title}</h5>
+							{inputRef ? (
+								<TextInput
+									value={editableText ?? ""}
+									onChange={(event) =>
+										setEditableText?.(event.target.value)
+									}
+									inputRef={inputRef}
+									onKeyUp={(event) => handleKeyUp(event)}
+									onBlur={handleBlur}
+								/>
+							) : (
+								<h5>{title}</h5>
+							)}
 						</div>
 						<IconButton
 							icon={<VerticalDotsIcon />}
@@ -88,7 +139,7 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 					{description && <p>{description}</p>}
 				</div>
 			</div>
-			{showModal && (
+			{showModal && !inputRef && (
 				<ModalWindow
 					close={() => setShowModal(false)}
 					backgroundImage={imgSrc}

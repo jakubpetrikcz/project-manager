@@ -4,7 +4,7 @@ import styles from "./IconButton.module.scss";
 import classNames from "classnames";
 
 type IconButtonProps = {
-	icon?: ReactNode;
+	icon: ReactNode;
 	onClick: (event?: MouseEvent<HTMLButtonElement>) => void;
 	className?: string;
 };
