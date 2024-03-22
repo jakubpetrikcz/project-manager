@@ -1,62 +1,51 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-import {
-	useCreateTaskMutation,
-	useGetTasksQuery,
-} from "../../../app/service/tasksApi";
+import { useGetTasksQuery } from "../../../app/service/tasksApi";
 import { BoardCard } from "../BoardCard";
 
 import styles from "./BoardSection.module.scss";
 import { Button } from "../../atoms";
 import { PlusIcon } from "../../icons";
+import { Task } from "../../../app/types/task";
 
 type BoardSectionProps = {
-	gid?: string;
+	sectionGid: string;
 };
 
-export const BoardSection: React.FC<BoardSectionProps> = ({ gid }) => {
-	const { data: tasks, isLoading, isError } = useGetTasksQuery(gid);
-	const [isCreating, setIsCreating] = useState(false);
-	const inputRef = useRef<HTMLInputElement>(null);
-	const [editableText, setEditableText] = useState("");
-
-	const handleCreate = () => {
-		setIsCreating(true);
-	};
+export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
+	const { data: tasks, isLoading, isError } = useGetTasksQuery(sectionGid);
+	const [tasksList, setTasksList] = useState<Task[]>([]);
 
 	useEffect(() => {
-		if (isCreating) {
-			inputRef.current?.focus();
+		if (tasks) {
+			setTasksList(tasks.data);
 		}
-	}, [isCreating]);
+	}, [tasks]);
 
 	if (isLoading) return <div>Loading...</div>;
 
 	if (isError || !tasks) return <div>Error</div>;
 
+	const handleCreate = () => {
+		setTasksList((prev) => [
+			...prev,
+			{ gid: "", name: "", memberships: [], notes: "", tags: [] },
+		]);
+	};
+
 	return (
 		<section className={styles.section}>
-			{tasks.data.map((card) => (
+			{tasksList.map((card) => (
 				<BoardCard
 					key={card.gid}
 					gid={card.gid}
+					sectionId={sectionGid}
 					title={card.name}
 					text={card.notes}
 					tags={card.tags}
+					setTasksList={setTasksList}
 				/>
 			))}
-			{isCreating && gid && (
-				<BoardCard
-					gid={gid}
-					title={""}
-					text={""}
-					tags={[]}
-					editableText={editableText}
-					setEditableText={setEditableText}
-					inputRef={inputRef}
-					setIsCreating={setIsCreating}
-				/>
-			)}
 			<Button
 				text="Add new"
 				icon={<PlusIcon />}

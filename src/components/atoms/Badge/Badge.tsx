@@ -1,20 +1,18 @@
-import React from "react";
-
 import styles from "./Badge.module.scss";
 import classNames from "classnames";
 import { BadgeType } from ".";
 
 export type BadgeProps = {
 	text: string;
-	variant?: BadgeType;
+	variant?: BadgeType | string;
 	className?: string;
 };
 
-export const Badge: React.FC<BadgeProps> = ({
+export const Badge = ({
 	text,
 	variant = "light-blue",
 	className,
-}) => {
+}: BadgeProps) => {
 	const oneChar = text.length === 1;
 
 	return (

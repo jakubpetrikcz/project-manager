@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import styles from "./MenuButton.module.scss";
 
 type MenuButtonProps = {
@@ -6,7 +6,7 @@ type MenuButtonProps = {
 	onClick: () => void;
 };
 
-export const MenuButton: React.FC<MenuButtonProps> = ({ icon, onClick }) => {
+export const MenuButton = ({ icon, onClick }: MenuButtonProps) => {
 	return (
 		<button className={styles.button} onClick={onClick}>
 			{icon}

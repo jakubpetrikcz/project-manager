@@ -26,7 +26,7 @@ export const Board = () => {
 			</div>
 			<div className={styles.content}>
 				{headers.data.map((header) => (
-					<BoardSection key={header.gid} gid={header.gid} />
+					<BoardSection key={header.gid} sectionGid={header.gid} />
 				))}
 			</div>
 		</div>

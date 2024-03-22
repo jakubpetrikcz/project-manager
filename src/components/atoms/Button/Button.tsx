@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 
 import styles from "./Button.module.scss";
 import classNames from "classnames";
@@ -12,13 +12,13 @@ export type ButtonProps = {
 	className?: string;
 };
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
 	text,
 	icon,
 	variant = ButtonEnum.primary,
 	onClick,
 	className,
-}) => {
+}: ButtonProps) => {
 	return (
 		<button
 			className={classNames(styles.button, styles[variant], className)}

@@ -9,10 +9,7 @@ type LogoContainerProps = {
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const LogoContainer: React.FC<LogoContainerProps> = ({
-	isOpen,
-	setIsOpen,
-}) => {
+export const LogoContainer = ({ isOpen, setIsOpen }: LogoContainerProps) => {
 	return (
 		<div className={styles.logoContainer}>
 			{isOpen && <img src="/logo.svg" alt="logo" />}

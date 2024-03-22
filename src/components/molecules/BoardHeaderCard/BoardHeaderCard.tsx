@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react";
+import { useState, MouseEvent } from "react";
 
 import styles from "./BoardHeaderCard.module.scss";
 import { BoardHeaderType } from "../../../types/card";
@@ -8,7 +8,7 @@ import { useGetTasksQuery } from "../../../app/service/tasksApi";
 import { EditableText, OptionMenu } from "..";
 import { useUpdateSectionMutation } from "../../../app/service/sectionsApi";
 
-export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
+export const BoardHeaderCard = ({ gid, title }: BoardHeaderType) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [text, setText] = useState(title);
@@ -20,9 +20,21 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 
 	if (isError || !data) return <div>Error</div>;
 
-	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
-		event.stopPropagation();
+	const handleUpdateSection = () => {
+		updateSection({
+			gid,
+			name: text || "Untitled section",
+		});
+	};
+
+	const openMenu = (event?: MouseEvent<HTMLButtonElement>) => {
+		event?.stopPropagation();
 		setShowMenu(true);
+	};
+
+	const handleRenameClick = () => {
+		setIsEditing(true);
+		setShowMenu(false);
 	};
 
 	return (
@@ -33,22 +45,19 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 					setIsEditing={setIsEditing}
 					text={text}
 					setText={setText}
-					updateText={() =>
-						updateSection({
-							gid,
-							name: text || "Untitled section",
-						})
-					}
+					updateText={handleUpdateSection}
 					emptyText="Untitled section"
 				>
-					<span className={styles.text}>{text || "Untitled section"}</span>
+					<span className={styles.text}>
+						{text || "Untitled section"}
+					</span>
 				</EditableText>
 				<Badge text={data.data.length.toString()} />
 			</div>
 			<div className={styles.right}>
 				<Button
 					icon={<HorizontalDotsIcon />}
-					onClick={(event) => event && openMenu(event)}
+					onClick={(event) => openMenu(event)}
 					className={styles.icon}
 				/>
 				{showMenu && (
@@ -56,14 +65,7 @@ export const BoardHeaderCard: React.FC<BoardHeaderType> = ({ gid, title }) => {
 						<Button
 							text="Přejmenovat"
 							variant={ButtonEnum.transparent}
-							onClick={() => {
-								setIsEditing(true);
-								updateSection({
-									gid,
-									name: text || "Untitled section",
-								});
-								setShowMenu(false);
-							}}
+							onClick={handleRenameClick}
 						/>
 					</OptionMenu>
 				)}

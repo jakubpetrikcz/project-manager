@@ -7,10 +7,7 @@ type OptionMenuProps = {
 	children: ReactNode;
 };
 
-export const OptionMenu: React.FC<OptionMenuProps> = ({
-	setShowMenu,
-	children,
-}) => {
+export const OptionMenu = ({ setShowMenu, children }: OptionMenuProps) => {
 	const ref = useRef<HTMLDivElement>(null);
 
 	useOutsideClick(ref, () => setShowMenu(false));

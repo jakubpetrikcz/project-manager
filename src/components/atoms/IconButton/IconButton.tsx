@@ -1,4 +1,4 @@
-import React, { ReactNode, MouseEvent } from "react";
+import { ReactNode, MouseEvent } from "react";
 
 import styles from "./IconButton.module.scss";
 import classNames from "classnames";
@@ -9,11 +9,7 @@ type IconButtonProps = {
 	className?: string;
 };
 
-export const IconButton: React.FC<IconButtonProps> = ({
-	icon,
-	onClick,
-	className,
-}) => {
+export const IconButton = ({ icon, onClick, className }: IconButtonProps) => {
 	return (
 		<button
 			className={classNames(styles.icon, className)}

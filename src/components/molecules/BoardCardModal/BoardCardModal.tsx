@@ -8,12 +8,7 @@ import {
 	useUpdateTaskMutation,
 } from "../../../app/service/tasksApi";
 
-export const BoardCardModal: React.FC<BoardCardType> = ({
-	gid,
-	title,
-	text,
-	tags,
-}) => {
+export const BoardCardModal = ({ gid, title, text, tags }: BoardCardType) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [isTextEditing, setIsTextEditing] = useState(false);
 	const [editableTitle, setEditableTitle] = useState(title);

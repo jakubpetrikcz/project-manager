@@ -10,13 +10,13 @@ type TextInputProps = {
 	onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
 };
 
-export const TextInput: React.FC<TextInputProps> = ({
+export const TextInput = ({
 	value,
 	onChange,
 	onBlur,
 	inputRef,
 	onKeyUp,
-}) => {
+}: TextInputProps) => {
 	return (
 		<input
 			type="text"

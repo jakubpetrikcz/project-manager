@@ -1,6 +1,6 @@
 import React, { KeyboardEvent, ReactNode, useEffect, useRef } from "react";
 
-import styles from "./EditabletText.module.scss";
+import styles from "./EditableText.module.scss";
 import { TextInput } from "../../atoms";
 
 type EditableTextProps = {
@@ -13,7 +13,7 @@ type EditableTextProps = {
 	emptyText?: string;
 };
 
-export const EditableText: React.FC<EditableTextProps> = ({
+export const EditableText = ({
 	isEditing,
 	setIsEditing,
 	text,
@@ -21,7 +21,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
 	updateText,
 	children,
 	emptyText,
-}) => {
+}: EditableTextProps) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
@@ -50,7 +50,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
 					onChange={(event) => setText(event.target.value)}
 					onBlur={handleBlur}
 					inputRef={inputRef}
-					onKeyUp={(event) => handleKeyUp(event)}
+					onKeyUp={handleKeyUp}
 				/>
 			) : (
 				children

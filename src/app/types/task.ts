@@ -2,6 +2,10 @@ export type TaskResponse = {
 	data: Task[];
 };
 
+export type createTaskResponse = {
+	data: Task;
+}
+
 export type SectionResponse = {
 	data: Section[];
 }
@@ -11,11 +15,11 @@ export type AttachmentResponse = {
 }
 
 export type Task = {
-	gid?: string;
+	gid: string;
 	memberships: Membership[];
 	name: string;
-	notes?: string;
-	tags?: Tag[];
+	notes: string;
+	tags: Tag[];
 };
 
 type Membership = {

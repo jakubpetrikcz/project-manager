@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 import styles from "./ModalWindow.module.scss";
@@ -12,11 +12,11 @@ type ModalWindowProps = {
 	close: () => void;
 };
 
-export const ModalWindow: React.FC<ModalWindowProps> = ({
+export const ModalWindow = ({
 	backgroundImage,
 	children,
 	close,
-}) => {
+}: ModalWindowProps) => {
 	const modalRoot = document.getElementById("modalRoot");
 
 	return (
