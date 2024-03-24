@@ -8,8 +8,8 @@ export type BoardHeaderType = {
 
 export type BoardCardType = {
 	gid: string;
-	title: string;
-	text: string;
+	name: string;
+	notes: string;
 	imgSrc?: string;
 	tags: Tag[];
 };

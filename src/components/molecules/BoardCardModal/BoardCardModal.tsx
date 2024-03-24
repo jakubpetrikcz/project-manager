@@ -9,12 +9,19 @@ import {
 } from "../../../app/service/tasksApi";
 
 // Přidat přidávání attachmentů (obrázků)
-export const BoardCardModal = ({ gid, title, text, tags }: BoardCardType) => {
-	const [editableTitle, setEditableTitle] = useState(title);
-	const [editableText, setEditableText] = useState(text);
+export const BoardCardModal = ({ gid, name, notes, tags }: BoardCardType) => {
+	const [editableTitle, setEditableTitle] = useState(name);
+	const [editableText, setEditableText] = useState(notes);
 
 	const [updateTask] = useUpdateTaskMutation();
 	const [deleteTask] = useDeleteTaskMutation();
+
+	const handleUpdateText = (text: string) => {
+		updateTask({
+			gid,
+			name: text,
+		});
+	};
 
 	return (
 		<div>
@@ -25,10 +32,7 @@ export const BoardCardModal = ({ gid, title, text, tags }: BoardCardType) => {
 						text={editableTitle}
 						setText={setEditableTitle}
 						updateText={() => {
-							updateTask({
-								gid,
-								name: editableTitle,
-							});
+							handleUpdateText(editableText);
 							if (!editableTitle) deleteTask(gid);
 						}}
 					>
@@ -44,16 +48,16 @@ export const BoardCardModal = ({ gid, title, text, tags }: BoardCardType) => {
 				))}
 			</div>
 			<div className={styles.description}>
+				<span>
+					<strong>Popis</strong>
+				</span>
 				<EditableText
 					gid={`editText-${gid}`}
 					text={editableText}
 					setText={setEditableText}
-					updateText={() =>
-						updateTask({
-							gid,
-							notes: editableText,
-						})
-					}
+					updateText={() => handleUpdateText(editableText)}
+					className={styles.edit}
+					textarea
 				>
 					<p className={styles.text}>{editableText}</p>
 				</EditableText>

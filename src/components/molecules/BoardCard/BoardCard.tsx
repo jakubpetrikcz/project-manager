@@ -16,13 +16,12 @@ import { AppDispatch } from "../../../app/store";
 import { removeTask } from "../../../app/features/tasksSlice";
 
 type BoardCardProps = BoardCardType & {
-	gid: string;
 	sectionGid: string;
 };
 
 export const BoardCard = ({
-	title,
-	text,
+	name,
+	notes,
 	tags,
 	gid,
 	sectionGid,
@@ -64,7 +63,7 @@ export const BoardCard = ({
 		deleteTask(gid);
 	};
 
-	const description = removeLinks(text);
+	const description = removeLinks(notes);
 
 	const imgSrc = attachments?.data[0]?.download_url;
 
@@ -103,9 +102,9 @@ export const BoardCard = ({
 				<div>
 					<div className={styles.title}>
 						<div className={styles.text}>
-							{!title && isCreating ? (
+							{!name && isCreating ? (
 								<TextInput
-									value={editableText ?? ""}
+									value={editableText}
 									onChange={(event) =>
 										setEditableText(event.target.value)
 									}
@@ -114,7 +113,7 @@ export const BoardCard = ({
 									onBlur={handleBlur}
 								/>
 							) : (
-								<h5>{title ? title : editableText}</h5>
+								<h5>{name ? name : editableText}</h5>
 							)}
 						</div>
 						<IconButton
@@ -142,8 +141,8 @@ export const BoardCard = ({
 				>
 					<BoardCardModal
 						gid={gid}
-						title={title}
-						text={description}
+						name={name}
+						notes={description}
 						tags={tags}
 					/>
 				</ModalWindow>

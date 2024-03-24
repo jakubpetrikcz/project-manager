@@ -1,10 +1,17 @@
-import React, { KeyboardEvent, ReactNode, useEffect, useRef } from "react";
+import React, {
+	KeyboardEvent,
+	ReactNode,
+	useEffect,
+	useRef,
+	RefObject,
+} from "react";
 
 import styles from "./EditableText.module.scss";
-import { TextInput } from "../../atoms";
+import { TextArea, TextInput } from "../../atoms";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
 import { setVisibility } from "../../../app/features/uiSlice";
+import classNames from "classnames";
 
 type EditableTextProps = {
 	gid: string;
@@ -13,6 +20,8 @@ type EditableTextProps = {
 	updateText: () => void;
 	children: ReactNode;
 	emptyText?: string;
+	className?: string;
+	textarea?: boolean;
 };
 
 export const EditableText = ({
@@ -22,16 +31,18 @@ export const EditableText = ({
 	updateText,
 	children,
 	emptyText,
+	className,
+	textarea,
 }: EditableTextProps) => {
 	const isEditing = useSelector(
 		(state: RootState) => state.ui.visibility[gid]
 	);
 	const dispatch = useDispatch<AppDispatch>();
-	const inputRef = useRef<HTMLInputElement>(null);
+	const ref = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 
 	useEffect(() => {
 		if (isEditing) {
-			inputRef.current?.focus();
+			ref.current?.focus();
 		}
 	}, [isEditing]);
 
@@ -41,27 +52,42 @@ export const EditableText = ({
 		if (!text && emptyText) setText(emptyText);
 	};
 
-	const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === "Enter") {
+	const handleKeyUp = (
+		event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		if (event.key === "Enter" && !event.shiftKey) {
 			handleBlur();
 		}
 	};
 
+	const commonProps = {
+		value: text,
+		onChange: (
+			event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+		) => setText(event.target.value),
+		onBlur: handleBlur,
+		onKeyUp: handleKeyUp,
+	};
+
 	return (
 		<div
-			className={styles.editableText}
+			className={classNames(styles.editableText, className)}
 			onClick={() =>
 				dispatch(setVisibility({ id: gid, isVisible: true }))
 			}
 		>
 			{isEditing ? (
-				<TextInput
-					value={text}
-					onChange={(event) => setText(event.target.value)}
-					onBlur={handleBlur}
-					inputRef={inputRef}
-					onKeyUp={handleKeyUp}
-				/>
+				!textarea ? (
+					<TextInput
+						{...commonProps}
+						inputRef={ref as RefObject<HTMLInputElement>}
+					/>
+				) : (
+					<TextArea
+						{...commonProps}
+						textareaRef={ref as RefObject<HTMLTextAreaElement>}
+					/>
+				)
 			) : (
 				children
 			)}

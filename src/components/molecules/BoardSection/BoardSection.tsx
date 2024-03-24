@@ -53,14 +53,7 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 	return (
 		<section className={styles.section}>
 			{sectionTasks.map((card) => (
-				<BoardCard
-					key={card.gid}
-					gid={card.gid}
-					sectionGid={sectionGid}
-					title={card.name}
-					text={card.notes}
-					tags={card.tags}
-				/>
+				<BoardCard key={card.gid} sectionGid={sectionGid} {...card} />
 			))}
 			<Button
 				text="Add new"

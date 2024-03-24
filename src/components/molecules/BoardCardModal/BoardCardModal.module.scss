@@ -22,8 +22,16 @@
 }
 
 .description {
-	input {
-        @include font-size(16px, 16px);
+	.edit {
+		min-height: 10vh;
+	}
+
+	span {
+		padding-left: 4px
+	}
+
+	textarea {
+		@include font-size(16px, 16px);
 		line-height: 1.3;
 
 		@include tablet {
@@ -33,5 +41,6 @@
 
 	.text {
 		padding: 4px;
+		white-space: pre-wrap;
 	}
 }

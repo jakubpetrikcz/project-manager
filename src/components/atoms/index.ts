@@ -5,3 +5,4 @@ export * from "./NavLink";
 export * from "./Tag";
 export * from "./TextInput";
 export * from "./MenuButton";
+export * from "./TextArea";
