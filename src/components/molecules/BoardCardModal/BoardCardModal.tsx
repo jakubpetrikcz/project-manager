@@ -8,9 +8,8 @@ import {
 	useUpdateTaskMutation,
 } from "../../../app/service/tasksApi";
 
+// Přidat přidávání attachmentů (obrázků)
 export const BoardCardModal = ({ gid, title, text, tags }: BoardCardType) => {
-	const [isEditing, setIsEditing] = useState(false);
-	const [isTextEditing, setIsTextEditing] = useState(false);
 	const [editableTitle, setEditableTitle] = useState(title);
 	const [editableText, setEditableText] = useState(text);
 
@@ -22,8 +21,7 @@ export const BoardCardModal = ({ gid, title, text, tags }: BoardCardType) => {
 			<div className={styles.content}>
 				<div className={styles.left}>
 					<EditableText
-						isEditing={isEditing}
-						setIsEditing={setIsEditing}
+						gid={`editTitle-${gid}`}
 						text={editableTitle}
 						setText={setEditableTitle}
 						updateText={() => {
@@ -47,8 +45,7 @@ export const BoardCardModal = ({ gid, title, text, tags }: BoardCardType) => {
 			</div>
 			<div className={styles.description}>
 				<EditableText
-					isEditing={isTextEditing}
-					setIsEditing={setIsTextEditing}
+					gid={`editText-${gid}`}
 					text={editableText}
 					setText={setEditableText}
 					updateText={() =>

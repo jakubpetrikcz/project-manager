@@ -1,3 +1,4 @@
+// TODO: Lépe zorganizovat typy -> rozdělit do samostatných souborů
 export type TaskResponse = {
 	data: Task[];
 };

@@ -11,12 +11,13 @@ import { Button, ButtonEnum, IconButton, Tag, TextInput } from "../../atoms";
 import { VerticalDotsIcon } from "../../icons";
 import styles from "./BoardCard.module.scss";
 import Skeleton from "react-loading-skeleton";
-import { Task } from "../../../app/types/task";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../app/store";
+import { removeTask } from "../../../app/features/tasksSlice";
 
 type BoardCardProps = BoardCardType & {
 	gid: string;
-	sectionId: string;
-	setTasksList?: React.Dispatch<React.SetStateAction<Task[]>>;
+	sectionGid: string;
 };
 
 export const BoardCard = ({
@@ -24,9 +25,9 @@ export const BoardCard = ({
 	text,
 	tags,
 	gid,
-	sectionId,
-	setTasksList,
+	sectionGid,
 }: BoardCardProps) => {
+	const dispatch = useDispatch<AppDispatch>();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [isMenuVisible, setIsMenuVisible] = useState(false);
 	const [editableText, setEditableText] = useState("");
@@ -59,7 +60,7 @@ export const BoardCard = ({
 
 	const deleteItem = (event?: MouseEvent<HTMLButtonElement>) => {
 		event?.stopPropagation();
-		setTasksList?.((prev) => prev.filter((task) => task.gid !== gid));
+		dispatch(removeTask({ sectionGid, gid }));
 		deleteTask(gid);
 	};
 
@@ -67,11 +68,11 @@ export const BoardCard = ({
 
 	const imgSrc = attachments?.data[0]?.download_url;
 
-	const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+	const handleKeyUp = async (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === "Enter" && editableText) {
 			setIsCreating(false);
 			createTask({
-				sectionGid: sectionId,
+				sectionGid: sectionGid,
 				name: editableText,
 			});
 		}
@@ -79,9 +80,9 @@ export const BoardCard = ({
 
 	const handleBlur = () => {
 		if (!editableText) {
-			setTasksList?.((prev) => prev.slice(0, -1));
+			dispatch(removeTask({ sectionGid, gid }));
 		} else {
-			createTask({ sectionGid: sectionId, name: editableText });
+			createTask({ sectionGid, name: editableText });
 		}
 
 		setIsCreating(false);
@@ -134,7 +135,7 @@ export const BoardCard = ({
 					{description && <p>{description}</p>}
 				</div>
 			</div>
-			{isModalVisible && !inputRef && (
+			{isModalVisible && (
 				<ModalWindow
 					close={() => setIsModalVisible(false)}
 					backgroundImage={imgSrc}

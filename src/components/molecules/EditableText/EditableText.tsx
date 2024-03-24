@@ -2,10 +2,12 @@ import React, { KeyboardEvent, ReactNode, useEffect, useRef } from "react";
 
 import styles from "./EditableText.module.scss";
 import { TextInput } from "../../atoms";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store";
+import { setVisibility } from "../../../app/features/uiSlice";
 
 type EditableTextProps = {
-	isEditing: boolean;
-	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+	gid: string;
 	text: string;
 	setText: React.Dispatch<React.SetStateAction<string>>;
 	updateText: () => void;
@@ -14,14 +16,17 @@ type EditableTextProps = {
 };
 
 export const EditableText = ({
-	isEditing,
-	setIsEditing,
+	gid,
 	text,
 	setText,
 	updateText,
 	children,
 	emptyText,
 }: EditableTextProps) => {
+	const isEditing = useSelector(
+		(state: RootState) => state.ui.visibility[gid]
+	);
+	const dispatch = useDispatch<AppDispatch>();
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
@@ -31,7 +36,7 @@ export const EditableText = ({
 	}, [isEditing]);
 
 	const handleBlur = () => {
-		setIsEditing(false);
+		dispatch(setVisibility({ id: gid, isVisible: false }));
 		updateText();
 		if (!text && emptyText) setText(emptyText);
 	};
@@ -43,7 +48,12 @@ export const EditableText = ({
 	};
 
 	return (
-		<div className={styles.editableText} onClick={() => setIsEditing(true)}>
+		<div
+			className={styles.editableText}
+			onClick={() =>
+				dispatch(setVisibility({ id: gid, isVisible: true }))
+			}
+		>
 			{isEditing ? (
 				<TextInput
 					value={text}

@@ -3,6 +3,8 @@
 	background: none;
 	padding: 0;
 	cursor: pointer;
+	display: grid;
+	place-items: center;
 
 	svg {
 		width: 20px;
