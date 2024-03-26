@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AttachmentResponse, TaskResponse, createTaskResponse } from "../types/task";
+import {
+	AttachmentResponse,
+	TaskResponse,
+	createTaskResponse,
+} from "../types/task";
 
 const baseUrl = import.meta.env.VITE_ASANA_BASE_URL;
 const projectGid = import.meta.env.VITE_ASANA_PROJECT_GID;
@@ -18,7 +22,7 @@ export const tasksApi = createApi({
 			return headers;
 		},
 	}),
-	tagTypes: ["Task"],
+	tagTypes: ["Task", "Attachment"],
 	endpoints: (builder) => ({
 		getTasks: builder.query<TaskResponse, string | undefined>({
 			query: (sectionGid) =>
@@ -28,10 +32,31 @@ export const tasksApi = createApi({
 		getAttachments: builder.query<AttachmentResponse, string | undefined>({
 			query: (taskGid) =>
 				`attachments?parent=${taskGid}&opt_fields=download_url`,
+			providesTags: ["Attachment"],
+		}),
+		uploadAttachments: builder.mutation({
+			query: ({ file }) => {
+				return {
+					url: `/attachments`,
+					method: "POST",
+					body: file,
+				};
+			},
+			invalidatesTags: ["Attachment"],
+		}),
+		deleteAttachment: builder.mutation({
+			query: (attachmentGid) => ({
+				url: `/attachments/${attachmentGid}`,
+				method: "DELETE",
+			}),
+			invalidatesTags: ["Attachment"],
 		}),
 		// TODO: dořešit type
-		createTask: builder.mutation<createTaskResponse, {sectionGid: string, name: string}>({
-			query: ({sectionGid, name}) => ({
+		createTask: builder.mutation<
+			createTaskResponse,
+			{ sectionGid: string; name: string }
+		>({
+			query: ({ sectionGid, name }) => ({
 				url: `/tasks`,
 				method: "POST",
 				body: JSON.stringify({
@@ -75,6 +100,8 @@ export const tasksApi = createApi({
 export const {
 	useGetAttachmentsQuery,
 	useGetTasksQuery,
+	useUploadAttachmentsMutation,
+	useDeleteAttachmentMutation,
 	useCreateTaskMutation,
 	useUpdateTaskMutation,
 	useDeleteTaskMutation,

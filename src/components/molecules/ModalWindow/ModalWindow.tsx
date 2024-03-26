@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import styles from "./ModalWindow.module.scss";
 import classNames from "classnames";
 import { CloseIcon } from "../../icons/components";
-import { Button } from "../../atoms";
+import { IconButton } from "../../atoms";
 
 type ModalWindowProps = {
 	backgroundImage?: string;
@@ -37,8 +37,8 @@ export const ModalWindow = ({
 								className={styles.backgroundImage}
 							/>
 						)}
-						<Button
-							icon={<CloseIcon />}
+						<IconButton
+							icon={<CloseIcon color="white" />}
 							onClick={close}
 							className={styles.close}
 						/>

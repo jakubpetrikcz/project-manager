@@ -65,7 +65,7 @@ export const BoardCard = ({
 
 	const description = removeLinks(notes);
 
-	const imgSrc = attachments?.data[0]?.download_url;
+	const imgSrc = attachments?.data[attachments.data.length - 1]?.download_url;
 
 	const handleKeyUp = async (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === "Enter" && editableText) {
@@ -86,6 +86,8 @@ export const BoardCard = ({
 
 		setIsCreating(false);
 	};
+
+	console.log(gid);
 
 	return (
 		<>
@@ -141,9 +143,11 @@ export const BoardCard = ({
 				>
 					<BoardCardModal
 						gid={gid}
+						attachmentGid={attachments?.data[0]?.gid}
 						name={name}
 						notes={description}
 						tags={tags}
+						imgSrc={imgSrc}
 					/>
 				</ModalWindow>
 			)}

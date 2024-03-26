@@ -9,6 +9,7 @@
 
 .left {
 	width: 100%;
+	margin-bottom: 20px;
 
 	input {
 		@include font-size(22px, 34px);
@@ -23,11 +24,13 @@
 
 .description {
 	.edit {
-		min-height: 10vh;
+		min-height: 12vh;
+		margin-top: 10px;
+		margin-bottom: 20px;
 	}
 
 	span {
-		padding-left: 4px
+		padding-left: 4px;
 	}
 
 	textarea {
@@ -40,7 +43,32 @@
 	}
 
 	.text {
-		padding: 4px;
+		padding: 5px;
 		white-space: pre-wrap;
+	}
+}
+
+.attachmentContainer {
+	position: relative;
+	max-width: fit-content;
+
+	&:hover {
+		.close {
+			opacity: 1;
+		}
+	}
+
+	.close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		transform: translate(30%, -30%);
+		border-radius: 50%;
+		box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+			rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+		background-color: var(--white);
+		border-radius: 50%;
+		padding: 2px;
+		opacity: 0;
 	}
 }

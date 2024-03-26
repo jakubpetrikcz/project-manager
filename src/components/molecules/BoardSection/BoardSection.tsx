@@ -3,7 +3,7 @@ import { BoardCard } from "../BoardCard";
 
 import styles from "./BoardSection.module.scss";
 import { Button } from "../../atoms";
-import { PlusIcon } from "../../icons";
+import { CirclePlusIcon } from "../../icons";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
 import { addTask } from "../../../app/features/tasksSlice";
@@ -26,6 +26,8 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 	const sectionTasks = useSelector((state: RootState) =>
 		selectTasksBySection(state, sectionGid)
 	);
+
+	console.log(sectionTasks);
 
 	const { data: tasks, isLoading, isError } = useGetTasksQuery(sectionGid);
 
@@ -57,7 +59,7 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 			))}
 			<Button
 				text="Add new"
-				icon={<PlusIcon />}
+				icon={<CirclePlusIcon />}
 				onClick={handleCreate}
 				className={styles.createButton}
 			/>
