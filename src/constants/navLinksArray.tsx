@@ -8,8 +8,8 @@ export const menu: NavLinkType[] = [
 		path: "/",
 	},
 	{
-		name: "My Tasks",
+		name: "My Tags",
 		icon: <HouseIcon />,
-		path: "/tasks",
+		path: "/tags",
 	},
 ];

@@ -1,3 +1,5 @@
+import { BadgeType } from "../../components/atoms";
+
 // TODO: Lépe zorganizovat typy -> rozdělit do samostatných souborů
 export type TaskResponse = {
 	data: Task[];
@@ -32,10 +34,14 @@ export type Section = {
 	name: string;
 };
 
+export type TagResponse = {
+	data: Tag[]
+}
+
 export type Tag = {
 	gid: string;
 	name: string;
-	color: string;
+	color: BadgeType;
 };
 
 type Attachment = {

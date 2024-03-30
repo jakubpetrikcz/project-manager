@@ -15,7 +15,6 @@ type BoardCardModalProps = BoardCardType & {
 	attachmentGid?: string;
 };
 
-// Přidat přidávání attachmentů (obrázků)
 export const BoardCardModal = ({
 	gid,
 	name,
@@ -24,6 +23,7 @@ export const BoardCardModal = ({
 	imgSrc,
 	attachmentGid,
 }: BoardCardModalProps) => {
+
 	const [uploadAttachments] = useUploadAttachmentsMutation();
 	const [deleteAttachment] = useDeleteAttachmentMutation();
 	const [editableTitle, setEditableTitle] = useState(name);
@@ -32,10 +32,22 @@ export const BoardCardModal = ({
 	const [updateTask] = useUpdateTaskMutation();
 	const [deleteTask] = useDeleteTaskMutation();
 
+	// if (isLoading) return <div>Loading...</div>;
+	// if (isError) return <div>Error...</div>;
+
+	// console.log("tags", data);
+
+	const handleUpdateTitle = (title: string) => {
+		updateTask({
+			gid,
+			name: title,
+		});
+	};
+
 	const handleUpdateText = (text: string) => {
 		updateTask({
 			gid,
-			name: text,
+			notes: text,
 		});
 	};
 
@@ -85,16 +97,24 @@ export const BoardCardModal = ({
 						text={editableTitle}
 						setText={setEditableTitle}
 						updateText={() => {
-							handleUpdateText(editableText);
+							handleUpdateTitle(editableTitle);
 							if (!editableTitle) deleteTask(gid);
 						}}
 					>
 						<h3 className={styles.title}>{editableTitle}</h3>
 					</EditableText>
 				</div>
-				{tags.map((tag) => (
-					<Tag key={tag.gid} text={tag.name} variant={tag.color} />
-				))}
+				{tags ? (
+					tags.map((tag) => (
+						<Tag
+							key={tag.gid}
+							text={tag.name}
+							variant={tag.color}
+						/>
+					))
+				) : (
+					<div></div>
+				)}
 			</div>
 			<div className={styles.description}>
 				<span>
@@ -113,11 +133,13 @@ export const BoardCardModal = ({
 			</div>
 			<div className={styles.attachmentContainer}>
 				<Attachment onChange={handleUpload} imgSrc={imgSrc} />
-				<IconButton
-					className={styles.close}
-					icon={<CloseIcon color="black" />}
-					onClick={handleRemoveAttachment}
-				/>
+				{imgSrc && (
+					<IconButton
+						className={styles.close}
+						icon={<CloseIcon color="black" />}
+						onClick={handleRemoveAttachment}
+					/>
+				)}
 			</div>
 		</div>
 	);

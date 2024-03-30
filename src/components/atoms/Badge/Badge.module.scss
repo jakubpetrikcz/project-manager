@@ -3,6 +3,8 @@
     border-radius: 10px;
     padding: 5px 8px;
     max-width: fit-content;
+    color: var(--other);
+    background-color: var(--other-hover);
 
     &.one {
         border-radius: 50%;

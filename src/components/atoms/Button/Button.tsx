@@ -8,7 +8,7 @@ export type ButtonProps = {
 	text?: string;
 	icon?: ReactNode;
 	variant?: ButtonEnum;
-	onClick: (event?: MouseEvent<HTMLButtonElement>) => void;
+	onClick?: (event?: MouseEvent<HTMLButtonElement>) => void;
 	className?: string;
 };
 

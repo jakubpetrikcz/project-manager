@@ -1,16 +1,16 @@
 import styles from "./Badge.module.scss";
 import classNames from "classnames";
-import { BadgeType } from ".";
+import { BadgeType } from "./BadgeTypes";
 
 export type BadgeProps = {
 	text: string;
-	variant?: BadgeType | string;
+	variant?: BadgeType;
 	className?: string;
 };
 
 export const Badge = ({
 	text,
-	variant = "light-blue",
+	variant = BadgeType.lightBlue,
 	className,
 }: BadgeProps) => {
 	const oneChar = text.length === 1;

@@ -27,7 +27,7 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 		selectTasksBySection(state, sectionGid)
 	);
 
-	console.log(sectionTasks);
+	// console.log(sectionTasks);
 
 	const { data: tasks, isLoading, isError } = useGetTasksQuery(sectionGid);
 

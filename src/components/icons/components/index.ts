@@ -6,3 +6,5 @@ export * from "./HorizontalDotsIcon";
 export * from "./CloseIcon";
 export * from "./CirclePlusIcon";
 export * from "./PlusIcon";
+export * from "./CaretUpIcon";
+export * from "./CaretDownIcon";

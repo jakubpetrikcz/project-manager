@@ -87,8 +87,6 @@ export const BoardCard = ({
 		setIsCreating(false);
 	};
 
-	console.log(gid);
-
 	return (
 		<>
 			<div

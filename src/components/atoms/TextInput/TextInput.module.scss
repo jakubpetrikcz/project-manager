@@ -1,7 +1,26 @@
 @import "/src/styles/utils.scss";
 
-.input {
-    padding: 2px;
-    border-radius: 5px;
-    width: 100%;
+.container {
+	width: 100%;
+	position: relative;
+
+	input {
+		padding: 2px;
+		border-radius: 5px;
+		width: 100%;
+	}
+
+	&.error {
+		input {
+			border: 1px solid var(--error);
+		}
+	}
+}
+
+.errorMessage {
+	position: absolute;
+	bottom: -30px;
+	left: 0;
+	padding-top: 5px;
+	color: var(--error);
 }
