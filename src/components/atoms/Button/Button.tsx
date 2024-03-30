@@ -10,6 +10,7 @@ export type ButtonProps = {
 	variant?: ButtonEnum;
 	onClick?: (event?: MouseEvent<HTMLButtonElement>) => void;
 	className?: string;
+	disabled?: boolean;
 };
 
 export const Button = ({
@@ -18,11 +19,13 @@ export const Button = ({
 	variant = ButtonEnum.primary,
 	onClick,
 	className,
+	disabled = false,
 }: ButtonProps) => {
 	return (
 		<button
 			className={classNames(styles.button, styles[variant], className)}
 			onClick={onClick}
+			disabled={disabled}
 		>
 			{icon}
 			{text}

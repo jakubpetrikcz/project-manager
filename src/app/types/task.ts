@@ -22,7 +22,7 @@ export type Task = {
 	memberships: Membership[];
 	name: string;
 	notes: string;
-	tags: Tag[];
+	tags: TagType[];
 };
 
 type Membership = {
@@ -35,10 +35,10 @@ export type Section = {
 };
 
 export type TagResponse = {
-	data: Tag[]
+	data: TagType[]
 }
 
-export type Tag = {
+export type TagType = {
 	gid: string;
 	name: string;
 	color: BadgeType;

@@ -25,7 +25,7 @@ export const tagsApi = createApi({
 			providesTags: ["Tags"],
 		}),
 		// TODO: dořešit typ
-		createTag: builder.mutation<void, {name: string, color: string}>({
+		createTag: builder.mutation<void, { name: string; color: string }>({
 			query: ({ name, color }) => ({
 				url: `/workspaces/${workspace_gid}/tags`,
 				method: "POST",
@@ -33,7 +33,30 @@ export const tagsApi = createApi({
 			}),
 			invalidatesTags: ["Tags"],
 		}),
+		updateTag: builder.mutation<
+			void,
+			{ tagGid: string; name: string; color: string }
+		>({
+			query: ({ tagGid, name, color }) => ({
+				url: `/tags/${tagGid}`,
+				method: "PUT",
+				body: JSON.stringify({ data: { name, color } }),
+			}),
+			invalidatesTags: ["Tags"],
+		}),
+		deleteTag: builder.mutation<void, string>({
+			query: (tagGid) => ({
+				url: `/tags/${tagGid}`,
+				method: "DELETE",
+			}),
+			invalidatesTags: ["Tags"],
+		}),
 	}),
 });
 
-export const { useGetTagsQuery, useCreateTagMutation } = tagsApi;
+export const {
+	useGetTagsQuery,
+	useCreateTagMutation,
+	useDeleteTagMutation,
+	useUpdateTagMutation,
+} = tagsApi;

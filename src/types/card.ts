@@ -1,4 +1,4 @@
-import { Tag } from "../app/types/task";
+import { TagType } from "../app/types/task";
 
 export type BoardHeaderType = {
 	gid: string;
@@ -11,5 +11,5 @@ export type BoardCardType = {
 	name: string;
 	notes: string;
 	imgSrc?: string;
-	tags: Tag[];
+	tags: TagType[];
 };

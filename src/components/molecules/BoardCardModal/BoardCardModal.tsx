@@ -23,7 +23,6 @@ export const BoardCardModal = ({
 	imgSrc,
 	attachmentGid,
 }: BoardCardModalProps) => {
-
 	const [uploadAttachments] = useUploadAttachmentsMutation();
 	const [deleteAttachment] = useDeleteAttachmentMutation();
 	const [editableTitle, setEditableTitle] = useState(name);
@@ -104,17 +103,14 @@ export const BoardCardModal = ({
 						<h3 className={styles.title}>{editableTitle}</h3>
 					</EditableText>
 				</div>
-				{tags ? (
+				{tags &&
 					tags.map((tag) => (
 						<Tag
 							key={tag.gid}
 							text={tag.name}
 							variant={tag.color}
 						/>
-					))
-				) : (
-					<div></div>
-				)}
+					))}
 			</div>
 			<div className={styles.description}>
 				<span>

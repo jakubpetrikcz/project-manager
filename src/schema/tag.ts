@@ -1,9 +1,14 @@
 import { z } from "zod";
 import { BadgeType } from "../components/atoms";
 
-export const tagSchema = z.object({
+export const newTagSchema = z.object({
 	name: z.string().min(2).max(10),
 	color: z.nativeEnum(BadgeType),
 });
 
+export const tagSchema = newTagSchema.extend({
+	gid: z.string(),
+});
+
+export type NewTagSchema = z.infer<typeof newTagSchema>;
 export type TagSchema = z.infer<typeof tagSchema>;
