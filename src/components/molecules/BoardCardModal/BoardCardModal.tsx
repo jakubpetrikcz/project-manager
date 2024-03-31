@@ -38,7 +38,7 @@ export const BoardCardModal = ({
 	const [updateTask] = useUpdateTaskMutation();
 	const [deleteTask] = useDeleteTaskMutation();
 
-	if (isLoading) return <div>Loading...</div>;
+	// if (isLoading) return <div>Loading...</div>;
 	if (isError) return <div>Error...</div>;
 
 	console.log("tags", data);

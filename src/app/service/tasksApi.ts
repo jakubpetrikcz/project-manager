@@ -116,6 +116,19 @@ export const tasksApi = createApi({
 			}),
 			invalidatesTags: ["Task"],
 		}),
+		addTaskToSection: builder.mutation<
+			void,
+			{ sectionGid: string; taskGid: string }
+		>({
+			query: ({ sectionGid, taskGid }) => ({
+				url: `/sections/${sectionGid}/addTask`,
+				method: "POST",
+				body: JSON.stringify({
+					data: { task: taskGid, insert_before: null },
+				}),
+			}),
+			invalidatesTags: ["Task"],
+		}),
 	}),
 });
 
@@ -129,4 +142,5 @@ export const {
 	useDeleteTaskMutation,
 	useAddTagToTaskMutation,
 	useRemoveTagFromTaskMutation,
+	useAddTaskToSectionMutation,
 } = tasksApi;

@@ -20,7 +20,7 @@ export const BoardHeaderCard = ({ gid, title }: BoardHeaderType) => {
 	const { data, isLoading, isError } = useGetTasksQuery(gid);
 	const [updateSection] = useUpdateSectionMutation();
 
-	if (isLoading) return <div>Loading...</div>;
+	// if (isLoading) return <div>Loading...</div>;
 
 	if (isError || !data) return <div>Error</div>;
 

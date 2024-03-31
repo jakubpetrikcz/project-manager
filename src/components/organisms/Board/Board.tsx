@@ -13,6 +13,8 @@ export const Board = () => {
 
 	if (isHeadersError || !headers) return <div>Error</div>;
 
+	console.log(headers);
+
 	return (
 		<div className={styles.board}>
 			<div className={styles.header}>

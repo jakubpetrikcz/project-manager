@@ -1,4 +1,4 @@
-import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, MouseEvent, useEffect, useRef, useState, DragEvent } from "react";
 import { BoardCardModal, ModalWindow, OptionMenu } from "..";
 import {
 	useCreateTaskMutation,
@@ -87,10 +87,22 @@ export const BoardCard = ({
 		setIsCreating(false);
 	};
 
+	const handleDragStart = (
+		e: DragEvent<HTMLElement>,
+		taskGid: string,
+		sectionGid: string
+	) => {
+		e.dataTransfer.setData("text/plain", taskGid); // ID úkolu
+		e.dataTransfer.setData("sectionGid", sectionGid); // ID původní sekce
+		e.dataTransfer.effectAllowed = "move";
+	};
+
 	return (
 		<>
 			<div
 				className={styles.card}
+				draggable
+				onDragStart={(e) => handleDragStart(e, gid, sectionGid)}
 				onClick={() => setIsModalVisible(true)}
 			>
 				{imgSrc && (
