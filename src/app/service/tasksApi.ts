@@ -94,6 +94,28 @@ export const tasksApi = createApi({
 			}),
 			invalidatesTags: ["Task"],
 		}),
+		addTagToTask: builder.mutation<
+			void,
+			{ taskGid: string; tagGid: string }
+		>({
+			query: ({ taskGid, tagGid }) => ({
+				url: `/tasks/${taskGid}/addTag`,
+				method: "POST",
+				body: JSON.stringify({ data: { tag: tagGid } }),
+			}),
+			invalidatesTags: ["Task"],
+		}),
+		removeTagFromTask: builder.mutation<
+			void,
+			{ taskGid: string; tagGid: string }
+		>({
+			query: ({ taskGid, tagGid }) => ({
+				url: `/tasks/${taskGid}/removeTag`,
+				method: "POST",
+				body: JSON.stringify({ data: { tag: tagGid } }),
+			}),
+			invalidatesTags: ["Task"],
+		}),
 	}),
 });
 
@@ -105,4 +127,6 @@ export const {
 	useCreateTaskMutation,
 	useUpdateTaskMutation,
 	useDeleteTaskMutation,
+	useAddTagToTaskMutation,
+	useRemoveTagFromTaskMutation,
 } = tasksApi;

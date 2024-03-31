@@ -20,7 +20,7 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 	const [createTag] = useCreateTagMutation();
 	const [updateTag] = useUpdateTagMutation();
 
-	console.log(tag);
+	// console.log(tag);
 	const tagNameMap: { [key in BadgeType]: string } = {
 		"light-blue": "Light Blue",
 		"dark-brown": "Dark Brown",
@@ -50,7 +50,6 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 	});
 
 	const onSubmit: SubmitHandler<TagSchema> = async (data) => {
-		console.log(data);
 		try {
 			if (data.gid) {
 				await updateTag({ ...data, tagGid: data.gid });
@@ -63,8 +62,6 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 			console.error(error);
 		}
 	};
-
-	console.log(errors);
 
 	return (
 		<ModalWindow close={close}>

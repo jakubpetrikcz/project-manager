@@ -1,15 +1,18 @@
 import styles from "./BoardCardModal.module.scss";
 import { BoardCardType } from "../../../types/card";
-import { Attachment, IconButton, Tag } from "../../atoms";
+import { Attachment, Dropdown, IconButton, Tag } from "../../atoms";
 import { EditableText } from "..";
 import { ChangeEvent, useState } from "react";
 import {
+	useAddTagToTaskMutation,
 	useDeleteAttachmentMutation,
 	useDeleteTaskMutation,
+	useRemoveTagFromTaskMutation,
 	useUpdateTaskMutation,
 	useUploadAttachmentsMutation,
 } from "../../../app/service/tasksApi";
-import { CloseIcon } from "../../icons";
+import { CloseIcon, PlusIcon } from "../../icons";
+import { useGetTagsQuery } from "../../../app/service/tagsApi";
 
 type BoardCardModalProps = BoardCardType & {
 	attachmentGid?: string;
@@ -23,18 +26,27 @@ export const BoardCardModal = ({
 	imgSrc,
 	attachmentGid,
 }: BoardCardModalProps) => {
+	const { data, isLoading, isError } = useGetTagsQuery();
 	const [uploadAttachments] = useUploadAttachmentsMutation();
 	const [deleteAttachment] = useDeleteAttachmentMutation();
+	const [addTagToTask] = useAddTagToTaskMutation();
+	const [removeTagFromTask] = useRemoveTagFromTaskMutation();
 	const [editableTitle, setEditableTitle] = useState(name);
 	const [editableText, setEditableText] = useState(notes);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const [updateTask] = useUpdateTaskMutation();
 	const [deleteTask] = useDeleteTaskMutation();
 
-	// if (isLoading) return <div>Loading...</div>;
-	// if (isError) return <div>Error...</div>;
+	if (isLoading) return <div>Loading...</div>;
+	if (isError) return <div>Error...</div>;
 
-	// console.log("tags", data);
+	console.log("tags", data);
+
+	const dropdownOptions = data?.data.map((tag) => ({
+		id: tag.gid,
+		value: tag.name,
+	}));
 
 	const handleUpdateTitle = (title: string) => {
 		updateTask({
@@ -103,14 +115,37 @@ export const BoardCardModal = ({
 						<h3 className={styles.title}>{editableTitle}</h3>
 					</EditableText>
 				</div>
-				{tags &&
+				{tags.length > 0 ? (
 					tags.map((tag) => (
-						<Tag
-							key={tag.gid}
-							text={tag.name}
-							variant={tag.color}
-						/>
-					))}
+						// TODO: udělat komponentu z tagContainer, protože to stejné je i v TagsPage
+						<div key={tag.gid} className={styles.tagContainer}>
+							<IconButton
+								className={styles.close}
+								icon={<CloseIcon color="black" />}
+								onClick={() =>
+									removeTagFromTask({
+										taskGid: gid,
+										tagGid: tag.gid,
+									})
+								}
+							/>
+							<Tag text={tag.name} variant={tag.color} />
+						</div>
+					))
+				) : !isOpen ? (
+					<IconButton
+						icon={<PlusIcon />}
+						onClick={() => setIsOpen(true)}
+					/>
+				) : (
+					<Dropdown
+						options={dropdownOptions ? dropdownOptions : []}
+						onSelect={(selectedId) => {
+							setIsOpen(false);
+							addTagToTask({ taskGid: gid, tagGid: selectedId });
+						}}
+					/>
+				)}
 			</div>
 			<div className={styles.description}>
 				<span>
