@@ -1,18 +1,14 @@
 import styles from "./BoardCardModal.module.scss";
 import { BoardCardType } from "../../../types/card";
-import { Attachment, Dropdown, IconButton, Tag } from "../../atoms";
-import { EditableText, RemovableComponent } from "..";
+import { Attachment } from "../../atoms";
 import { ChangeEvent, useState } from "react";
 import {
-	useAddTagToTaskMutation,
 	useDeleteAttachmentMutation,
-	useDeleteTaskMutation,
-	useRemoveTagFromTaskMutation,
 	useUpdateTaskMutation,
 	useUploadAttachmentsMutation,
 } from "../../../app/service/tasksApi";
-import { PlusIcon } from "../../ui/icons";
-import { useGetTagsQuery } from "../../../app/service/tagsApi";
+import { BoardHeaderCardModal } from "../../molecules/BoardHeaderCardModal";
+import { EditableText, RemovableComponent } from "../../molecules";
 
 type BoardCardModalProps = BoardCardType & {
 	attachmentGid?: string;
@@ -26,32 +22,11 @@ export const BoardCardModal = ({
 	imgSrc,
 	attachmentGid,
 }: BoardCardModalProps) => {
-	const { data, isLoading, isError } = useGetTagsQuery();
 	const [uploadAttachments] = useUploadAttachmentsMutation();
 	const [deleteAttachment] = useDeleteAttachmentMutation();
-	const [addTagToTask] = useAddTagToTaskMutation();
-	const [removeTagFromTask] = useRemoveTagFromTaskMutation();
-	const [editableTitle, setEditableTitle] = useState(name);
 	const [editableText, setEditableText] = useState(notes);
-	const [isOpen, setIsOpen] = useState(false);
 
 	const [updateTask] = useUpdateTaskMutation();
-	const [deleteTask] = useDeleteTaskMutation();
-
-	if (isLoading) return <div>Loading...</div>;
-	if (isError) return <div>Error...</div>;
-
-	const dropdownOptions = data?.data.map((tag) => ({
-		id: tag.gid,
-		value: tag.name,
-	}));
-
-	const handleUpdateTitle = (title: string) => {
-		updateTask({
-			gid,
-			name: title,
-		});
-	};
 
 	const handleUpdateText = (text: string) => {
 		updateTask({
@@ -96,54 +71,9 @@ export const BoardCardModal = ({
 		}
 	};
 
-	// TODO: Refaktorovat JSX hlavně divy
 	return (
-		<div>
-			<div className={styles.content}>
-				<div className={styles.left}>
-					<EditableText
-						gid={`editTitle-${gid}`}
-						text={editableTitle}
-						setText={setEditableTitle}
-						updateText={() => {
-							handleUpdateTitle(editableTitle);
-							if (!editableTitle) deleteTask(gid);
-						}}
-					>
-						<h3 className={styles.title}>{editableTitle}</h3>
-					</EditableText>
-				</div>
-				{tags.length > 0 ? (
-					tags.map((tag) => (
-						<RemovableComponent
-							key={tag.gid}
-							element={
-								<Tag text={tag.name} variant={tag.color} />
-							}
-							handleRemove={() =>
-								removeTagFromTask({
-									taskGid: gid,
-									tagGid: tag.gid,
-								})
-							}
-							showActionButton={!!tag}
-						/>
-					))
-				) : !isOpen ? (
-					<IconButton
-						icon={<PlusIcon />}
-						onClick={() => setIsOpen(true)}
-					/>
-				) : (
-					<Dropdown
-						options={dropdownOptions ? dropdownOptions : []}
-						onSelect={(selectedId) => {
-							setIsOpen(false);
-							addTagToTask({ taskGid: gid, tagGid: selectedId });
-						}}
-					/>
-				)}
-			</div>
+		<>
+			<BoardHeaderCardModal gid={gid} name={name} tags={tags} />
 			<div className={styles.description}>
 				<span>
 					<strong>Popis</strong>
@@ -164,6 +94,6 @@ export const BoardCardModal = ({
 				handleRemove={handleRemoveAttachment}
 				showActionButton={!!imgSrc}
 			/>
-		</div>
+		</>
 	);
 };

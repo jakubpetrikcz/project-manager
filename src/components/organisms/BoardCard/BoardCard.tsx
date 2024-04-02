@@ -1,5 +1,5 @@
 import { KeyboardEvent, MouseEvent, useEffect, useRef, useState, DragEvent } from "react";
-import { BoardCardModal, ModalWindow, OptionMenu } from "..";
+import {  ModalWindow, OptionMenu } from "../../molecules";
 import {
 	useCreateTaskMutation,
 	useDeleteTaskMutation,
@@ -14,6 +14,7 @@ import Skeleton from "react-loading-skeleton";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../app/store";
 import { removeTask } from "../../../app/features/tasksSlice";
+import { BoardCardModal } from "..";
 
 type BoardCardProps = BoardCardType & {
 	sectionGid: string;

@@ -15,7 +15,6 @@ type TagModalProps = {
 	close: () => void;
 };
 
-// TODO: Udělat obecný modal do ModalWindow komponenty a z toho udělat další už konkrétní modaly
 export const TagModal = ({ tag, close }: TagModalProps) => {
 	const [createTag] = useCreateTagMutation();
 	const [updateTag] = useUpdateTagMutation();

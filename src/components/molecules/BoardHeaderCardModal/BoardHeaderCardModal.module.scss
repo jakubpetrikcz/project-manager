@@ -1,0 +1,23 @@
+@import "/src/styles/utils.scss";
+
+.content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+	margin-bottom: 20px;
+}
+
+.left {
+	width: 100%;
+
+	input {
+		@include font-size(22px, 34px);
+		line-height: 1.4;
+		font-weight: 700;
+	}
+
+	.title {
+		padding: 4px;
+	}
+}

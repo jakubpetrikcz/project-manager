@@ -1,5 +1,5 @@
 import styles from "./Board.module.scss";
-import { BoardHeaderCard, BoardSection } from "../../molecules";
+import { BoardHeaderSection, BoardSection } from "../../molecules";
 import { useGetSectionsQuery } from "../../../app/service/sectionsApi";
 
 export const Board = () => {
@@ -17,7 +17,7 @@ export const Board = () => {
 		<div className={styles.board}>
 			<div className={styles.header}>
 				{headers.data.map((header) => (
-					<BoardHeaderCard
+					<BoardHeaderSection
 						key={header.gid}
 						title={header.name}
 						gid={header.gid}

@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from "react";
 
-import styles from "./BoardHeaderCard.module.scss";
+import styles from "./BoardSectionHeader.module.scss";
 import { BoardHeaderType } from "../../../types/card";
 import { HorizontalDotsIcon } from "../../ui/icons";
 import { Badge, Button, ButtonEnum, IconButton } from "../../atoms";
@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../app/store";
 import { setVisibility } from "../../../app/features/uiSlice";
 
-export const BoardHeaderCard = ({ gid, title }: BoardHeaderType) => {
+export const BoardHeaderSection = ({ gid, title }: BoardHeaderType) => {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const [showMenu, setShowMenu] = useState(false);

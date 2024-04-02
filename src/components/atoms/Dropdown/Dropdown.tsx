@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import styles from "./Dropdown.module.scss";
 import { CaretDownIcon, CaretUpIcon } from "../../ui/icons";
 import classNames from "classnames";
-import { createPortal } from "react-dom";
+import { Portal } from "..";
 
 type DropdownOptions = { id: string; value: string }[];
 
@@ -18,8 +18,6 @@ export const Dropdown = ({
 	options,
 	onSelect,
 }: DropdownProps) => {
-	const modalRoot = document.getElementById("modalRoot");
-
 	const [position, setPosition] = useState<{
 		top: number;
 		left: number;
@@ -61,9 +59,8 @@ export const Dropdown = ({
 			<span className={styles.icon}>
 				{isDropdownOpen ? <CaretUpIcon /> : <CaretDownIcon />}
 			</span>
-			{isDropdownOpen &&
-				modalRoot &&
-				createPortal(
+			{isDropdownOpen && (
+				<Portal>
 					<ul
 						className={styles.options}
 						style={{
@@ -80,9 +77,9 @@ export const Dropdown = ({
 								{value}
 							</li>
 						))}
-					</ul>,
-					modalRoot
-				)}
+					</ul>
+				</Portal>
+			)}
 		</div>
 	);
 };

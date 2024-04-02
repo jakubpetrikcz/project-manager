@@ -1,2 +1,3 @@
-export * from "./Board";
 export * from "./SideBar";
+export * from "./BoardCardModal";
+export * from "./BoardCard";

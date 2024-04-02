@@ -3,7 +3,7 @@ import {
 	useAddTaskToSectionMutation,
 	useGetTasksQuery,
 } from "../../../app/service/tasksApi";
-import { BoardCard } from "../BoardCard";
+import { BoardCard } from "../../organisms/BoardCard";
 
 import styles from "./BoardSection.module.scss";
 import { Button } from "../../atoms";
