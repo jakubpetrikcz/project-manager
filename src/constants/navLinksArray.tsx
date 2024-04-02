@@ -1,4 +1,4 @@
-import { HouseIcon } from "../components/icons/components";
+import { HouseIcon } from "../components/ui/icons/components";
 import { NavLinkType } from "../types/navLink";
 
 export const menu: NavLinkType[] = [

@@ -7,3 +7,6 @@ export * from "./NavMenu";
 export * from "./BoardSection";
 export * from "./EditableText";
 export * from "./OptionMenu";
+export * from "./RemovableComponent";
+export * from "./TagModal";
+export * from "./PageHeader";

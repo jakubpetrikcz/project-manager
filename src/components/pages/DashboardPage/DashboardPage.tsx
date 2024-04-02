@@ -1,13 +1,11 @@
+import { PageHeader } from "../../molecules";
 import { Board } from "../../organisms";
 import styles from "./DashboardPage.module.scss";
 
 const DashboardPage = () => {
 	return (
 		<div className={styles.section}>
-			<div className={styles.pageHeader}>
-				<span>Uvatars Website UI</span>
-				<h1>Uvatars Website UI</h1>
-			</div>
+			<PageHeader title="Uvatars Website UI" />
 			<Board />
 		</div>
 	);

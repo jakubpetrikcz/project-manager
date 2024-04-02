@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 import styles from "./ModalWindow.module.scss";
 import classNames from "classnames";
-import { CloseIcon } from "../../icons/components";
+import { CloseIcon } from "../../ui/icons/components";
 import { IconButton } from "../../atoms";
 
 type ModalWindowProps = {

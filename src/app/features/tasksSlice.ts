@@ -42,18 +42,15 @@ export const tasksSlice = createSlice({
 		) => {
 			const { fromSectionGid, toSectionGid, taskGid } = action.payload;
 
-			// Najít úkol v původní sekci
 			const task = state[fromSectionGid].find(
 				(task) => task.gid === taskGid
 			);
 
 			if (task) {
-				// Odstranit úkol z původní sekce
 				state[fromSectionGid] = state[fromSectionGid].filter(
 					(task) => task.gid !== taskGid
 				);
 
-				// Přidat úkol do cílové sekce
 				if (!state[toSectionGid]) {
 					state[toSectionGid] = [task];
 				} else {

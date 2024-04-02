@@ -1,4 +1,4 @@
-import { DragEvent } from "react";
+import { DragEvent, useMemo } from "react";
 import {
 	useAddTaskToSectionMutation,
 	useGetTasksQuery,
@@ -7,32 +7,23 @@ import { BoardCard } from "../BoardCard";
 
 import styles from "./BoardSection.module.scss";
 import { Button } from "../../atoms";
-import { CirclePlusIcon } from "../../icons";
+import { CirclePlusIcon } from "../../ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../app/store";
-import { addTask, tasksSlice } from "../../../app/features/tasksSlice";
-import { createSelector } from "reselect";
+import { AppDispatch } from "../../../app/store";
+import { addTask, moveTask } from "../../../app/features/tasksSlice";
+import { makeSelectTasksBySection } from "./utils/selectors";
 
 type BoardSectionProps = {
 	sectionGid: string;
 };
 
-const selectTasksBySection = createSelector(
-	[
-		(state: RootState, sectionGid: string) => state.tasks[sectionGid] || [],
-		(sectionGid) => sectionGid,
-	],
-	(tasks) => tasks
-);
-
 export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 	const dispatch = useDispatch<AppDispatch>();
-	const sectionTasks = useSelector((state: RootState) =>
+	const selectTasksBySection = useMemo(makeSelectTasksBySection, []);
+	const sectionTasks = useSelector((state) =>
 		selectTasksBySection(state, sectionGid)
 	);
 	const [moveTaskToSection] = useAddTaskToSectionMutation();
-
-	// console.log(sectionTasks);
 
 	const { data: tasks, isLoading, isError } = useGetTasksQuery(sectionGid);
 
@@ -62,7 +53,7 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 		const taskGid = event.dataTransfer.getData("text/plain");
 		const targetSectionGid =
 			event.currentTarget.getAttribute("data-section-gid");
-		const oldSectionGid = event.dataTransfer.getData("sectionGid"); // Původní sekce
+		const oldSectionGid = event.dataTransfer.getData("sectionGid");
 
 		if (
 			targetSectionGid &&
@@ -71,7 +62,7 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 		) {
 			try {
 				dispatch(
-					tasksSlice.actions.moveTask({
+					moveTask({
 						fromSectionGid: oldSectionGid,
 						toSectionGid: targetSectionGid,
 						taskGid,

@@ -1,16 +1,16 @@
+import { BadgeTypeEnum } from ".";
 import styles from "./Badge.module.scss";
 import classNames from "classnames";
-import { BadgeType } from "./BadgeTypes";
 
 export type BadgeProps = {
 	text: string;
-	variant?: BadgeType;
+	variant?: BadgeTypeEnum;
 	className?: string;
 };
 
 export const Badge = ({
 	text,
-	variant = BadgeType.lightBlue,
+	variant = BadgeTypeEnum.lightBlue,
 	className,
 }: BadgeProps) => {
 	const oneChar = text.length === 1;

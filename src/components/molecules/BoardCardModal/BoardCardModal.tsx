@@ -1,7 +1,7 @@
 import styles from "./BoardCardModal.module.scss";
 import { BoardCardType } from "../../../types/card";
 import { Attachment, Dropdown, IconButton, Tag } from "../../atoms";
-import { EditableText } from "..";
+import { EditableText, RemovableComponent } from "..";
 import { ChangeEvent, useState } from "react";
 import {
 	useAddTagToTaskMutation,
@@ -11,7 +11,7 @@ import {
 	useUpdateTaskMutation,
 	useUploadAttachmentsMutation,
 } from "../../../app/service/tasksApi";
-import { CloseIcon, PlusIcon } from "../../icons";
+import { PlusIcon } from "../../ui/icons";
 import { useGetTagsQuery } from "../../../app/service/tagsApi";
 
 type BoardCardModalProps = BoardCardType & {
@@ -38,10 +38,8 @@ export const BoardCardModal = ({
 	const [updateTask] = useUpdateTaskMutation();
 	const [deleteTask] = useDeleteTaskMutation();
 
-	// if (isLoading) return <div>Loading...</div>;
+	if (isLoading) return <div>Loading...</div>;
 	if (isError) return <div>Error...</div>;
-
-	console.log("tags", data);
 
 	const dropdownOptions = data?.data.map((tag) => ({
 		id: tag.gid,
@@ -117,20 +115,19 @@ export const BoardCardModal = ({
 				</div>
 				{tags.length > 0 ? (
 					tags.map((tag) => (
-						// TODO: udělat komponentu z tagContainer, protože to stejné je i v TagsPage
-						<div key={tag.gid} className={styles.tagContainer}>
-							<IconButton
-								className={styles.close}
-								icon={<CloseIcon color="black" />}
-								onClick={() =>
-									removeTagFromTask({
-										taskGid: gid,
-										tagGid: tag.gid,
-									})
-								}
-							/>
-							<Tag text={tag.name} variant={tag.color} />
-						</div>
+						<RemovableComponent
+							key={tag.gid}
+							element={
+								<Tag text={tag.name} variant={tag.color} />
+							}
+							handleRemove={() =>
+								removeTagFromTask({
+									taskGid: gid,
+									tagGid: tag.gid,
+								})
+							}
+							showActionButton={!!tag}
+						/>
 					))
 				) : !isOpen ? (
 					<IconButton
@@ -162,16 +159,11 @@ export const BoardCardModal = ({
 					<p className={styles.text}>{editableText}</p>
 				</EditableText>
 			</div>
-			<div className={styles.attachmentContainer}>
-				<Attachment onChange={handleUpload} imgSrc={imgSrc} />
-				{imgSrc && (
-					<IconButton
-						className={styles.close}
-						icon={<CloseIcon color="black" />}
-						onClick={handleRemoveAttachment}
-					/>
-				)}
-			</div>
+			<RemovableComponent
+				element={<Attachment onChange={handleUpload} imgSrc={imgSrc} />}
+				handleRemove={handleRemoveAttachment}
+				showActionButton={!!imgSrc}
+			/>
 		</div>
 	);
 };

@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { BadgeType } from "../components/atoms";
+import { BadgeTypeEnum } from "../components/atoms";
 
 export const newTagSchema = z.object({
 	name: z.string().min(2).max(10),
-	color: z.nativeEnum(BadgeType),
+	color: z.nativeEnum(BadgeTypeEnum),
 });
 
 export const tagSchema = newTagSchema.extend({

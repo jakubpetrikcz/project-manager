@@ -2,7 +2,7 @@ import { useState, MouseEvent } from "react";
 
 import styles from "./BoardHeaderCard.module.scss";
 import { BoardHeaderType } from "../../../types/card";
-import { HorizontalDotsIcon } from "../../icons";
+import { HorizontalDotsIcon } from "../../ui/icons";
 import { Badge, Button, ButtonEnum, IconButton } from "../../atoms";
 import { useGetTasksQuery } from "../../../app/service/tasksApi";
 import { EditableText, OptionMenu } from "..";
@@ -20,7 +20,7 @@ export const BoardHeaderCard = ({ gid, title }: BoardHeaderType) => {
 	const { data, isLoading, isError } = useGetTasksQuery(gid);
 	const [updateSection] = useUpdateSectionMutation();
 
-	// if (isLoading) return <div>Loading...</div>;
+	if (isLoading) return <div>Loading...</div>;
 
 	if (isError || !data) return <div>Error</div>;
 

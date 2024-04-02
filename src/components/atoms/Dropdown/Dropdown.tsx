@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 import styles from "./Dropdown.module.scss";
-import { CaretDownIcon, CaretUpIcon } from "../../icons";
+import { CaretDownIcon, CaretUpIcon } from "../../ui/icons";
 import classNames from "classnames";
 import { createPortal } from "react-dom";
 

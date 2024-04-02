@@ -1,4 +1,4 @@
-import { BadgeType } from "../../components/atoms";
+import { BadgeTypeEnum } from "../../components/atoms";
 
 // TODO: Lépe zorganizovat typy -> rozdělit do samostatných souborů
 export type TaskResponse = {
@@ -41,7 +41,7 @@ export type TagResponse = {
 export type TagType = {
 	gid: string;
 	name: string;
-	color: BadgeType;
+	color: BadgeTypeEnum;
 };
 
 type Attachment = {

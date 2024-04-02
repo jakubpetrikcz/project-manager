@@ -1,4 +1,4 @@
-export enum BadgeType {
+export enum BadgeTypeEnum {
 	lightBlue = "light-blue",
 	darkBrown = "dark-brown",
 	lightGreen = "light-green",

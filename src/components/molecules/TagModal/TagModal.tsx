@@ -1,5 +1,5 @@
 import { ModalWindow } from "..";
-import { BadgeType, Button, Dropdown, TextInput } from "../../atoms";
+import { BadgeTypeEnum, Button, Dropdown, TextInput } from "../../atoms";
 import styles from "./TagModal.module.scss";
 import {
 	useCreateTagMutation,
@@ -20,14 +20,13 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 	const [createTag] = useCreateTagMutation();
 	const [updateTag] = useUpdateTagMutation();
 
-	// console.log(tag);
-	const tagNameMap: { [key in BadgeType]: string } = {
-		"light-blue": "Light Blue",
-		"dark-brown": "Dark Brown",
-		"light-green": "Light Green",
-		"dark-red": "Dark Red",
-		"dark-purple": "Dark Purple",
-		none: "None",
+	const tagNameMap: { [key in BadgeTypeEnum]: string } = {
+		[BadgeTypeEnum.lightBlue]: "Light Blue",
+		[BadgeTypeEnum.darkBrown]: "Dark Brown",
+		[BadgeTypeEnum.lightGreen]: "Light Green",
+		[BadgeTypeEnum.darkRed]: "Dark Red",
+		[BadgeTypeEnum.darkPurple]: "Dark Purple",
+		[BadgeTypeEnum.none]: "None",
 	};
 
 	const dropdownOptions = Object.entries(tagNameMap).map(([id, value]) => ({
@@ -86,7 +85,7 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 							}
 							options={dropdownOptions}
 							onSelect={(id) =>
-								setValue("color", id as BadgeType)
+								setValue("color", id as BadgeTypeEnum)
 							}
 						/>
 					</div>

@@ -3,12 +3,13 @@ import {
 	useDeleteTagMutation,
 	useGetTagsQuery,
 } from "../../../app/service/tagsApi";
-import { Button, IconButton, Tag } from "../../atoms";
-import { CloseIcon, PlusIcon } from "../../icons";
+import { Button, Tag } from "../../atoms";
+import { PlusIcon } from "../../ui/icons";
 import { TagModal } from "../../molecules/TagModal";
 
 import styles from "./TagsPage.module.scss";
 import { TagType } from "../../../app/types/task";
+import { PageHeader, RemovableComponent } from "../../molecules";
 
 const TagsPage = () => {
 	const { data, isLoading, isError } = useGetTagsQuery();
@@ -18,8 +19,6 @@ const TagsPage = () => {
 
 	if (isLoading) return <div>Loading...</div>;
 	if (isError) return <div>Error...</div>;
-
-	// console.log(data);
 
 	const handleDelete = (
 		gid: string,
@@ -36,32 +35,23 @@ const TagsPage = () => {
 
 	return (
 		<div className={styles.section}>
-			<div className={styles.pageHeader}>
-				<span>Uvatars Website UI</span>
-				<div className={styles.title}>
-					<h1>Tags</h1>
-					<Button
-						className={styles.button}
-						icon={<PlusIcon color="white" />}
-						text="Add new tag"
-						onClick={() => openTagModal()}
-					/>
-				</div>
-			</div>
+			<PageHeader title="Tags">
+				<Button
+					className={styles.button}
+					icon={<PlusIcon color="white" />}
+					text="Add new tag"
+					onClick={() => openTagModal()}
+				/>
+			</PageHeader>
 			<div className={styles.container}>
 				{data?.data.map((item) => (
-					<div
+					<RemovableComponent
 						key={item.gid}
-						className={styles.tagContainer}
 						onClick={() => openTagModal(item)}
-					>
-						<IconButton
-							className={styles.close}
-							icon={<CloseIcon color="black" />}
-							onClick={(event) => handleDelete(item.gid, event)}
-						/>
-						<Tag text={item.name} variant={item.color} />
-					</div>
+						element={<Tag text={item.name} variant={item.color} />}
+						handleRemove={(event) => handleDelete(item.gid, event)}
+						showActionButton={!!item}
+					/>
 				))}
 			</div>
 			{isTagModalVisible && (

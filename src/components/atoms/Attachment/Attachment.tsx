@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from "react";
 import styles from "./Attachment.module.scss";
-import { PlusIcon } from "../../icons";
+import { PlusIcon } from "../../ui/icons";
 import classNames from "classnames";
 
 type AttachmentProps = {

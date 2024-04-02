@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./LogoContainer.module.scss";
-import { ArrowLeftIcon, ArrowRightIcon } from "../../icons/components";
+import { ArrowLeftIcon, ArrowRightIcon } from "../../ui/icons/components";
 import { MenuButton } from "../../atoms";
 
 type LogoContainerProps = {

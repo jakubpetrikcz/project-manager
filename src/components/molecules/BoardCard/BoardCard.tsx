@@ -8,7 +8,7 @@ import {
 import { BoardCardType } from "../../../types/card";
 import { removeLinks } from "../../../utils/removeLinks";
 import { Button, ButtonEnum, IconButton, Tag, TextInput } from "../../atoms";
-import { VerticalDotsIcon } from "../../icons";
+import { VerticalDotsIcon } from "../../ui/icons";
 import styles from "./BoardCard.module.scss";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch } from "react-redux";
@@ -92,8 +92,8 @@ export const BoardCard = ({
 		taskGid: string,
 		sectionGid: string
 	) => {
-		e.dataTransfer.setData("text/plain", taskGid); // ID úkolu
-		e.dataTransfer.setData("sectionGid", sectionGid); // ID původní sekce
+		e.dataTransfer.setData("text/plain", taskGid);
+		e.dataTransfer.setData("sectionGid", sectionGid);
 		e.dataTransfer.effectAllowed = "move";
 	};
 
