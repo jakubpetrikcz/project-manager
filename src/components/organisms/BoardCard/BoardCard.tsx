@@ -98,6 +98,7 @@ export const BoardCard = ({
 		e.dataTransfer.effectAllowed = "move";
 	};
 
+	// Vytvořit Card komponentu, která bude mít nějaké default styly (bílé pozadí, ...) -> dá se použít na SectionHeader, tady a dál
 	return (
 		<>
 			<div

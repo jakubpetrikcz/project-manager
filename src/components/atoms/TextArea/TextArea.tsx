@@ -25,7 +25,7 @@ export const TextArea = ({
 			ref={textareaRef}
 			onKeyUp={onKeyUp}
 			className={styles.textarea}
-            rows={3}
+            rows={4}
 		/>
 	);
 };

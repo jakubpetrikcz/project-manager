@@ -8,3 +8,5 @@ export * from "./OptionMenu";
 export * from "./RemovableComponent";
 export * from "./TagModal";
 export * from "./PageHeader";
+export * from "./BoardHeaderCardModal";
+export * from "./BoardDescriptionCardModal";
