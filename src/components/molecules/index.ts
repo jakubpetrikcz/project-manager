@@ -10,3 +10,4 @@ export * from "./TagModal";
 export * from "./PageHeader";
 export * from "./BoardHeaderCardModal";
 export * from "./BoardDescriptionCardModal";
+export * from "./BoardCardHeader";

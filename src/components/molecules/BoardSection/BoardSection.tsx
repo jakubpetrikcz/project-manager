@@ -79,7 +79,7 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 	};
 
 	return (
-		<section
+		<div
 			className={styles.section}
 			data-section-gid={sectionGid}
 			onDragOver={(e) => e.preventDefault()}
@@ -94,6 +94,6 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 				onClick={handleCreate}
 				className={styles.createButton}
 			/>
-		</section>
+		</div>
 	);
 };

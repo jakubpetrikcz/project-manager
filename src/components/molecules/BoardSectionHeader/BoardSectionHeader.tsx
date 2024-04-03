@@ -3,7 +3,7 @@ import { useState, MouseEvent } from "react";
 import styles from "./BoardSectionHeader.module.scss";
 import { BoardHeaderType } from "../../../types/card";
 import { HorizontalDotsIcon } from "../../ui/icons";
-import { Badge, Button, ButtonEnum, IconButton } from "../../atoms";
+import { Badge, Button, ButtonEnum, Card, IconButton } from "../../atoms";
 import { useGetTasksQuery } from "../../../app/service/tasksApi";
 import { EditableText, OptionMenu } from "..";
 import { useUpdateSectionMutation } from "../../../app/service/sectionsApi";
@@ -42,7 +42,7 @@ export const BoardHeaderSection = ({ gid, title }: BoardHeaderType) => {
 	};
 
 	return (
-		<div className={styles.card}>
+		<Card className={styles.card}>
 			<div className={styles.left}>
 				<EditableText
 					gid={`editHeader-${gid}`}
@@ -73,6 +73,6 @@ export const BoardHeaderSection = ({ gid, title }: BoardHeaderType) => {
 					</OptionMenu>
 				)}
 			</div>
-		</div>
+		</Card>
 	);
 };

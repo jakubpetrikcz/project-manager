@@ -44,6 +44,7 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 		defaultValues: {
 			gid: tag?.gid || "",
 			name: tag?.name || "",
+			color: tag?.color || BadgeTypeEnum.lightBlue,
 		},
 	});
 

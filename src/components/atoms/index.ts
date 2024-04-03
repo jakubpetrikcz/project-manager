@@ -9,3 +9,4 @@ export * from "./TextArea";
 export * from "./Attachment";
 export * from "./Dropdown";
 export * from "./Portal";
+export * from "./Card";

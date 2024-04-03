@@ -1,22 +1,6 @@
 .card {
-	border-radius: 10px;
-	padding: 10px;
-	background-color: var(--white);
 	max-width: 300px;
 	display: grid;
 	gap: 10px;
 	cursor: pointer;
-
-	.backgroundImage {
-		object-fit: cover;
-		width: 100%;
-		border-radius: 10px;
-	}
-}
-
-.title {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	position: relative;
 }
