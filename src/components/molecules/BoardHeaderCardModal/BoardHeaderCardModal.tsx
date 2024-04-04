@@ -12,8 +12,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
 import { setVisibility } from "../../../app/features/uiSlice";
-import { TagType } from "../../../app/types/task";
 import { PlusIcon } from "../../ui/icons";
+import { TagType } from "../../../app/types";
 
 type BoardHeaderCardModalProps = {
 	gid: string;

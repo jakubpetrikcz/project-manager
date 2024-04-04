@@ -2,7 +2,7 @@ import { PageHeader } from "../../molecules";
 import { Board } from "../../templates";
 import styles from "./DashboardPage.module.scss";
 
-const DashboardPage = () => {
+export const DashboardPage = () => {
 	return (
 		<section className={styles.section}>
 			<PageHeader title="Uvatars Website UI" />
@@ -10,5 +10,3 @@ const DashboardPage = () => {
 		</section>
 	);
 };
-
-export default DashboardPage;

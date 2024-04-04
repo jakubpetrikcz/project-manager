@@ -1,15 +1,17 @@
-import { HouseIcon } from "../components/ui/icons/components";
+import { HouseFillIcon, HouseIcon, TagFillIcon, TagIcon } from "../components/ui/icons/components";
 import { NavLinkType } from "../types/navLink";
 
 export const menu: NavLinkType[] = [
 	{
 		name: "Dashboard",
 		icon: <HouseIcon />,
+		fillIcon: <HouseFillIcon />,
 		path: "/",
 	},
 	{
 		name: "My Tags",
-		icon: <HouseIcon />,
+		icon: <TagIcon />,
+		fillIcon: <TagFillIcon />,
 		path: "/tags",
 	},
 ];

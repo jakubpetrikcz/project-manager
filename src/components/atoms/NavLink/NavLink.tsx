@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "./NavLink.module.scss";
 import classNames from "classnames";
 
-export const NavLink = ({ name, icon, path }: NavLinkType) => {
+export const NavLink = ({ name, icon, fillIcon, path }: NavLinkType) => {
 	const { pathname } = useLocation();
 	const [active, setActive] = useState(false);
 
@@ -22,7 +22,7 @@ export const NavLink = ({ name, icon, path }: NavLinkType) => {
 			to={path}
 			className={classNames(styles.link, { [styles.active]: active })}
 		>
-			{icon}
+			{active ? fillIcon : icon}
 			<p>{name}</p>
 		</Link>
 	);

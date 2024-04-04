@@ -8,3 +8,6 @@ export * from "./CirclePlusIcon";
 export * from "./PlusIcon";
 export * from "./CaretUpIcon";
 export * from "./CaretDownIcon";
+export * from "./HouseFillIcon";
+export * from "./TagIcon";
+export * from "./TagFillIcon";

@@ -3,14 +3,14 @@ import { Button } from "../../atoms";
 import { PlusIcon } from "../../ui/icons";
 
 import styles from "./TagsPage.module.scss";
-import { TagType } from "../../../app/types/task";
 import { PageHeader } from "../../molecules";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../app/store";
 import { setVisibility } from "../../../app/features/uiSlice";
 import { TagsPageContent } from "../../organisms";
+import { TagType } from "../../../app/types";
 
-const TagsPage = () => {
+export const TagsPage = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const [tag, setTag] = useState<TagType>();
 
@@ -33,5 +33,3 @@ const TagsPage = () => {
 		</section>
 	);
 };
-
-export default TagsPage;

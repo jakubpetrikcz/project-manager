@@ -17,11 +17,7 @@ export const tasksSlice = createSlice({
 			action: PayloadAction<{ sectionGid: string; task: Task }>
 		) => {
 			const { sectionGid, task } = action.payload;
-			if (!state[sectionGid]) {
-				state[sectionGid] = [task];
-			} else {
-				state[sectionGid].push(task);
-			}
+			state[sectionGid] = [...(state[sectionGid] || []), task];
 		},
 		removeTask: (
 			state,
@@ -41,21 +37,12 @@ export const tasksSlice = createSlice({
 			}>
 		) => {
 			const { fromSectionGid, toSectionGid, taskGid } = action.payload;
-
-			const task = state[fromSectionGid].find(
+			const taskIndex = state[fromSectionGid].findIndex(
 				(task) => task.gid === taskGid
 			);
-
-			if (task) {
-				state[fromSectionGid] = state[fromSectionGid].filter(
-					(task) => task.gid !== taskGid
-				);
-
-				if (!state[toSectionGid]) {
-					state[toSectionGid] = [task];
-				} else {
-					state[toSectionGid].push(task);
-				}
+			if (taskIndex > -1) {
+				const [task] = state[fromSectionGid].splice(taskIndex, 1);
+				state[toSectionGid] = [...(state[toSectionGid] || []), task];
 			}
 		},
 	},

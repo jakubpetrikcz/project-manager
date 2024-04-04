@@ -1,27 +1,17 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Section, SectionResponse } from "../types/task";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { Section, SectionResponse } from "../types";
+import { baseQuery } from "./baseQuery";
 
-const baseUrl = import.meta.env.VITE_ASANA_BASE_URL;
-const projectGid = import.meta.env.VITE_ASANA_PROJECT_GID;
+const BASE_URL = import.meta.env.VITE_ASANA_BASE_URL;
+const PROJECT_GID = import.meta.env.VITE_ASANA_PROJECT_GID;
 
 export const sectionsApi = createApi({
 	reducerPath: "sectionsApi",
-	baseQuery: fetchBaseQuery({
-		baseUrl,
-		prepareHeaders: (headers) => {
-			const token = import.meta.env.VITE_ASANA_TOKEN;
-
-			if (token) {
-				headers.set("authorization", `Bearer ${token}`);
-			}
-
-			return headers;
-		},
-	}),
+	baseQuery: baseQuery(BASE_URL),
 	tagTypes: ["Section"],
 	endpoints: (builder) => ({
 		getSections: builder.query<SectionResponse, void>({
-			query: () => `/projects/${projectGid}/sections?opt_fields=name`,
+			query: () => `/projects/${PROJECT_GID}/sections?opt_fields=name`,
 			providesTags: ["Section"],
 		}),
 		updateSection: builder.mutation<void, Section>({

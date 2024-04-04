@@ -1,21 +1,22 @@
-import { BadgeTypeEnum } from "../../components/atoms";
+import { Section } from "./section";
+import { TagType } from "./tag";
 
-// TODO: Lépe zorganizovat typy -> rozdělit do samostatných souborů
 export type TaskResponse = {
 	data: Task[];
 };
 
-export type createTaskResponse = {
+export type CreateTaskResponse = {
 	data: Task;
-}
-
-export type SectionResponse = {
-	data: Section[];
-}
+};
 
 export type AttachmentResponse = {
 	data: Attachment[];
-}
+};
+
+export type TaskTagArgs = {
+	taskGid: string;
+	tagGid: string;
+};
 
 export type Task = {
 	gid: string;
@@ -29,22 +30,7 @@ type Membership = {
 	section: Section[];
 };
 
-export type Section = {
-	gid: string;
-	name: string;
-};
-
-export type TagResponse = {
-	data: TagType[]
-}
-
-export type TagType = {
-	gid: string;
-	name: string;
-	color: BadgeTypeEnum;
-};
-
 type Attachment = {
 	gid: string;
 	download_url: string;
-}
+};

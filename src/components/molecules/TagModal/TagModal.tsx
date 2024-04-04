@@ -8,7 +8,7 @@ import {
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TagSchema, newTagSchema, tagSchema } from "../../../schema/tag";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TagType } from "../../../app/types/task";
+import { TagType } from "../../../app/types";
 
 type TagModalProps = {
 	tag?: TagType;
@@ -51,7 +51,7 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 	const onSubmit: SubmitHandler<TagSchema> = async (data) => {
 		try {
 			if (data.gid) {
-				await updateTag({ ...data, tagGid: data.gid });
+				await updateTag({ ...data });
 			} else {
 				await createTag({ ...data });
 			}

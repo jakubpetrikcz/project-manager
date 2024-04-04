@@ -11,8 +11,8 @@ import { Button, ButtonEnum, IconButton, Tag, TextInput } from "../../atoms";
 import { VerticalDotsIcon } from "../../ui/icons";
 import { OptionMenu } from "..";
 import { removeTask } from "../../../app/features/tasksSlice";
-import { TagType } from "../../../app/types/task";
 import Skeleton from "react-loading-skeleton";
+import { TagType } from "../../../app/types";
 
 type BoardCardHeaderProps = {
 	gid: string;

@@ -9,12 +9,7 @@ export const NavMenu = () => {
 			<ul>
 				{menu.map((link) => (
 					<li key={link.name}>
-						<NavLink
-							key={link.name}
-							name={link.name}
-							icon={link.icon}
-							path={link.path}
-						/>
+						<NavLink key={link.name} {...link} />
 					</li>
 				))}
 			</ul>

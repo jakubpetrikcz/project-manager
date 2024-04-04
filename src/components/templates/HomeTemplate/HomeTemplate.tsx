@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import styles from "./HomeTemplate.module.scss";
 import { SideBar } from "../../organisms";
 
-const HomeTemplate = () => {
+export const HomeTemplate = () => {
 	return (
 		<div className={styles.container}>
 			<SideBar />
@@ -11,5 +11,3 @@ const HomeTemplate = () => {
 		</div>
 	);
 };
-
-export default HomeTemplate;

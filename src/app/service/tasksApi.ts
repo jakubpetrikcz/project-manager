@@ -1,35 +1,26 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import {
 	AttachmentResponse,
 	TaskResponse,
-	createTaskResponse,
+	CreateTaskResponse,
+	TaskTagArgs,
 } from "../types/task";
+import { baseQuery } from "./baseQuery";
 
-const baseUrl = import.meta.env.VITE_ASANA_BASE_URL;
-const projectGid = import.meta.env.VITE_ASANA_PROJECT_GID;
+const BASE_URL = import.meta.env.VITE_ASANA_BASE_URL;
+const PROJECT_GID = import.meta.env.VITE_ASANA_PROJECT_GID;
 
 export const tasksApi = createApi({
 	reducerPath: "tasksApi",
-	baseQuery: fetchBaseQuery({
-		baseUrl,
-		prepareHeaders: (headers) => {
-			const token = import.meta.env.VITE_ASANA_TOKEN;
-
-			if (token) {
-				headers.set("authorization", `Bearer ${token}`);
-			}
-
-			return headers;
-		},
-	}),
+	baseQuery: baseQuery(BASE_URL),
 	tagTypes: ["Task", "Attachment"],
 	endpoints: (builder) => ({
-		getTasks: builder.query<TaskResponse, string | undefined>({
+		getTasks: builder.query<TaskResponse, string>({
 			query: (sectionGid) =>
 				`/sections/${sectionGid}/tasks?opt_fields=memberships.section.name,notes,name,tags.name,tags.color`,
 			providesTags: ["Task"],
 		}),
-		getAttachments: builder.query<AttachmentResponse, string | undefined>({
+		getAttachments: builder.query<AttachmentResponse, string>({
 			query: (taskGid) =>
 				`attachments?parent=${taskGid}&opt_fields=download_url`,
 			providesTags: ["Attachment"],
@@ -51,9 +42,8 @@ export const tasksApi = createApi({
 			}),
 			invalidatesTags: ["Attachment"],
 		}),
-		// TODO: dořešit type
 		createTask: builder.mutation<
-			createTaskResponse,
+			CreateTaskResponse,
 			{ sectionGid: string; name: string }
 		>({
 			query: ({ sectionGid, name }) => ({
@@ -62,10 +52,10 @@ export const tasksApi = createApi({
 				body: JSON.stringify({
 					data: {
 						name,
-						projects: [projectGid],
+						projects: [PROJECT_GID],
 						memberships: [
 							{
-								project: projectGid,
+								project: PROJECT_GID,
 								section: sectionGid,
 							},
 						],
@@ -75,7 +65,6 @@ export const tasksApi = createApi({
 			}),
 			invalidatesTags: ["Task"],
 		}),
-		// TODO: dořešit type
 		updateTask: builder.mutation<
 			void,
 			{ gid: string; name?: string; notes?: string }
@@ -94,10 +83,7 @@ export const tasksApi = createApi({
 			}),
 			invalidatesTags: ["Task"],
 		}),
-		addTagToTask: builder.mutation<
-			void,
-			{ taskGid: string; tagGid: string }
-		>({
+		addTagToTask: builder.mutation<void, TaskTagArgs>({
 			query: ({ taskGid, tagGid }) => ({
 				url: `/tasks/${taskGid}/addTag`,
 				method: "POST",
@@ -105,10 +91,7 @@ export const tasksApi = createApi({
 			}),
 			invalidatesTags: ["Task"],
 		}),
-		removeTagFromTask: builder.mutation<
-			void,
-			{ taskGid: string; tagGid: string }
-		>({
+		removeTagFromTask: builder.mutation<void, TaskTagArgs>({
 			query: ({ taskGid, tagGid }) => ({
 				url: `/tasks/${taskGid}/removeTag`,
 				method: "POST",

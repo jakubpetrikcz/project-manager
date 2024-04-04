@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import DashboardPage from "../components/pages/DashboardPage/DashboardPage";
-import HomeTemplate from "../components/templates/HomeTemplate/HomeTemplate";
-import TagsPage from "../components/pages/TagsPage/TagsPage";
+import { HomeTemplate } from "../components/templates";
+import { DashboardPage, TagsPage } from "../components/pages";
 
 const router = createBrowserRouter([
 	{

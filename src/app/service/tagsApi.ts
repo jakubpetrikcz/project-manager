@@ -1,44 +1,30 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { TagResponse } from "../types/task";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { TagResponse, TagType } from "../types";
+import { baseQuery } from "./baseQuery";
 
-const baseUrl = import.meta.env.VITE_ASANA_BASE_URL;
-const workspace_gid = import.meta.env.VITE_ASANA_WORKSPACE_GID;
+const BASE_URL = import.meta.env.VITE_ASANA_BASE_URL;
+const WORKSPACE_GID = import.meta.env.VITE_ASANA_WORKSPACE_GID;
 
 export const tagsApi = createApi({
 	reducerPath: "tagsApi",
-	baseQuery: fetchBaseQuery({
-		baseUrl,
-		prepareHeaders: (headers) => {
-			const token = import.meta.env.VITE_ASANA_TOKEN;
-
-			if (token) {
-				headers.set("authorization", `Bearer ${token}`);
-			}
-
-			return headers;
-		},
-	}),
+	baseQuery: baseQuery(BASE_URL),
 	tagTypes: ["Tags"],
 	endpoints: (builder) => ({
 		getTags: builder.query<TagResponse, void>({
 			query: () => "/tags?opt_fields=color,name",
 			providesTags: ["Tags"],
 		}),
-		// TODO: dořešit typ
 		createTag: builder.mutation<void, { name: string; color: string }>({
 			query: ({ name, color }) => ({
-				url: `/workspaces/${workspace_gid}/tags`,
+				url: `/workspaces/${WORKSPACE_GID}/tags`,
 				method: "POST",
 				body: JSON.stringify({ data: { name, color } }),
 			}),
 			invalidatesTags: ["Tags"],
 		}),
-		updateTag: builder.mutation<
-			void,
-			{ tagGid: string; name: string; color: string }
-		>({
-			query: ({ tagGid, name, color }) => ({
-				url: `/tags/${tagGid}`,
+		updateTag: builder.mutation<void, TagType>({
+			query: ({ gid, name, color }) => ({
+				url: `/tags/${gid}`,
 				method: "PUT",
 				body: JSON.stringify({ data: { name, color } }),
 			}),

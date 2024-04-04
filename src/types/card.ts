@@ -1,4 +1,4 @@
-import { TagType } from "../app/types/task";
+import { TagType } from "../app/types";
 
 export type BoardHeaderType = {
 	gid: string;
