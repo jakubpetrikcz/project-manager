@@ -1,6 +1,7 @@
-import styles from "./Board.module.scss";
-import { BoardHeaderSection, BoardSection } from "../../molecules";
 import { useGetSectionsQuery } from "../../../app/service/sectionsApi";
+import { BoardHeaderSection, BoardSection } from "../../molecules";
+
+import styles from "./Board.module.scss";
 
 export const Board = () => {
 	const {

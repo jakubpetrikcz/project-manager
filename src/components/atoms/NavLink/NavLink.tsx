@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { NavLinkType } from "../../../types/navLink";
 import { Link, useLocation } from "react-router-dom";
+import classNames from "classnames";
+
+import { NavLinkType } from "../../../types/navLink";
 
 import styles from "./NavLink.module.scss";
-import classNames from "classnames";
 
 export const NavLink = ({ name, icon, fillIcon, path }: NavLinkType) => {
 	const { pathname } = useLocation();

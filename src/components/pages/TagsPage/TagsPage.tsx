@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { setVisibility } from "../../../app/features/uiSlice";
+import { AppDispatch } from "../../../app/store";
+import { TagType } from "../../../app/types";
 import { Button } from "../../atoms";
+import { PageHeader } from "../../molecules";
+import { TagsPageContent } from "../../organisms";
 import { PlusIcon } from "../../ui/icons";
 
 import styles from "./TagsPage.module.scss";
-import { PageHeader } from "../../molecules";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../app/store";
-import { setVisibility } from "../../../app/features/uiSlice";
-import { TagsPageContent } from "../../organisms";
-import { TagType } from "../../../app/types";
 
 export const TagsPage = () => {
 	const dispatch = useDispatch<AppDispatch>();

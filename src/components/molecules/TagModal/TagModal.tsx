@@ -1,14 +1,16 @@
-import { ModalWindow } from "..";
-import { BadgeTypeEnum, Button, Dropdown, TextInput } from "../../atoms";
-import styles from "./TagModal.module.scss";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
 	useCreateTagMutation,
 	useUpdateTagMutation,
 } from "../../../app/service/tagsApi";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { TagSchema, newTagSchema, tagSchema } from "../../../schema/tag";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { TagType } from "../../../app/types";
+import { newTagSchema, TagSchema, tagSchema } from "../../../schema/tag";
+import { BadgeTypeEnum, Button, Dropdown, TextInput } from "../../atoms";
+import { ModalWindow } from "..";
+
+import styles from "./TagModal.module.scss";
 
 type TagModalProps = {
 	tag?: TagType;

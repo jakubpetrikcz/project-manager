@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Task } from "../types/task";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { tasksApi } from "../service/tasksApi";
+import { Task } from "../types/task";
 
 type TasksState = {
 	[sectionGid: string]: Task[];

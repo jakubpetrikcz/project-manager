@@ -1,16 +1,17 @@
 import { MouseEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import styles from "./TagsPageContent.module.scss";
+import { setVisibility } from "../../../app/features/uiSlice";
 import {
 	useDeleteTagMutation,
 	useGetTagsQuery,
 } from "../../../app/service/tagsApi";
-import { RemovableComponent, TagModal } from "../../molecules";
-import { Tag } from "../../atoms";
-import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
-import { setVisibility } from "../../../app/features/uiSlice";
 import { TagType } from "../../../app/types";
+import { Tag } from "../../atoms";
+import { DeleteWrapper, TagModal } from "../../molecules";
+
+import styles from "./TagsPageContent.module.scss";
 
 type TagsPageContentProps = {
 	tag?: TagType;
@@ -21,7 +22,7 @@ export const TagsPageContent = ({
 	tag,
 	openTagModal,
 }: TagsPageContentProps) => {
-	const { data, isLoading, isError } = useGetTagsQuery();
+	const { data: tags, isLoading, isError } = useGetTagsQuery();
 	const dispatch = useDispatch<AppDispatch>();
 	const isModalVisible = useSelector(
 		(state: RootState) => state.ui.visibility["tagModal"]
@@ -43,13 +44,13 @@ export const TagsPageContent = ({
 	return (
 		<>
 			<div className={styles.container}>
-				{data?.data.map((item) => (
-					<RemovableComponent
-						key={item.gid}
-						onClick={() => openTagModal(item)}
-						element={<Tag text={item.name} variant={item.color} />}
-						handleRemove={(event) => handleDelete(item.gid, event)}
-						showActionButton={!!item}
+				{tags?.data.map((tag) => (
+					<DeleteWrapper
+						key={tag.gid}
+						onClick={() => openTagModal(tag)}
+						element={<Tag text={tag.name} variant={tag.color} />}
+						handleRemove={(event) => handleDelete(tag.gid, event)}
+						showActionButton={!!tag}
 					/>
 				))}
 			</div>

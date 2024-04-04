@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
 
-import styles from "./HomeTemplate.module.scss";
 import { SideBar } from "../../organisms";
+
+import styles from "./HomeTemplate.module.scss";
 
 export const HomeTemplate = () => {
 	return (

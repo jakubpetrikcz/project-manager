@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-import styles from "./BoardDescriptionCardModal.module.scss";
-import { EditableText } from "..";
 import { useUpdateTaskMutation } from "../../../app/service/tasksApi";
+import { EditableText } from "..";
+
+import styles from "./BoardDescriptionCardModal.module.scss";
 
 type BoardDescriptionCardModalProps = {
 	gid: string;

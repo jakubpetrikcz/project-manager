@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { EditableText, RemovableComponent } from "..";
-import { Dropdown, IconButton, Tag } from "../../atoms";
-import styles from "./BoardHeaderCardModal.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setVisibility } from "../../../app/features/uiSlice";
 import { useGetTagsQuery } from "../../../app/service/tagsApi";
 import {
 	useAddTagToTaskMutation,
@@ -9,11 +9,13 @@ import {
 	useRemoveTagFromTaskMutation,
 	useUpdateTaskMutation,
 } from "../../../app/service/tasksApi";
-import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
-import { setVisibility } from "../../../app/features/uiSlice";
-import { PlusIcon } from "../../ui/icons";
 import { TagType } from "../../../app/types";
+import { Dropdown, IconButton, Tag } from "../../atoms";
+import { PlusIcon } from "../../ui/icons";
+import { DeleteWrapper,EditableText } from "..";
+
+import styles from "./BoardHeaderCardModal.module.scss";
 
 type BoardHeaderCardModalProps = {
 	gid: string;
@@ -82,7 +84,7 @@ export const BoardHeaderCardModal = ({
 			</div>
 			{tags.length > 0 ? (
 				tags.map((tag) => (
-					<RemovableComponent
+					<DeleteWrapper
 						key={tag.gid}
 						element={<Tag text={tag.name} variant={tag.color} />}
 						handleRemove={() => handleRemoveTagFromTask(tag)}

@@ -1,4 +1,4 @@
-import { ChangeEvent, RefObject, KeyboardEvent } from "react";
+import { ChangeEvent, KeyboardEvent,RefObject } from "react";
 
 import styles from "./TextArea.module.scss";
 

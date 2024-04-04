@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
+import classNames from "classnames";
+
+import { CaretDownIcon, CaretUpIcon } from "../../ui/icons";
+import { Portal } from "..";
 
 import styles from "./Dropdown.module.scss";
-import { CaretDownIcon, CaretUpIcon } from "../../ui/icons";
-import classNames from "classnames";
-import { Portal } from "..";
 
 type DropdownOptions = { id: string; value: string }[];
 

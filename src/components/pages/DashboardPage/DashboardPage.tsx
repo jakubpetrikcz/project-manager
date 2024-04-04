@@ -1,5 +1,6 @@
 import { PageHeader } from "../../molecules";
 import { Board } from "../../templates";
+
 import styles from "./DashboardPage.module.scss";
 
 export const DashboardPage = () => {

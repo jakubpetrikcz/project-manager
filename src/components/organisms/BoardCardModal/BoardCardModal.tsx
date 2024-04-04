@@ -1,14 +1,15 @@
-import { BoardCardType } from "../../../types/card";
-import { Attachment } from "../../atoms";
 import { ChangeEvent } from "react";
+
 import {
 	useDeleteAttachmentMutation,
 	useUploadAttachmentsMutation,
 } from "../../../app/service/tasksApi";
+import { BoardCardType } from "../../../types/card";
+import { Attachment } from "../../atoms";
 import {
 	BoardDescriptionCardModal,
 	BoardHeaderCardModal,
-	RemovableComponent,
+	DeleteWrapper,
 } from "../../molecules";
 
 type BoardCardModalProps = BoardCardType & {
@@ -66,7 +67,7 @@ export const BoardCardModal = ({
 		<>
 			<BoardHeaderCardModal gid={gid} name={name} tags={tags} />
 			<BoardDescriptionCardModal gid={gid} notes={notes} />
-			<RemovableComponent
+			<DeleteWrapper
 				element={<Attachment onChange={handleUpload} imgSrc={imgSrc} />}
 				handleRemove={handleRemoveAttachment}
 				showActionButton={!!imgSrc}

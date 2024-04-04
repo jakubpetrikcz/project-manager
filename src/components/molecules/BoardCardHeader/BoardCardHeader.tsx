@@ -1,25 +1,22 @@
-import { useState, MouseEvent, useEffect, useRef, KeyboardEvent } from "react";
-
-import styles from "./BoardCardHeader.module.scss";
-import { AppDispatch } from "../../../app/store";
+import { KeyboardEvent,MouseEvent, useEffect, useRef, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 import { useDispatch } from "react-redux";
+
+import { removeTask } from "../../../app/features/tasksSlice";
 import {
 	useCreateTaskMutation,
 	useDeleteTaskMutation,
 } from "../../../app/service/tasksApi";
+import { AppDispatch } from "../../../app/store";
+import { BoardCardType } from "../../../types/card";
 import { Button, ButtonEnum, IconButton, Tag, TextInput } from "../../atoms";
 import { VerticalDotsIcon } from "../../ui/icons";
 import { OptionMenu } from "..";
-import { removeTask } from "../../../app/features/tasksSlice";
-import Skeleton from "react-loading-skeleton";
-import { TagType } from "../../../app/types";
 
-type BoardCardHeaderProps = {
-	gid: string;
-	imgSrc: string;
+import styles from "./BoardCardHeader.module.scss";
+
+type BoardCardHeaderProps = Omit<BoardCardType, "notes"> & {
 	sectionGid: string;
-	name: string;
-	tags: TagType[];
 };
 
 export const BoardCardHeader = ({

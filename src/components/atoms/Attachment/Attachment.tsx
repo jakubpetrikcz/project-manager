@@ -1,7 +1,9 @@
 import { ChangeEvent, useRef } from "react";
-import styles from "./Attachment.module.scss";
-import { PlusIcon } from "../../ui/icons";
 import classNames from "classnames";
+
+import { PlusIcon } from "../../ui/icons";
+
+import styles from "./Attachment.module.scss";
 
 type AttachmentProps = {
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;

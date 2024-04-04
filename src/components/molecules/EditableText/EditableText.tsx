@@ -1,22 +1,26 @@
-import React, {
+import {
+	ChangeEvent,
+	Dispatch,
 	KeyboardEvent,
 	ReactNode,
+	RefObject,
+	SetStateAction,
 	useEffect,
 	useRef,
-	RefObject,
 } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import classNames from "classnames";
+
+import { setVisibility } from "../../../app/features/uiSlice";
+import { AppDispatch, RootState } from "../../../app/store";
+import { TextArea, TextInput } from "../../atoms";
 
 import styles from "./EditableText.module.scss";
-import { TextArea, TextInput } from "../../atoms";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../app/store";
-import { setVisibility } from "../../../app/features/uiSlice";
-import classNames from "classnames";
 
 type EditableTextProps = {
 	gid: string;
 	text: string;
-	setText: React.Dispatch<React.SetStateAction<string>>;
+	setText: Dispatch<SetStateAction<string>>;
 	updateText: () => void;
 	children: ReactNode;
 	emptyText?: string;
@@ -63,7 +67,7 @@ export const EditableText = ({
 	const commonProps = {
 		value: text,
 		onChange: (
-			event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+			event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 		) => setText(event.target.value),
 		onBlur: handleBlur,
 		onKeyUp: handleKeyUp,

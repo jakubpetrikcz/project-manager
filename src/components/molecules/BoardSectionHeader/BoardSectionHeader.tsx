@@ -1,17 +1,22 @@
-import { useState, MouseEvent } from "react";
+import { MouseEvent,useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { setVisibility } from "../../../app/features/uiSlice";
+import { useUpdateSectionMutation } from "../../../app/service/sectionsApi";
+import { useGetTasksQuery } from "../../../app/service/tasksApi";
+import { AppDispatch } from "../../../app/store";
+import { Badge, Button, ButtonEnum, Card, IconButton } from "../../atoms";
+import { HorizontalDotsIcon } from "../../ui/icons";
+import { EditableText, OptionMenu } from "..";
 
 import styles from "./BoardSectionHeader.module.scss";
-import { BoardHeaderType } from "../../../types/card";
-import { HorizontalDotsIcon } from "../../ui/icons";
-import { Badge, Button, ButtonEnum, Card, IconButton } from "../../atoms";
-import { useGetTasksQuery } from "../../../app/service/tasksApi";
-import { EditableText, OptionMenu } from "..";
-import { useUpdateSectionMutation } from "../../../app/service/sectionsApi";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../app/store";
-import { setVisibility } from "../../../app/features/uiSlice";
 
-export const BoardHeaderSection = ({ gid, title }: BoardHeaderType) => {
+type BoardSectionHeaderProps = {
+	gid: string;
+	title: string;
+};
+
+export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const [showMenu, setShowMenu] = useState(false);

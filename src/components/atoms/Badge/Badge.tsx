@@ -1,6 +1,8 @@
-import { BadgeTypeEnum } from ".";
-import styles from "./Badge.module.scss";
 import classNames from "classnames";
+
+import { BadgeTypeEnum } from ".";
+
+import styles from "./Badge.module.scss";
 
 export type BadgeProps = {
 	text: string;

@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
+import classNames from "classnames";
+
+import { IconButton, Portal } from "../../atoms";
+import { CloseIcon } from "../../ui/icons/components";
 
 import styles from "./ModalWindow.module.scss";
-import classNames from "classnames";
-import { CloseIcon } from "../../ui/icons/components";
-import { IconButton, Portal } from "../../atoms";
 
 type ModalWindowProps = {
 	backgroundImage?: string;

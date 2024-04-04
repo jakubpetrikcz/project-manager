@@ -1,7 +1,7 @@
 import { ChangeEvent, KeyboardEvent, RefObject } from "react";
+import classNames from "classnames";
 
 import styles from "./TextInput.module.scss";
-import classNames from "classnames";
 
 type TextInputProps = {
 	name?: string;

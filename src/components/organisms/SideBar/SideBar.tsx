@@ -1,8 +1,9 @@
 import { useState } from "react";
+import classNames from "classnames";
+
+import { LogoContainer, NavMenu } from "../../molecules";
 
 import styles from "./SideBar.module.scss";
-import classNames from "classnames";
-import { LogoContainer, NavMenu } from "../../molecules";
 
 export const SideBar = () => {
 	const [isOpen, setIsOpen] = useState(true);

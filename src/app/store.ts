@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { tasksApi } from "./service/tasksApi";
-import { sectionsApi } from "./service/sectionsApi";
+
 import { tasksSlice } from "./features/tasksSlice";
 import { uiSlice } from "./features/uiSlice";
+import { sectionsApi } from "./service/sectionsApi";
 import { tagsApi } from "./service/tagsApi";
+import { tasksApi } from "./service/tasksApi";
 
 const apis = {
 	[tasksApi.reducerPath]: tasksApi.reducer,

@@ -1,11 +1,13 @@
-import { useState, DragEvent } from "react";
-import { BoardCardHeader, ModalWindow } from "../../molecules";
+import { DragEvent,useState } from "react";
+
 import { useGetAttachmentsQuery } from "../../../app/service/tasksApi";
 import { BoardCardType } from "../../../types/card";
 import { removeLinks } from "../../../utils/removeLinks";
 import { Card } from "../../atoms";
-import styles from "./BoardCard.module.scss";
+import { BoardCardHeader, ModalWindow } from "../../molecules";
 import { BoardCardModal } from "..";
+
+import styles from "./BoardCard.module.scss";
 
 type BoardCardProps = BoardCardType & {
 	sectionGid: string;

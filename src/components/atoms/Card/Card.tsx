@@ -1,7 +1,7 @@
-import { ReactNode, DragEvent } from "react";
+import { DragEvent,ReactNode } from "react";
+import classNames from "classnames";
 
 import styles from "./Card.module.scss";
-import classNames from "classnames";
 
 type CardProps = {
 	className?: string;

@@ -1,17 +1,19 @@
 import { DragEvent, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addTask, moveTask } from "../../../app/features/tasksSlice";
 import {
 	useAddTaskToSectionMutation,
 	useGetTasksQuery,
 } from "../../../app/service/tasksApi";
-import { BoardCard } from "../../organisms/BoardCard";
+import { AppDispatch } from "../../../app/store";
+import { Button } from "../../atoms";
+import { BoardCard } from "../../organisms";
+import { CirclePlusIcon } from "../../ui/icons";
+
+import { makeSelectTasksBySection } from "./utils/selectors";
 
 import styles from "./BoardSection.module.scss";
-import { Button } from "../../atoms";
-import { CirclePlusIcon } from "../../ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../../app/store";
-import { addTask, moveTask } from "../../../app/features/tasksSlice";
-import { makeSelectTasksBySection } from "./utils/selectors";
 
 type BoardSectionProps = {
 	sectionGid: string;

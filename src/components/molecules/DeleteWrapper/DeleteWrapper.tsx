@@ -1,23 +1,24 @@
 import { MouseEvent, ReactNode } from "react";
-
-import styles from "./RemovableComponent.module.scss";
-import { IconButton } from "../../atoms";
-import { CloseIcon } from "../../ui/icons";
 import classNames from "classnames";
 
-type RemovableComponentProps = {
+import { IconButton } from "../../atoms";
+import { CloseIcon } from "../../ui/icons";
+
+import styles from "./DeleteWrapper.module.scss";
+
+type DeleteWrapperProps = {
 	onClick?: () => void;
 	element: ReactNode;
 	handleRemove: (event?: MouseEvent<HTMLButtonElement>) => void;
 	showActionButton: boolean;
 };
 
-export const RemovableComponent = ({
+export const DeleteWrapper = ({
 	onClick,
 	element,
 	handleRemove,
 	showActionButton,
-}: RemovableComponentProps) => {
+}: DeleteWrapperProps) => {
 	return (
 		<div
 			className={classNames(styles.container, {

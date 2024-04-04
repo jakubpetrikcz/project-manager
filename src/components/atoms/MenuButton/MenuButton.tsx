@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+
 import styles from "./MenuButton.module.scss";
 
 type MenuButtonProps = {

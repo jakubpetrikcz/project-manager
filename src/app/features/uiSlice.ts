@@ -1,8 +1,8 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type UiState = {
 	visibility: { [key: string]: boolean };
-}
+};
 
 const initialState: UiState = {
 	visibility: {},

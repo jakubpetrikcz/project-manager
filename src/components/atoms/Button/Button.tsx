@@ -1,8 +1,9 @@
 import { MouseEvent, ReactNode } from "react";
+import classNames from "classnames";
+
+import { ButtonEnum } from "./ButtonEnums";
 
 import styles from "./Button.module.scss";
-import classNames from "classnames";
-import { ButtonEnum } from "./ButtonEnums";
 
 export type ButtonProps = {
 	text?: string;
