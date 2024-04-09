@@ -1,6 +1,6 @@
-import { DragEvent,useState } from "react";
+import { DragEvent, useState } from "react";
 
-import { useGetAttachmentsQuery } from "../../../app/service/tasksApi";
+import { useGetAttachmentsQuery } from "../../../app/service/attachmentsApi";
 import { BoardCardType } from "../../../types/card";
 import { removeLinks } from "../../../utils/removeLinks";
 import { Card } from "../../atoms";

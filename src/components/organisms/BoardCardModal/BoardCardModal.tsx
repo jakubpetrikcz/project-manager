@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
 import {
 	useDeleteAttachmentMutation,
 	useUploadAttachmentsMutation,
-} from "../../../app/service/tasksApi";
+} from "../../../app/service/attachmentsApi";
 import { BoardCardType } from "../../../types/card";
 import { Attachment } from "../../atoms";
 import {
