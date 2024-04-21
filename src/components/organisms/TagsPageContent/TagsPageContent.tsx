@@ -35,9 +35,9 @@ export const TagsPageContent = ({
 
 	const handleDelete = (
 		gid: string,
-		event?: MouseEvent<HTMLButtonElement>
+		event: MouseEvent<HTMLButtonElement>
 	) => {
-		event?.stopPropagation();
+		event.stopPropagation();
 		deleteTag(gid);
 	};
 

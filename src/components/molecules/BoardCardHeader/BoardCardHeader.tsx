@@ -1,4 +1,4 @@
-import { KeyboardEvent,MouseEvent, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch } from "react-redux";
 
@@ -46,13 +46,13 @@ export const BoardCardHeader = ({
 
 	if (isSuccess) return <div></div>;
 
-	const openMenu = (event?: MouseEvent<HTMLButtonElement>) => {
-		event?.stopPropagation();
+	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
 		setIsMenuVisible(true);
 	};
 
-	const deleteItem = (event?: MouseEvent<HTMLButtonElement>) => {
-		event?.stopPropagation();
+	const deleteItem = (event: MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
 		dispatch(removeTask({ sectionGid, gid }));
 		deleteTask(gid);
 	};
@@ -79,7 +79,13 @@ export const BoardCardHeader = ({
 
 	return (
 		<>
-			{imgSrc && <img src={imgSrc} className={styles.backgroundImage} />}
+			{imgSrc && (
+				<img
+					src={imgSrc}
+					className={styles.backgroundImage}
+					alt={name}
+				/>
+			)}
 			{tags.map((tag) => (
 				<Tag key={tag.gid} text={tag.name} variant={tag.color} />
 			))}
@@ -93,7 +99,7 @@ export const BoardCardHeader = ({
 									setEditableText(event.target.value)
 								}
 								inputRef={inputRef}
-								onKeyUp={(event) => handleKeyUp(event)}
+								onKeyUp={handleKeyUp}
 								onBlur={handleBlur}
 							/>
 						) : (
@@ -102,7 +108,7 @@ export const BoardCardHeader = ({
 					</div>
 					<IconButton
 						icon={<VerticalDotsIcon />}
-						onClick={(event) => openMenu(event)}
+						onClick={openMenu}
 						className={styles.icon}
 					/>
 					{isMenuVisible && (
@@ -110,7 +116,7 @@ export const BoardCardHeader = ({
 							<Button
 								text="Odstranit"
 								variant={ButtonEnum.transparent}
-								onClick={(event) => deleteItem(event)}
+								onClick={deleteItem}
 							/>
 						</OptionMenu>
 					)}

@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import imageCompression from "browser-image-compression";
 
 import {
 	useDeleteAttachmentMutation,
@@ -30,19 +31,24 @@ export const BoardCardModal = ({
 	const handleUpload = async (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files[0]) {
 			const file = event.target.files[0];
-			const reader = new FileReader();
 
-			reader.onloadend = async () => {
-				const base64Data = reader.result as string;
-				const base64Content = base64Data.split(",")[1];
+			const options = {
+				maxSizeMB: 1,
+				maxWidthOrHeight: 800,
+				useWebWorker: true,
+				fileType: "image/webp",
+				initialQuality: 0.8,
+			};
 
-				const base64Response = await fetch(
-					`data:${file.type};base64,${base64Content}`
-				);
-				const blob = await base64Response.blob();
+			try {
+				const compressedFile = await imageCompression(file, options);
 
 				const formData = new FormData();
-				formData.append("file", blob, file.name);
+				formData.append(
+					"file",
+					compressedFile,
+					file.name.replace(/\.\w+$/, ".webp")
+				);
 				formData.append("parent", gid);
 
 				await uploadAttachments({
@@ -51,9 +57,9 @@ export const BoardCardModal = ({
 				});
 
 				handleRemoveAttachment();
-			};
-
-			reader.readAsDataURL(file);
+			} catch (error) {
+				console.error("Chyba při kompresi obrázku:", error);
+			}
 		}
 	};
 

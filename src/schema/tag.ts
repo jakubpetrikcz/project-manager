@@ -11,5 +11,4 @@ export const tagSchema = newTagSchema.extend({
 	gid: z.string(),
 });
 
-export type NewTagSchema = z.infer<typeof newTagSchema>;
 export type TagSchema = z.infer<typeof tagSchema>;

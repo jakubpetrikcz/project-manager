@@ -84,7 +84,7 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 		<div
 			className={styles.section}
 			data-section-gid={sectionGid}
-			onDragOver={(e) => e.preventDefault()}
+			onDragOver={(event) => event.preventDefault()}
 			onDrop={handleOnDrop}
 		>
 			{sectionTasks.map((card) => (

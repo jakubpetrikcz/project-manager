@@ -1,4 +1,4 @@
-import { MouseEvent,useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { setVisibility } from "../../../app/features/uiSlice";
@@ -36,8 +36,8 @@ export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 		});
 	};
 
-	const openMenu = (event?: MouseEvent<HTMLButtonElement>) => {
-		event?.stopPropagation();
+	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
 		setShowMenu(true);
 	};
 
@@ -65,7 +65,7 @@ export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 			<div className={styles.right}>
 				<IconButton
 					icon={<HorizontalDotsIcon />}
-					onClick={(event) => openMenu(event)}
+					onClick={openMenu}
 					className={styles.icon}
 				/>
 				{showMenu && (

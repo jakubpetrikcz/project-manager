@@ -1,11 +1,11 @@
-import { MouseEvent,ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 import classNames from "classnames";
 
 import styles from "./IconButton.module.scss";
 
 type IconButtonProps = {
 	icon: ReactNode;
-	onClick: (event?: MouseEvent<HTMLButtonElement>) => void;
+	onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 	className?: string;
 };
 

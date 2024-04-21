@@ -9,7 +9,7 @@ import styles from "./DeleteWrapper.module.scss";
 type DeleteWrapperProps = {
 	onClick?: () => void;
 	element: ReactNode;
-	handleRemove: (event?: MouseEvent<HTMLButtonElement>) => void;
+	handleRemove: (event: MouseEvent<HTMLButtonElement>) => void;
 	showActionButton: boolean;
 };
 

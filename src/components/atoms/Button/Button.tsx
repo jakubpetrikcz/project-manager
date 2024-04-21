@@ -6,10 +6,10 @@ import { ButtonEnum } from "./ButtonEnums";
 import styles from "./Button.module.scss";
 
 export type ButtonProps = {
-	text?: string;
+	text: string;
 	icon?: ReactNode;
 	variant?: ButtonEnum;
-	onClick?: (event?: MouseEvent<HTMLButtonElement>) => void;
+	onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 	className?: string;
 	disabled?: boolean;
 };
