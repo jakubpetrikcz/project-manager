@@ -18,10 +18,7 @@ type BoardSectionHeaderProps = {
 
 export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 	const dispatch = useDispatch<AppDispatch>();
-
 	const [showMenu, setShowMenu] = useState(false);
-	const [text, setText] = useState(title);
-
 	const { data, isLoading, isError } = useGetTasksQuery(gid);
 	const [updateSection] = useUpdateSectionMutation();
 
@@ -29,7 +26,7 @@ export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 
 	if (isError || !data) return <div>Error</div>;
 
-	const handleUpdateSection = () => {
+	const handleUpdateSection = (text: string) => {
 		updateSection({
 			gid,
 			name: text || "Untitled section",
@@ -42,7 +39,7 @@ export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 	};
 
 	const handleRenameClick = () => {
-		dispatch(setVisibility({ id: gid, isVisible: true }));
+		dispatch(setVisibility({ id: `editHeader-${gid}`, isVisible: true }));
 		setShowMenu(false);
 	};
 
@@ -51,13 +48,12 @@ export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 			<div className={styles.left}>
 				<EditableText
 					gid={`editHeader-${gid}`}
-					text={text}
-					setText={setText}
-					updateText={handleUpdateSection}
+					value={title}
+					updateText={(text) => handleUpdateSection(text)}
 					emptyText="Untitled section"
 				>
 					<span className={styles.text}>
-						{text || "Untitled section"}
+						{title || "Untitled section"}
 					</span>
 				</EditableText>
 				<Badge text={data.data.length.toString()} />

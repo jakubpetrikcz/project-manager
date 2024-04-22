@@ -1,12 +1,11 @@
 import {
 	ChangeEvent,
-	Dispatch,
 	KeyboardEvent,
 	ReactNode,
 	RefObject,
-	SetStateAction,
 	useEffect,
 	useRef,
+	useState,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
@@ -19,9 +18,8 @@ import styles from "./EditableText.module.scss";
 
 type EditableTextProps = {
 	gid: string;
-	text: string;
-	setText: Dispatch<SetStateAction<string>>;
-	updateText: () => void;
+	value: string;
+	updateText: (text: string) => void;
 	children: ReactNode;
 	emptyText?: string;
 	className?: string;
@@ -30,14 +28,14 @@ type EditableTextProps = {
 
 export const EditableText = ({
 	gid,
-	text,
-	setText,
+	value,
 	updateText,
 	children,
 	emptyText,
 	className,
 	textarea,
 }: EditableTextProps) => {
+	const [text, setText] = useState(value);
 	const isEditing = useSelector(
 		(state: RootState) => state.ui.visibility[gid]
 	);
@@ -52,7 +50,7 @@ export const EditableText = ({
 
 	const handleBlur = () => {
 		dispatch(setVisibility({ id: gid, isVisible: false }));
-		updateText();
+		updateText(text);
 		if (!text && emptyText) setText(emptyText);
 	};
 

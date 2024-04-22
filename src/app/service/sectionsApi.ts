@@ -23,6 +23,28 @@ export const sectionsApi = createApi({
 				body: JSON.stringify({ data: { name } }),
 			}),
 			invalidatesTags: ["Section"],
+			onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
+				const patch = dispatch(
+					sectionsApi.util.updateQueryData(
+						"getSections",
+						undefined,
+						(draft) => {
+							const section = draft.data.find(
+								(section) => section.gid === arg.gid
+							);
+							if (section) {
+								section.name = arg.name;
+							}
+						}
+					)
+				);
+
+				try {
+					await queryFulfilled;
+				} catch {
+					patch.undo();
+				}
+			},
 		}),
 	}),
 });

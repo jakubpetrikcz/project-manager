@@ -13,7 +13,7 @@ import { AppDispatch, RootState } from "../../../app/store";
 import { TagType } from "../../../app/types";
 import { Dropdown, IconButton, Tag } from "../../atoms";
 import { PlusIcon } from "../../ui/icons";
-import { DeleteWrapper,EditableText } from "..";
+import { DeleteWrapper, EditableText } from "..";
 
 import styles from "./BoardHeaderCardModal.module.scss";
 
@@ -56,6 +56,7 @@ export const BoardHeaderCardModal = ({
 	};
 
 	const handleUpdateTitle = (title: string) => {
+		setEditableTitle(title);
 		updateTask({
 			gid,
 			name: title,
@@ -75,9 +76,8 @@ export const BoardHeaderCardModal = ({
 			<div className={styles.left}>
 				<EditableText
 					gid={`editTitle-${gid}`}
-					text={editableTitle}
-					setText={setEditableTitle}
-					updateText={() => handleUpdateTitle(editableTitle)}
+					value={name}
+					updateText={(text) => handleUpdateTitle(text)}
 				>
 					<h3 className={styles.title}>{editableTitle}</h3>
 				</EditableText>

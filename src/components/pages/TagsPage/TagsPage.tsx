@@ -15,8 +15,8 @@ export const TagsPage = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const [tag, setTag] = useState<TagType>();
 
-	const openTagModal = (item?: TagType) => {
-		setTag(item ? item : undefined);
+	const openTagModal = (tag?: TagType) => {
+		setTag(tag ? tag : undefined);
 		dispatch(setVisibility({ id: "tagModal", isVisible: true }));
 	};
 

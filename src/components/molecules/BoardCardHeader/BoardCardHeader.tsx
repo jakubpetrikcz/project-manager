@@ -1,5 +1,4 @@
 import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import Skeleton from "react-loading-skeleton";
 import { useDispatch } from "react-redux";
 
 import { removeTask } from "../../../app/features/tasksSlice";
@@ -38,13 +37,8 @@ export const BoardCardHeader = ({
 		}
 	}, [isCreating]);
 
-	const [deleteTask, { isLoading: isDeleteLoading, isSuccess }] =
-		useDeleteTaskMutation();
+	const [deleteTask] = useDeleteTaskMutation();
 	const [createTask] = useCreateTaskMutation();
-
-	if (isDeleteLoading) return <Skeleton />;
-
-	if (isSuccess) return <div></div>;
 
 	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
 		event.stopPropagation();

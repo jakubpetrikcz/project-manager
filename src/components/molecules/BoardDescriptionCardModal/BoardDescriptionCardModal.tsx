@@ -19,11 +19,13 @@ export const BoardDescriptionCardModal = ({
 	const [updateTask] = useUpdateTaskMutation();
 
 	const handleUpdateText = (text: string) => {
+		setEditableText(text);
 		updateTask({
 			gid,
 			notes: text,
 		});
 	};
+
 	return (
 		<div className={styles.description}>
 			<span>
@@ -31,9 +33,8 @@ export const BoardDescriptionCardModal = ({
 			</span>
 			<EditableText
 				gid={`editText-${gid}`}
-				text={editableText}
-				setText={setEditableText}
-				updateText={() => handleUpdateText(editableText)}
+				value={editableText}
+				updateText={(text) => handleUpdateText(text)}
 				className={styles.edit}
 				textarea
 			>

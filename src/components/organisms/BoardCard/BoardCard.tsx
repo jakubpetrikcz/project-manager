@@ -57,7 +57,9 @@ export const BoardCard = ({
 					name={name}
 					tags={tags}
 				/>
-				{description && <p>{description}</p>}
+				{description && (
+					<p className={styles.description}>{description}</p>
+				)}
 			</Card>
 			{isModalVisible && (
 				<ModalWindow

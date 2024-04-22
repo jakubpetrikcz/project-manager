@@ -1,11 +1,11 @@
 import { ChangeEvent } from "react";
-import imageCompression from "browser-image-compression";
 
 import {
 	useDeleteAttachmentMutation,
 	useUploadAttachmentsMutation,
 } from "../../../app/service/attachmentsApi";
 import { BoardCardType } from "../../../types/card";
+import { compressImg } from "../../../utils/compressImg";
 import { Attachment } from "../../atoms";
 import {
 	BoardDescriptionCardModal,
@@ -15,6 +15,7 @@ import {
 
 type BoardCardModalProps = BoardCardType & {
 	attachmentGid?: string;
+	sectionGid?: string;
 };
 
 export const BoardCardModal = ({
@@ -30,35 +31,15 @@ export const BoardCardModal = ({
 
 	const handleUpload = async (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files[0]) {
-			const file = event.target.files[0];
-
-			const options = {
-				maxSizeMB: 1,
-				maxWidthOrHeight: 800,
-				useWebWorker: true,
-				fileType: "image/webp",
-				initialQuality: 0.8,
-			};
-
 			try {
-				const compressedFile = await imageCompression(file, options);
-
+				const compressedFile = await compressImg(event.target.files[0]);
 				const formData = new FormData();
-				formData.append(
-					"file",
-					compressedFile,
-					file.name.replace(/\.\w+$/, ".webp")
-				);
+				formData.append("file", compressedFile, compressedFile.name);
 				formData.append("parent", gid);
-
-				await uploadAttachments({
-					taskGid: gid,
-					file: formData,
-				});
-
+				await uploadAttachments({ taskGid: gid, file: formData });
 				handleRemoveAttachment();
 			} catch (error) {
-				console.error("Chyba při kompresi obrázku:", error);
+				console.error("Error compressing the image:", error);
 			}
 		}
 	};

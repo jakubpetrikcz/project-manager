@@ -1,6 +1,11 @@
 .card {
-	max-width: 300px;
 	display: grid;
 	gap: 10px;
 	cursor: pointer;
+    max-width: 100%;
+}
+
+.description {
+	word-wrap: break-word;
+    overflow: hidden;
 }
