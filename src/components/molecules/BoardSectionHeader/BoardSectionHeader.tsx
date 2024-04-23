@@ -33,9 +33,9 @@ export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 		});
 	};
 
-	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
+	const toggleMenu = (event: MouseEvent<HTMLButtonElement>) => {
 		event.stopPropagation();
-		setShowMenu(true);
+		setShowMenu((prevState) => !prevState);
 	};
 
 	const handleRenameClick = () => {
@@ -56,12 +56,12 @@ export const BoardHeaderSection = ({ gid, title }: BoardSectionHeaderProps) => {
 						{title || "Untitled section"}
 					</span>
 				</EditableText>
-				<Badge text={data.data.length.toString()} />
+				<Badge text={data?.data.length.toString() || "0"} />
 			</div>
 			<div className={styles.right}>
 				<IconButton
 					icon={<HorizontalDotsIcon />}
-					onClick={openMenu}
+					onClick={toggleMenu}
 					className={styles.icon}
 				/>
 				{showMenu && (

@@ -2,10 +2,7 @@ import { DragEvent, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addTask, moveTask } from "../../../app/features/tasksSlice";
-import {
-	useAddTaskToSectionMutation,
-	useGetTasksQuery,
-} from "../../../app/service/tasksApi";
+import { useAddTaskToSectionMutation } from "../../../app/service/tasksApi";
 import { AppDispatch } from "../../../app/store";
 import { Button } from "../../atoms";
 import { BoardCard } from "../../organisms";
@@ -26,12 +23,6 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 		selectTasksBySection(state, sectionGid)
 	);
 	const [moveTaskToSection] = useAddTaskToSectionMutation();
-
-	const { data: tasks, isLoading, isError } = useGetTasksQuery(sectionGid);
-
-	if (isLoading) return <div>Loading...</div>;
-
-	if (isError || !tasks) return <div>Error</div>;
 
 	const handleCreate = () => {
 		const newTask = {

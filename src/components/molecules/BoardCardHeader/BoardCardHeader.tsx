@@ -40,9 +40,9 @@ export const BoardCardHeader = ({
 	const [deleteTask] = useDeleteTaskMutation();
 	const [createTask] = useCreateTaskMutation();
 
-	const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
+	const toggleMenu = (event: MouseEvent<HTMLButtonElement>) => {
 		event.stopPropagation();
-		setIsMenuVisible(true);
+		setIsMenuVisible((prevState) => !prevState);
 	};
 
 	const deleteItem = (event: MouseEvent<HTMLButtonElement>) => {
@@ -102,7 +102,7 @@ export const BoardCardHeader = ({
 					</div>
 					<IconButton
 						icon={<VerticalDotsIcon />}
-						onClick={openMenu}
+						onClick={toggleMenu}
 						className={styles.icon}
 					/>
 					{isMenuVisible && (
