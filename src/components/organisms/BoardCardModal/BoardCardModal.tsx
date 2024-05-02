@@ -39,7 +39,7 @@ export const BoardCardModal = ({
 				await uploadAttachments({ taskGid: gid, file: formData });
 				handleRemoveAttachment();
 			} catch (error) {
-				console.error("Error compressing the image:", error);
+				console.error("Error uploading the image:", error);
 			}
 		}
 	};
