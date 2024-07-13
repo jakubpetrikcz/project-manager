@@ -1,20 +1,21 @@
-import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { removeTask } from "../../../app/features/tasksSlice";
+import { removeTask } from '../../../app/features/tasksSlice';
 import {
 	useCreateTaskMutation,
 	useDeleteTaskMutation,
-} from "../../../app/service/tasksApi";
-import { AppDispatch } from "../../../app/store";
-import { BoardCardType } from "../../../types/card";
-import { Button, ButtonEnum, IconButton, Tag, TextInput } from "../../atoms";
-import { VerticalDotsIcon } from "../../ui/icons";
-import { OptionMenu } from "..";
+} from '../../../app/service/tasksApi';
+import { AppDispatch } from '../../../app/store';
+import { PROJECT_GID_STORAGE_KEY } from '../../../constants';
+import { BoardCardType } from '../../../types/card';
+import { Button, ButtonEnum, IconButton, Tag, TextInput } from '../../atoms';
+import { VerticalDotsIcon } from '../../ui/icons';
+import { OptionMenu } from '..';
 
-import styles from "./BoardCardHeader.module.scss";
+import styles from './BoardCardHeader.module.scss';
 
-type BoardCardHeaderProps = Omit<BoardCardType, "notes"> & {
+type BoardCardHeaderProps = Omit<BoardCardType, 'notes'> & {
 	sectionGid: string;
 };
 
@@ -25,9 +26,10 @@ export const BoardCardHeader = ({
 	name,
 	tags,
 }: BoardCardHeaderProps) => {
+	const projectGid = localStorage.getItem(PROJECT_GID_STORAGE_KEY);
 	const dispatch = useDispatch<AppDispatch>();
 	const [isMenuVisible, setIsMenuVisible] = useState(false);
-	const [editableText, setEditableText] = useState("");
+	const [editableText, setEditableText] = useState('');
 	const [isCreating, setIsCreating] = useState<boolean>(!gid);
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -52,10 +54,11 @@ export const BoardCardHeader = ({
 	};
 
 	const handleKeyUp = async (event: KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === "Enter" && editableText) {
+		if (event.key === 'Enter' && editableText) {
 			setIsCreating(false);
 			createTask({
-				sectionGid: sectionGid,
+				projectGid,
+				sectionGid,
 				name: editableText,
 			});
 		}
@@ -65,7 +68,7 @@ export const BoardCardHeader = ({
 		if (!editableText) {
 			dispatch(removeTask({ sectionGid, gid }));
 		} else {
-			createTask({ sectionGid, name: editableText });
+			createTask({ projectGid, sectionGid, name: editableText });
 		}
 
 		setIsCreating(false);
@@ -108,7 +111,7 @@ export const BoardCardHeader = ({
 					{isMenuVisible && (
 						<OptionMenu setShowMenu={setIsMenuVisible}>
 							<Button
-								text="Odstranit"
+								text='Odstranit'
 								variant={ButtonEnum.transparent}
 								onClick={deleteItem}
 							/>

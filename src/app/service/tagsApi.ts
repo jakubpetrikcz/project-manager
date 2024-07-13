@@ -1,11 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
+import { WORKSPACE_GID_STORAGE_KEY } from "../../constants";
 import { TagResponse, TagType } from "../types";
 
 import { baseQuery } from "./baseQuery";
 
 const BASE_URL = import.meta.env.VITE_ASANA_BASE_URL;
-const WORKSPACE_GID = import.meta.env.VITE_ASANA_WORKSPACE_GID;
+const WORKSPACE_GID = localStorage.getItem(WORKSPACE_GID_STORAGE_KEY);
 
 export const tagsApi = createApi({
 	reducerPath: "tagsApi",

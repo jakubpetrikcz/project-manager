@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, moveTask } from "../../../app/features/tasksSlice";
 import { useAddTaskToSectionMutation } from "../../../app/service/tasksApi";
 import { AppDispatch } from "../../../app/store";
-import { Button } from "../../atoms";
+import { Button, ButtonEnum } from "../../atoms";
 import { BoardCard } from "../../organisms";
 import { CirclePlusIcon } from "../../ui/icons";
 
@@ -85,6 +85,7 @@ export const BoardSection = ({ sectionGid }: BoardSectionProps) => {
 				text="Add new"
 				icon={<CirclePlusIcon />}
 				onClick={handleCreate}
+				variant={ButtonEnum.secondary}
 				className={styles.createButton}
 			/>
 		</div>

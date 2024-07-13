@@ -1,13 +1,16 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 
-const TOKEN = import.meta.env.VITE_ASANA_TOKEN;
+import { ASANA_ACCESS_TOKEN_STORAGE_KEY } from '../../constants';
+
+const getToken = () => localStorage.getItem(ASANA_ACCESS_TOKEN_STORAGE_KEY);
 
 export const baseQuery = (baseUrl: string) =>
 	fetchBaseQuery({
 		baseUrl,
 		prepareHeaders: (headers) => {
-			if (TOKEN) {
-				headers.set("authorization", `Bearer ${TOKEN}`);
+			const token = getToken();
+			if (token) {
+				headers.set('authorization', `Bearer ${token}`);
 			}
 
 			return headers;

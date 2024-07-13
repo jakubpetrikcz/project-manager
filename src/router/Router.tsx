@@ -1,22 +1,31 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { DashboardPage, TagsPage } from "../components/pages";
-import { HomeTemplate } from "../components/templates";
+import { Callback } from '../app/Callback';
+import { DashboardPage, RegisterPage, TagsPage } from '../components/pages';
+import { Authenticated } from '../components/templates';
 
 const router = createBrowserRouter([
 	{
-		path: "/",
-		element: <HomeTemplate />,
+		path: '/',
+		element: <Authenticated />,
 		children: [
 			{
 				index: true,
 				element: <DashboardPage />,
 			},
 			{
-				path: "tags",
+				path: 'tags',
 				element: <TagsPage />,
 			},
 		],
+	},
+	{
+		path: '/register',
+		element: <RegisterPage />,
+	},
+	{
+		path: '/callback',
+		element: <Callback />,
 	},
 ]);
 

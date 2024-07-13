@@ -1,2 +1,3 @@
-export * from "./Board";
-export * from "./HomeTemplate";
+export * from './Authenticated';
+export * from './Board';
+export * from './HomeTemplate';

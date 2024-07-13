@@ -1,2 +1,3 @@
-export * from "./DashboardPage";
-export * from "./TagsPage";
+export * from './DashboardPage';
+export * from './RegisterPage';
+export * from './TagsPage';

@@ -1,36 +1,35 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
+import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { CreateTaskResponse, TaskResponse, TaskTagArgs } from "../types/task";
+import { CreateTaskResponse, TaskResponse, TaskTagArgs } from '../types/task';
 
-import { baseQuery } from "./baseQuery";
+import { baseQuery } from './baseQuery';
 
 const BASE_URL = import.meta.env.VITE_ASANA_BASE_URL;
-const PROJECT_GID = import.meta.env.VITE_ASANA_PROJECT_GID;
 
 export const tasksApi = createApi({
-	reducerPath: "tasksApi",
+	reducerPath: 'tasksApi',
 	baseQuery: baseQuery(BASE_URL),
-	tagTypes: ["Task"],
+	tagTypes: ['Task'],
 	endpoints: (builder) => ({
 		getTasks: builder.query<TaskResponse, string>({
 			query: (sectionGid) =>
 				`/sections/${sectionGid}/tasks?opt_fields=memberships.section.name,notes,name,tags.name,tags.color`,
-			providesTags: ["Task"],
+			providesTags: ['Task'],
 		}),
 		createTask: builder.mutation<
 			CreateTaskResponse,
-			{ sectionGid: string; name: string }
+			{ projectGid: string | null; sectionGid: string; name: string }
 		>({
-			query: ({ sectionGid, name }) => ({
+			query: ({ projectGid, sectionGid, name }) => ({
 				url: `/tasks`,
-				method: "POST",
+				method: 'POST',
 				body: JSON.stringify({
 					data: {
 						name,
-						projects: [PROJECT_GID],
+						projects: [projectGid],
 						memberships: [
 							{
-								project: PROJECT_GID,
+								project: projectGid,
 								section: sectionGid,
 							},
 						],
@@ -38,7 +37,7 @@ export const tasksApi = createApi({
 					},
 				}),
 			}),
-			invalidatesTags: ["Task"],
+			invalidatesTags: ['Task'],
 		}),
 		updateTask: builder.mutation<
 			void,
@@ -46,33 +45,33 @@ export const tasksApi = createApi({
 		>({
 			query: ({ gid, name, notes }) => ({
 				url: `/tasks/${gid}`,
-				method: "PUT",
+				method: 'PUT',
 				body: JSON.stringify({ data: { name, notes } }),
 			}),
-			invalidatesTags: ["Task"],
+			invalidatesTags: ['Task'],
 		}),
 		deleteTask: builder.mutation<void, string>({
 			query: (taskGid) => ({
 				url: `/tasks/${taskGid}`,
-				method: "DELETE",
+				method: 'DELETE',
 			}),
-			invalidatesTags: ["Task"],
+			invalidatesTags: ['Task'],
 		}),
 		addTagToTask: builder.mutation<void, TaskTagArgs>({
 			query: ({ taskGid, tagGid }) => ({
 				url: `/tasks/${taskGid}/addTag`,
-				method: "POST",
+				method: 'POST',
 				body: JSON.stringify({ data: { tag: tagGid } }),
 			}),
-			invalidatesTags: ["Task"],
+			invalidatesTags: ['Task'],
 		}),
 		removeTagFromTask: builder.mutation<void, TaskTagArgs>({
 			query: ({ taskGid, tagGid }) => ({
 				url: `/tasks/${taskGid}/removeTag`,
-				method: "POST",
+				method: 'POST',
 				body: JSON.stringify({ data: { tag: tagGid } }),
 			}),
-			invalidatesTags: ["Task"],
+			invalidatesTags: ['Task'],
 		}),
 		addTaskToSection: builder.mutation<
 			void,
@@ -80,12 +79,12 @@ export const tasksApi = createApi({
 		>({
 			query: ({ sectionGid, taskGid }) => ({
 				url: `/sections/${sectionGid}/addTask`,
-				method: "POST",
+				method: 'POST',
 				body: JSON.stringify({
 					data: { task: taskGid, insert_before: null },
 				}),
 			}),
-			invalidatesTags: ["Task"],
+			invalidatesTags: ['Task'],
 		}),
 	}),
 });

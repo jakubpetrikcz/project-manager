@@ -1,24 +1,33 @@
 .button {
-  border: none;
-  cursor: pointer;
-  padding: 10px 8px;
+	border: none;
+	cursor: pointer;
+	padding: 10px 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
 
-  svg {
-    width: 20px;
-    height: 20px;
-  }
+	svg {
+		width: 20px;
+		height: 20px;
+	}
 }
 
 .primary {
-  background-color: var(--primary);
+	background-color: var(--primary);
+	color: var(--white);
 }
 
+.secondary {
+	background-color: var(--gray-element);
+	color: var(--black);
+}
 
 .transparent {
-  background: transparent;
-  color: var(--black);
+	background: transparent;
+	color: var(--black);
 
-  &:hover {
-    background-color: var(--other-hover);
-  }
+	&:hover {
+		background-color: var(--other-hover);
+	}
 }

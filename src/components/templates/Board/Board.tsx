@@ -1,14 +1,16 @@
-import { useGetSectionsQuery } from "../../../app/service/sectionsApi";
-import { BoardHeaderSection, BoardSection } from "../../molecules";
+import { useGetSectionsQuery } from '../../../app/service/sectionsApi';
+import { PROJECT_GID_STORAGE_KEY } from '../../../constants';
+import { BoardHeaderSection, BoardSection } from '../../molecules';
 
-import styles from "./Board.module.scss";
+import styles from './Board.module.scss';
 
 export const Board = () => {
+	const projectGid = localStorage.getItem(PROJECT_GID_STORAGE_KEY);
 	const {
 		data: headers,
 		isLoading: isHeadersLoading,
 		isError: isHeadersError,
-	} = useGetSectionsQuery();
+	} = useGetSectionsQuery(projectGid);
 
 	if (isHeadersLoading) return <div>Loading...</div>;
 
