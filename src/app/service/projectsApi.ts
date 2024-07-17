@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { ProjectResponse } from '../types';
+import { ProjectResponse, ProjectsResponse } from '../types';
 
 import { baseQuery } from './baseQuery';
 
@@ -11,11 +11,16 @@ export const projectsApi = createApi({
 	baseQuery: baseQuery(BASE_URL),
 	tagTypes: ['Project'],
 	endpoints: (builder) => ({
-		getProjects: builder.query<ProjectResponse, void>({
-			query: () => '/projects',
+		getProjects: builder.query<ProjectsResponse, string>({
+			query: (workspaceGid) =>
+				`/projects?workspace=${workspaceGid}&opt_fields=color,name,icon`,
+			providesTags: ['Project'],
+		}),
+		getProject: builder.query<ProjectResponse, string>({
+			query: (projectGid) => `/projects/${projectGid}`,
 			providesTags: ['Project'],
 		}),
 	}),
 });
 
-export const { useGetProjectsQuery } = projectsApi;
+export const { useGetProjectsQuery, useGetProjectQuery } = projectsApi;

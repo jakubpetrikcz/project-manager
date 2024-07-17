@@ -1,0 +1,31 @@
+.project {
+	padding: 10px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	&.active {
+		color: var(--primary);
+		background-color: var(--primary-hover);
+		border-radius: 10px;
+	}
+}
+
+.icon {
+	padding: 10px;
+	border-radius: 50%;
+
+	img {
+		width: 20px;
+		height: 20px;
+	}
+
+	&.light-pink {
+		background-color: lightpink;
+	}
+
+	&.dark-teal {
+		background-color: darkcyan;
+	}
+}

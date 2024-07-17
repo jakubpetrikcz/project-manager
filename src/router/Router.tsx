@@ -17,6 +17,10 @@ const router = createBrowserRouter([
 				path: 'tags',
 				element: <TagsPage />,
 			},
+			{
+				path: '/:id',
+				element: <DashboardPage />,
+			}
 		],
 	},
 	{

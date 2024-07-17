@@ -1,11 +1,14 @@
+import { useLocation } from 'react-router-dom';
+
 import { useGetSectionsQuery } from '../../../app/service/sectionsApi';
-import { PROJECT_GID_STORAGE_KEY } from '../../../constants';
 import { BoardHeaderSection, BoardSection } from '../../molecules';
 
 import styles from './Board.module.scss';
 
 export const Board = () => {
-	const projectGid = localStorage.getItem(PROJECT_GID_STORAGE_KEY);
+	const { pathname } = useLocation();
+	const projectGid = pathname.slice(1, pathname.length);
+	console.log(projectGid);
 	const {
 		data: headers,
 		isLoading: isHeadersLoading,

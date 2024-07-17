@@ -1,29 +1,20 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import classNames from "classnames";
+import { Link, useLocation } from 'react-router-dom';
+import classNames from 'classnames';
 
-import { NavLinkType } from "../../../types/navLink";
+import { NavLinkType } from '../../../types/navLink';
 
-import styles from "./NavLink.module.scss";
+import styles from './NavLink.module.scss';
 
 export const NavLink = ({ name, icon, fillIcon, path }: NavLinkType) => {
 	const { pathname } = useLocation();
-	const [active, setActive] = useState(false);
-
-	useEffect(() => {
-		if (pathname === path) {
-			setActive(true);
-		} else {
-			setActive(false);
-		}
-	}, [path, pathname]);
+	const isActive = pathname === path;
 
 	return (
 		<Link
 			to={path}
-			className={classNames(styles.link, { [styles.active]: active })}
+			className={classNames(styles.link, { [styles.active]: isActive })}
 		>
-			{active ? fillIcon : icon}
+			{isActive ? fillIcon : icon}
 			<p>{name}</p>
 		</Link>
 	);
