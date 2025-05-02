@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { BadgeTypeEnum } from "../components/atoms";
+import { BadgeTypeEnum } from '../components/ui';
 
 export const newTagSchema = z.object({
 	name: z.string().min(2).max(10),

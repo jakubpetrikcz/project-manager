@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-@import "./utils.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import './utils.scss';
 
 :root {
 	--white: #ffffff;
@@ -29,7 +29,7 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+	box-sizing: border-box;
 	font-family: Inter, sans-serif;
 }
 
@@ -53,6 +53,7 @@ a {
 ul {
 	margin: 0;
 	padding: 0;
+	list-style: none;
 }
 
 p,

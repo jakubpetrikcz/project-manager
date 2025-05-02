@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { Provider } from "react-redux";
 
-import { store } from "./app/store.ts";
+import { store } from "./stores/store.ts";
 import App from "./App.tsx";
 
 import "react-loading-skeleton/dist/skeleton.css";
