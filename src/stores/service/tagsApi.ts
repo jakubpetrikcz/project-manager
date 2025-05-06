@@ -1,44 +1,43 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
+import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { WORKSPACE_GID_STORAGE_KEY } from "../../constants";
-import { TagResponse, TagType } from "../types";
+import { TAGS } from '../../constants';
+import { CreateTagMutation, TagResponse, TagType } from '../types';
 
-import { baseQuery } from "./baseQuery";
+import { baseQuery } from './baseQuery';
 
 const BASE_URL = import.meta.env.VITE_ASANA_BASE_URL;
-const WORKSPACE_GID = localStorage.getItem(WORKSPACE_GID_STORAGE_KEY);
 
 export const tagsApi = createApi({
-	reducerPath: "tagsApi",
+	reducerPath: 'tagsApi',
 	baseQuery: baseQuery(BASE_URL),
-	tagTypes: ["Tags"],
+	tagTypes: [TAGS],
 	endpoints: (builder) => ({
 		getTags: builder.query<TagResponse, void>({
-			query: () => "/tags?opt_fields=color,name",
-			providesTags: ["Tags"],
+			query: () => '/tags?opt_fields=color,name',
+			providesTags: [TAGS],
 		}),
-		createTag: builder.mutation<void, { name: string; color: string }>({
-			query: ({ name, color }) => ({
-				url: `/workspaces/${WORKSPACE_GID}/tags`,
-				method: "POST",
+		createTag: builder.mutation<void, CreateTagMutation>({
+			query: ({ name, color, workspaceGid }) => ({
+				url: `/workspaces/${workspaceGid}/tags`,
+				method: 'POST',
 				body: JSON.stringify({ data: { name, color } }),
 			}),
-			invalidatesTags: ["Tags"],
+			invalidatesTags: [TAGS],
 		}),
 		updateTag: builder.mutation<void, TagType>({
 			query: ({ gid, name, color }) => ({
 				url: `/tags/${gid}`,
-				method: "PUT",
+				method: 'PUT',
 				body: JSON.stringify({ data: { name, color } }),
 			}),
-			invalidatesTags: ["Tags"],
+			invalidatesTags: [TAGS],
 		}),
 		deleteTag: builder.mutation<void, string>({
 			query: (tagGid) => ({
 				url: `/tags/${tagGid}`,
-				method: "DELETE",
+				method: 'DELETE',
 			}),
-			invalidatesTags: ["Tags"],
+			invalidatesTags: [TAGS],
 		}),
 	}),
 });

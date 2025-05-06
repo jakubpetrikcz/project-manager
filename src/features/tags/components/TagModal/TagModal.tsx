@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -14,6 +14,7 @@ import {
 	useCreateTagMutation,
 	useUpdateTagMutation,
 } from '../../../../stores/service/tagsApi';
+import { useGetWorkspacesQuery } from '../../../../stores/service/workspacesApi';
 import { TagType } from '../../../../stores/types';
 
 import styles from './TagModal.module.scss';
@@ -24,29 +25,41 @@ type TagModalProps = {
 };
 
 export const TagModal = ({ tag, close }: TagModalProps) => {
+	const {
+		data: workspaces,
+		isLoading: isWorkspacesLoading,
+		isError: isWorkspacesError,
+	} = useGetWorkspacesQuery();
 	const [createTag] = useCreateTagMutation();
 	const [updateTag] = useUpdateTagMutation();
 
-	const tagNameMap: { [key in BadgeTypeEnum]: string } = {
-		[BadgeTypeEnum.lightBlue]: 'Light Blue',
-		[BadgeTypeEnum.darkBrown]: 'Dark Brown',
-		[BadgeTypeEnum.lightGreen]: 'Light Green',
-		[BadgeTypeEnum.darkRed]: 'Dark Red',
-		[BadgeTypeEnum.darkPurple]: 'Dark Purple',
-		[BadgeTypeEnum.none]: 'None',
-	};
+	const tagNameMap: { [key in BadgeTypeEnum]: string } = useMemo(
+		() => ({
+			[BadgeTypeEnum.lightBlue]: 'Light Blue',
+			[BadgeTypeEnum.darkBrown]: 'Dark Brown',
+			[BadgeTypeEnum.lightGreen]: 'Light Green',
+			[BadgeTypeEnum.darkRed]: 'Dark Red',
+			[BadgeTypeEnum.darkPurple]: 'Dark Purple',
+			[BadgeTypeEnum.none]: 'None',
+		}),
+		[]
+	);
 
-	const dropdownOptions = Object.entries(tagNameMap).map(([id, value]) => ({
-		id,
-		value,
-	}));
+	const dropdownOptions = useMemo(
+		() =>
+			Object.entries(tagNameMap).map(([id, value]) => ({
+				id,
+				value,
+			})),
+		[tagNameMap]
+	);
 
 	const {
+		register,
 		setValue,
 		handleSubmit,
 		formState: { errors, isSubmitting },
 		reset,
-		watch,
 	} = useForm<TagSchema>({
 		resolver: zodResolver(tag ? tagSchema : newTagSchema),
 		defaultValues: {
@@ -56,12 +69,19 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 		},
 	});
 
+	if (isWorkspacesLoading) return <div>Loading...</div>;
+
+	if (isWorkspacesError || !workspaces) return <div>Error</div>;
+
 	const onSubmit: SubmitHandler<TagSchema> = async (data) => {
 		try {
 			if (data.gid) {
 				await updateTag({ ...data });
 			} else {
-				await createTag({ ...data });
+				await createTag({
+					...data,
+					workspaceGid: workspaces?.data[0].gid,
+				});
 			}
 			close();
 			reset(data);
@@ -76,11 +96,7 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 				<div className={styles.form}>
 					<div className={styles.name}>
 						<TextInput
-							name='name'
-							value={watch('name')}
-							onChange={(e: ChangeEvent<HTMLInputElement>) =>
-								setValue('name', e.target.value)
-							}
+							{...register('name')}
 							label='Name'
 							errors={errors.name?.message}
 						/>
@@ -102,7 +118,7 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 				</div>
 				<Button
 					className={styles.button}
-					text='Uložit'
+					text='Save'
 					disabled={isSubmitting}
 				/>
 			</form>

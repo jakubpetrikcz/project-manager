@@ -10,8 +10,9 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import { setVisibility } from '../../../stores/features/uiSlice';
-import { AppDispatch, RootState } from '../../../stores/store';
+import { setEditMode } from '../../../stores/features/uiSlice';
+import { isEditModeSelector } from '../../../stores/selectors';
+import { AppDispatch } from '../../../stores/store';
 import { TextArea, TextInput } from '..';
 
 import styles from './EditableText.module.scss';
@@ -36,20 +37,18 @@ export const EditableText = ({
 	textarea,
 }: EditableTextProps) => {
 	const [text, setText] = useState(value);
-	const isEditing = useSelector(
-		(state: RootState) => state.ui.visibility[gid]
-	);
+	const isEditMode = useSelector(isEditModeSelector(gid));
 	const dispatch = useDispatch<AppDispatch>();
 	const ref = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 
 	useEffect(() => {
-		if (isEditing) {
+		if (isEditMode) {
 			ref.current?.focus();
 		}
-	}, [isEditing]);
+	}, [isEditMode]);
 
 	const handleBlur = () => {
-		dispatch(setVisibility({ id: gid, isVisible: false, data: undefined }));
+		dispatch(setEditMode({ id: gid, isEdit: false }));
 		updateText(text);
 		if (!text && emptyText) setText(emptyText);
 	};
@@ -71,13 +70,9 @@ export const EditableText = ({
 	return (
 		<div
 			className={classNames(styles.editableText, className)}
-			onClick={() =>
-				dispatch(
-					setVisibility({ id: gid, isVisible: true, data: undefined })
-				)
-			}
+			onClick={() => dispatch(setEditMode({ id: gid, isEdit: true }))}
 		>
-			{isEditing ? (
+			{isEditMode ? (
 				!textarea ? (
 					<TextInput
 						{...commonProps}

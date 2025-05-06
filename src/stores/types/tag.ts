@@ -9,3 +9,9 @@ export type TagType = {
 	name: string;
 	color: BadgeTypeEnum;
 };
+
+export type CreateTagMutation = {
+	name: string;
+	color: string;
+	workspaceGid: string;
+};

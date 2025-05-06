@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { attachmentsApi } from '../features/board/api/attachmentsApi';
 import { sectionsApi } from '../features/board/api/sectionsApi';
 import { tasksApi } from '../features/board/api/tasksApi';
-import { tasksSlice } from '../features/board/store/tasksSlice';
+import { tasksSlice } from '../features/board/stores/tasksSlice';
 
 import { uiSlice } from './features/uiSlice';
 import { authApi } from './service/authApi';

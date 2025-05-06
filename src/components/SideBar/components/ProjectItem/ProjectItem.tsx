@@ -1,21 +1,14 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { PROJECT_GID_STORAGE_KEY } from '../../../../constants';
 import { Project } from '../../../../stores/types';
 
 import styles from './ProjectItem.module.scss';
 
 export const ProjectItem = ({ gid, name, color, icon }: Project) => {
-	const { pathname } = useLocation();
+	const { id: projectGid } = useParams() as { id: string };
 	const navigate = useNavigate();
-
-	const projectGid = pathname.slice(1, pathname.length);
 	const isActive = projectGid === gid;
-
-	if (projectGid) {
-		localStorage.setItem(PROJECT_GID_STORAGE_KEY, projectGid);
-	}
 
 	return (
 		<div

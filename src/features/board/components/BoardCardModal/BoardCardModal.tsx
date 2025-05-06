@@ -1,12 +1,12 @@
 import { ChangeEvent } from 'react';
 
 import { Attachment, DeleteWrapper } from '../../../../components/ui';
-import { BoardCardType } from '../../../../types/card';
 import { compressImg } from '../../../../utils/compressImg';
 import {
 	useDeleteAttachmentMutation,
 	useUploadAttachmentsMutation,
 } from '../../api/attachmentsApi';
+import { BoardCardType } from '../../types/card';
 import { BoardDescriptionCardModal } from '../BoardDescriptionCardModal';
 import { BoardHeaderCardModal } from '../BoardHeaderCardModal';
 

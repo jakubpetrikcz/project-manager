@@ -11,7 +11,7 @@ export const Authenticated = () => {
 	}
 
 	if (!user) {
-		return <Navigate to={'/register'} replace />;
+		return <Navigate to='/register' replace />;
 	}
 
 	return <HomeTemplate />;

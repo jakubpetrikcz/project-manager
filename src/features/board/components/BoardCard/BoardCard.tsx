@@ -1,9 +1,9 @@
 import { DragEvent, useMemo, useState } from 'react';
 
 import { Card, ModalWindow } from '../../../../components/ui';
-import { BoardCardType } from '../../../../types/card';
 import { removeLinks } from '../../../../utils/removeLinks';
 import { useGetAttachmentsQuery } from '../../api/attachmentsApi';
+import { BoardCardType } from '../../types/card';
 import { BoardCardHeader } from '../BoardCardHeader';
 import { BoardCardModal } from '../BoardCardModal';
 

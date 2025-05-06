@@ -1,7 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { tasksApi } from '../api/tasksApi';
-import { Task } from '../types/task';
+import {
+	AddTaskAction,
+	MoveTaskAction,
+	RemoveTaskAction,
+	Task,
+} from '../types/task';
 
 type TasksState = {
 	[sectionGid: string]: Task[];
@@ -13,30 +18,17 @@ export const tasksSlice = createSlice({
 	name: 'tasks',
 	initialState,
 	reducers: {
-		addTask: (
-			state,
-			action: PayloadAction<{ sectionGid: string; task: Task }>
-		) => {
+		addTask: (state, action: AddTaskAction) => {
 			const { sectionGid, task } = action.payload;
 			state[sectionGid] = [...(state[sectionGid] || []), task];
 		},
-		removeTask: (
-			state,
-			action: PayloadAction<{ sectionGid: string; gid: string }>
-		) => {
+		removeTask: (state, action: RemoveTaskAction) => {
 			const { sectionGid, gid } = action.payload;
 			state[sectionGid] = state[sectionGid].filter(
 				(task) => task.gid !== gid
 			);
 		},
-		moveTask: (
-			state,
-			action: PayloadAction<{
-				fromSectionGid: string;
-				toSectionGid: string;
-				taskGid: string;
-			}>
-		) => {
+		moveTask: (state, action: MoveTaskAction) => {
 			const { fromSectionGid, toSectionGid, taskGid } = action.payload;
 			const taskIndex = state[fromSectionGid].findIndex(
 				(task) => task.gid === taskGid

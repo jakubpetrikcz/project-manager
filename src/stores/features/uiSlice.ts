@@ -1,32 +1,28 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-type UiState = {
-	visibility: { [key: string]: boolean };
-	data: { [key: string]: unknown };
-};
+import { SetEditModeAction, SetModalOpenAction, UiState } from '../types/ui';
 
 const initialState: UiState = {
-	visibility: {},
+	isOpen: {},
 	data: {},
+	isEdit: {},
 };
 
 export const uiSlice = createSlice({
 	name: 'ui',
 	initialState,
 	reducers: {
-		setVisibility: (
-			state,
-			action: PayloadAction<{
-				id: string;
-				isVisible: boolean;
-				data: unknown;
-			}>
-		) => {
-			const { id, isVisible, data } = action.payload;
-			state.visibility[id] = isVisible;
+		setModalOpen: (state, action: SetModalOpenAction) => {
+			const { id, isOpen, data } = action.payload;
+			state.isOpen[id] = isOpen;
 			state.data[id] = data;
+		},
+
+		setEditMode: (state, action: SetEditModeAction) => {
+			const { id, isEdit } = action.payload;
+			state.isEdit[id] = isEdit;
 		},
 	},
 });
 
-export const { setVisibility } = uiSlice.actions;
+export const { setModalOpen, setEditMode } = uiSlice.actions;

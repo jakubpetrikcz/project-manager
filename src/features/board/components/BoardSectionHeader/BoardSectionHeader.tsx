@@ -11,7 +11,7 @@ import {
 	IconButton,
 	Options,
 } from '../../../../components/ui';
-import { setVisibility } from '../../../../stores/features/uiSlice';
+import { setEditMode } from '../../../../stores/features/uiSlice';
 import { AppDispatch } from '../../../../stores/store';
 import { useUpdateSectionMutation } from '../../api/sectionsApi';
 import { useGetTasksQuery } from '../../api/tasksApi';
@@ -48,10 +48,9 @@ export const BoardSectionHeader = ({ gid, title }: BoardSectionHeaderProps) => {
 
 	const handleRenameClick = () => {
 		dispatch(
-			setVisibility({
+			setEditMode({
 				id: `editHeader-${gid}`,
-				isVisible: true,
-				data: undefined,
+				isEdit: true,
 			})
 		);
 		setIsOptionsOpen(false);
@@ -70,7 +69,7 @@ export const BoardSectionHeader = ({ gid, title }: BoardSectionHeaderProps) => {
 						{title || UNTITLED_SECTION}
 					</span>
 				</EditableText>
-				<Badge text={tasks?.data.length.toString() || '0'} />
+				<Badge text={tasks.data.length.toString() || '0'} />
 			</div>
 			<div className={styles.right}>
 				<IconButton

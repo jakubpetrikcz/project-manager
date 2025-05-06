@@ -1,4 +1,4 @@
-import { TagType } from "../stores/types";
+import { TagType } from '../../../stores/types';
 
 export type BoardCardType = {
 	gid: string;

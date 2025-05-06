@@ -3,11 +3,12 @@ import { useDispatch } from 'react-redux';
 
 import { PlusIcon } from '../../components/icons';
 import { Button, PageHeader } from '../../components/ui';
-import { setVisibility } from '../../stores/features/uiSlice';
+import { setModalOpen } from '../../stores/features/uiSlice';
 import { AppDispatch } from '../../stores/store';
 import { TagType } from '../../stores/types';
 
 import { TagsPageContent } from './components';
+import { TAG_MODAL } from './constants';
 
 import styles from './TagsPage.module.scss';
 
@@ -15,7 +16,7 @@ export const TagsPage = () => {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const openTagModal = (_?: MouseEvent<HTMLElement>, tag?: TagType) => {
-		dispatch(setVisibility({ id: 'tagModal', isVisible: true, data: tag }));
+		dispatch(setModalOpen({ id: TAG_MODAL, isOpen: true, data: tag }));
 	};
 
 	return (

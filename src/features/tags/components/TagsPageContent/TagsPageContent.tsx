@@ -2,13 +2,18 @@ import { MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { DeleteWrapper, Tag } from '../../../../components/ui';
-import { setVisibility } from '../../../../stores/features/uiSlice';
+import { setModalOpen } from '../../../../stores/features/uiSlice';
+import {
+	isModalOpenSelector,
+	modalDataSelector,
+} from '../../../../stores/selectors';
 import {
 	useDeleteTagMutation,
 	useGetTagsQuery,
 } from '../../../../stores/service/tagsApi';
-import { AppDispatch, RootState } from '../../../../stores/store';
+import { AppDispatch } from '../../../../stores/store';
 import { TagType } from '../../../../stores/types';
+import { TAG_MODAL } from '../../constants';
 import { TagModal } from '../TagModal';
 
 import styles from './TagsPageContent.module.scss';
@@ -18,27 +23,25 @@ type TagsPageContentProps = {
 };
 
 export const TagsPageContent = ({ openTagModal }: TagsPageContentProps) => {
-	const { data: tags, isLoading, isError } = useGetTagsQuery();
 	const dispatch = useDispatch<AppDispatch>();
-	const isModalVisible = useSelector(
-		(state: RootState) => state.ui.visibility['tagModal']
-	);
-	const tag = useSelector((state: RootState) => state.ui.data['tagModal']);
-
-	const closeTagModal = () => {
-		dispatch(
-			setVisibility({
-				id: 'tagModal',
-				isVisible: false,
-				data: undefined,
-			})
-		);
-	};
+	const { data: tags, isLoading, isError } = useGetTagsQuery();
+	const isTagModalOpen = useSelector(isModalOpenSelector(TAG_MODAL));
+	const tag = useSelector(modalDataSelector(TAG_MODAL));
 
 	const [deleteTag] = useDeleteTagMutation();
 
 	if (isLoading) return <div>Loading...</div>;
-	if (isError) return <div>Error...</div>;
+	if (isError || !tags) return <div>Error...</div>;
+
+	const closeTagModal = () => {
+		dispatch(
+			setModalOpen({
+				id: TAG_MODAL,
+				isOpen: false,
+				data: undefined,
+			})
+		);
+	};
 
 	const handleDelete = (
 		gid: string,
@@ -51,7 +54,7 @@ export const TagsPageContent = ({ openTagModal }: TagsPageContentProps) => {
 	return (
 		<>
 			<div className={styles.container}>
-				{tags?.data.map((tag) => (
+				{tags.data.map((tag) => (
 					<DeleteWrapper
 						key={tag.gid}
 						onClick={(event?: MouseEvent<HTMLElement>) =>
@@ -63,7 +66,7 @@ export const TagsPageContent = ({ openTagModal }: TagsPageContentProps) => {
 					/>
 				))}
 			</div>
-			{isModalVisible && (
+			{isTagModalOpen && (
 				<TagModal tag={tag as TagType} close={closeTagModal} />
 			)}
 		</>

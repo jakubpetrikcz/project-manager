@@ -7,6 +7,7 @@ import {
 	useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { VerticalDotsIcon } from '../../../../components/icons';
 import {
@@ -17,14 +18,13 @@ import {
 	Tag,
 	TextInput,
 } from '../../../../components/ui';
-import { PROJECT_GID_STORAGE_KEY } from '../../../../constants';
 import { AppDispatch } from '../../../../stores/store';
-import { BoardCardType } from '../../../../types/card';
 import {
 	useCreateTaskMutation,
 	useDeleteTaskMutation,
 } from '../../api/tasksApi';
-import { removeTask } from '../../store/tasksSlice';
+import { removeTask } from '../../stores/tasksSlice';
+import { BoardCardType } from '../../types/card';
 
 import styles from './BoardCardHeader.module.scss';
 
@@ -40,7 +40,7 @@ export const BoardCardHeader = ({
 	tags,
 }: BoardCardHeaderProps) => {
 	const dispatch = useDispatch<AppDispatch>();
-	const projectGid = localStorage.getItem(PROJECT_GID_STORAGE_KEY);
+	const { id: projectGid } = useParams() as { id: string };
 	const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 	const [editableText, setEditableText] = useState('');
 	const [isCreating, setIsCreating] = useState<boolean>(!gid);
