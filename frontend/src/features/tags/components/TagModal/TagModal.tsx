@@ -80,7 +80,7 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
 			} else {
 				await createTag({
 					...data,
-					workspaceGid: workspaces?.data[0].gid,
+					workspaceGid: workspaces.data[0].gid,
 				});
 			}
 			close();

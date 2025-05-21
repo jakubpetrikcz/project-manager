@@ -34,13 +34,15 @@ type BoardCardHeaderProps = Omit<BoardCardType, 'notes'> & {
 
 export const BoardCardHeader = ({
 	gid,
-	imgSrc,
-	sectionGid,
 	name,
+	imgSrc,
 	tags,
+	sectionGid,
 }: BoardCardHeaderProps) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { id: projectGid } = useParams() as { id: string };
+	const [deleteTask] = useDeleteTaskMutation();
+	const [createTask] = useCreateTaskMutation();
 	const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 	const [editableText, setEditableText] = useState('');
 	const [isCreating, setIsCreating] = useState<boolean>(!gid);
@@ -51,9 +53,6 @@ export const BoardCardHeader = ({
 			inputRef.current?.focus();
 		}
 	}, [isCreating]);
-
-	const [deleteTask] = useDeleteTaskMutation();
-	const [createTask] = useCreateTaskMutation();
 
 	const deleteItem = (event: MouseEvent<HTMLButtonElement>) => {
 		event.stopPropagation();
@@ -92,45 +91,44 @@ export const BoardCardHeader = ({
 			{imgSrc && (
 				<img
 					src={imgSrc}
-					className={styles.backgroundImage}
 					alt={name}
+					className={styles.backgroundImage}
 				/>
 			)}
 			{tags.map((tag) => (
 				<Tag key={tag.gid} text={tag.name} variant={tag.color} />
 			))}
-			<div>
-				<div className={styles.title}>
-					<div className={styles.text}>
-						{!name && isCreating ? (
-							<TextInput
-								value={editableText}
-								onChange={(
-									event: ChangeEvent<HTMLInputElement>
-								) => setEditableText(event.target.value)}
-								ref={inputRef}
-								onKeyUp={handleKeyUp}
-								onBlur={handleBlur}
-							/>
-						) : (
-							<h5>{name ? name : editableText}</h5>
-						)}
-					</div>
-					<IconButton
-						icon={<VerticalDotsIcon />}
-						onClick={toggleMenu}
-						className={styles.icon}
-					/>
-					{isOptionsOpen && (
-						<Options setIsOptionsOpen={setIsOptionsOpen}>
-							<Button
-								text='Delete'
-								variant={ButtonEnum.transparent}
-								onClick={deleteItem}
-							/>
-						</Options>
+			<div className={styles.title}>
+				<div className={styles.text}>
+					{!name && isCreating ? (
+						<TextInput
+							value={editableText}
+							onChange={(event: ChangeEvent<HTMLInputElement>) =>
+								setEditableText(event.target.value)
+							}
+							ref={inputRef}
+							onKeyUp={handleKeyUp}
+							onBlur={handleBlur}
+							onClick={(event) => event.stopPropagation()}
+						/>
+					) : (
+						<h5>{name ? name : editableText}</h5>
 					)}
 				</div>
+				<IconButton
+					icon={<VerticalDotsIcon />}
+					onClick={toggleMenu}
+					className={styles.icon}
+				/>
+				{isOptionsOpen && (
+					<Options setIsOptionsOpen={setIsOptionsOpen}>
+						<Button
+							text='Delete'
+							variant={ButtonEnum.transparent}
+							onClick={deleteItem}
+						/>
+					</Options>
+				)}
 			</div>
 		</>
 	);

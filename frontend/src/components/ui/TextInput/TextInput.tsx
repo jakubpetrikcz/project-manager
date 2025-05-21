@@ -8,7 +8,10 @@ type TextInputProps = HTMLProps<HTMLInputElement> & {
 };
 
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
-	({ name, value, label, onChange, onBlur, onKeyUp, errors }, ref) => {
+	(
+		{ name, value, label, onChange, onBlur, onKeyUp, onClick, errors },
+		ref
+	) => {
 		return (
 			<div
 				className={classNames(styles.container, {
@@ -24,6 +27,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 					onBlur={onBlur}
 					ref={ref}
 					onKeyUp={onKeyUp}
+					onClick={onClick}
 				/>
 				{errors && <p className={styles.errorMessage}>{errors}</p>}
 			</div>

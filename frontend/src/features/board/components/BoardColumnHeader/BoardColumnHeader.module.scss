@@ -1,4 +1,4 @@
-@import "/src/styles/utils.scss";
+@import '/src/styles/utils.scss';
 
 .card {
 	display: flex;
@@ -6,6 +6,7 @@
 	justify-content: space-between;
 	width: 100%;
 	max-width: 300px;
+	margin-bottom: 20px;
 
 	.left {
 		display: flex;

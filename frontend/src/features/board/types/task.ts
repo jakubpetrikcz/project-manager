@@ -51,4 +51,5 @@ export type MoveTaskAction = PayloadAction<{
 	fromSectionGid: string;
 	toSectionGid: string;
 	taskGid: string;
+	before: string;
 }>;

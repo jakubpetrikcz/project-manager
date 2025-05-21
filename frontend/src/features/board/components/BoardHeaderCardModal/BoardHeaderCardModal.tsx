@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { PlusIcon } from '../../../../components/icons';
 import {
@@ -16,14 +16,11 @@ import {
 	useRemoveTagFromTaskMutation,
 	useUpdateTaskMutation,
 } from '../../api/tasksApi';
+import { BoardCardType } from '../../types/card';
 
 import styles from './BoardHeaderCardModal.module.scss';
 
-type BoardHeaderCardModalProps = {
-	gid: string;
-	name: string;
-	tags: TagType[];
-};
+type BoardHeaderCardModalProps = Pick<BoardCardType, 'gid' | 'name' | 'tags'>;
 
 export const BoardHeaderCardModal = ({
 	gid,
@@ -40,13 +37,14 @@ export const BoardHeaderCardModal = ({
 	const [addTagToTask] = useAddTagToTaskMutation();
 	const [removeTagFromTask] = useRemoveTagFromTaskMutation();
 
-	if (isLoading) return <div>Loding...</div>;
-	if (isError) return <div>Error...</div>;
-
-	const dropdownOptions = data?.data.map((tag) => ({
-		id: tag.gid,
-		value: tag.name,
-	}));
+	const dropdownOptions = useMemo(
+		() =>
+			data?.data.map((tag) => ({
+				id: tag.gid,
+				value: tag.name,
+			})),
+		[data?.data]
+	);
 
 	const handleSelectTag = (selectedId: string) => {
 		setIsSelectingTags(false);
@@ -69,9 +67,12 @@ export const BoardHeaderCardModal = ({
 		});
 	};
 
+	if (isLoading) return <div>Loding...</div>;
+	if (isError) return <div>Error...</div>;
+
 	return (
 		<div className={styles.content}>
-			<div className={styles.left}>
+			<div className={styles.text}>
 				<EditableText
 					gid={`editTitle-${gid}`}
 					value={name}

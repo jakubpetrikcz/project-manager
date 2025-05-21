@@ -26,7 +26,7 @@ export const TagsPageContent = ({ openTagModal }: TagsPageContentProps) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { data: tags, isLoading, isError } = useGetTagsQuery();
 	const isTagModalOpen = useSelector(isModalOpenSelector(TAG_MODAL));
-	const tag = useSelector(modalDataSelector(TAG_MODAL));
+	const tag = useSelector(modalDataSelector(TAG_MODAL)) as TagType;
 
 	const [deleteTag] = useDeleteTagMutation();
 
@@ -66,9 +66,7 @@ export const TagsPageContent = ({ openTagModal }: TagsPageContentProps) => {
 					/>
 				))}
 			</div>
-			{isTagModalOpen && (
-				<TagModal tag={tag as TagType} close={closeTagModal} />
-			)}
+			{isTagModalOpen && <TagModal tag={tag} close={closeTagModal} />}
 		</>
 	);
 };

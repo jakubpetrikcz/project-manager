@@ -2,10 +2,11 @@
 	display: grid;
 	gap: 10px;
 	cursor: pointer;
-    max-width: 300px;
+	max-width: 300px;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 
 .description {
 	word-wrap: break-word;
-    overflow: hidden;
+	overflow: hidden;
 }

@@ -4,6 +4,7 @@ export * from './Button';
 export * from './Card';
 export * from './DeleteWrapper';
 export * from './Dropdown';
+export * from './DropIndicator';
 export * from './EditableText';
 export * from './IconButton';
 export * from './MenuButton';

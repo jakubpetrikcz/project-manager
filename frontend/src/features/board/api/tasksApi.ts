@@ -73,13 +73,17 @@ export const tasksApi = createApi({
 		}),
 		addTaskToSection: builder.mutation<
 			void,
-			{ sectionGid: string; taskGid: string }
+			{
+				sectionGid: string;
+				taskGid: string;
+				insert_before: string | null;
+			}
 		>({
-			query: ({ sectionGid, taskGid }) => ({
+			query: ({ sectionGid, taskGid, insert_before }) => ({
 				url: `/sections/${sectionGid}/addTask`,
 				method: 'POST',
 				body: JSON.stringify({
-					data: { task: taskGid, insert_before: null },
+					data: { task: taskGid, insert_before },
 				}),
 			}),
 			invalidatesTags: [TASK],

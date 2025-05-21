@@ -29,13 +29,23 @@ export const tasksSlice = createSlice({
 			);
 		},
 		moveTask: (state, action: MoveTaskAction) => {
-			const { fromSectionGid, toSectionGid, taskGid } = action.payload;
+			const { fromSectionGid, toSectionGid, taskGid, before } =
+				action.payload;
 			const taskIndex = state[fromSectionGid].findIndex(
 				(task) => task.gid === taskGid
 			);
 			if (taskIndex > -1) {
 				const [task] = state[fromSectionGid].splice(taskIndex, 1);
-				state[toSectionGid] = [...(state[toSectionGid] || []), task];
+				if (before !== '-1') {
+					const insertAtIndex = state[toSectionGid].findIndex(
+						(task) => task.gid === before
+					);
+					if (insertAtIndex === undefined) return;
+
+					state[toSectionGid].splice(insertAtIndex, 0, task);
+				} else {
+					state[toSectionGid].push(task);
+				}
 			}
 		},
 	},

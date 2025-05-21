@@ -2,21 +2,18 @@ import { useState } from 'react';
 
 import { EditableText } from '../../../../components/ui';
 import { useUpdateTaskMutation } from '../../api/tasksApi';
+import { BoardCardType } from '../../types/card';
 
 import styles from './BoardDescriptionCardModal.module.scss';
 
-type BoardDescriptionCardModalProps = {
-	gid: string;
-	notes: string;
-};
+type BoardDescriptionCardModalProps = Pick<BoardCardType, 'gid' | 'notes'>;
 
 export const BoardDescriptionCardModal = ({
 	gid,
 	notes,
 }: BoardDescriptionCardModalProps) => {
-	const [editableText, setEditableText] = useState(notes);
-
 	const [updateTask] = useUpdateTaskMutation();
+	const [editableText, setEditableText] = useState(notes);
 
 	const handleUpdateText = (text: string) => {
 		setEditableText(text);

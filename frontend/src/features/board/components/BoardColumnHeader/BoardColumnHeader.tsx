@@ -17,14 +17,14 @@ import { useUpdateSectionMutation } from '../../api/sectionsApi';
 import { useGetTasksQuery } from '../../api/tasksApi';
 import { UNTITLED_SECTION } from '../../constants';
 
-import styles from './BoardSectionHeader.module.scss';
+import styles from './BoardColumnHeader.module.scss';
 
-type BoardSectionHeaderProps = {
+type BoardColumnHeaderProps = {
 	gid: string;
 	title: string;
 };
 
-export const BoardSectionHeader = ({ gid, title }: BoardSectionHeaderProps) => {
+export const BoardColumnHeader = ({ gid, title }: BoardColumnHeaderProps) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { data: tasks, isLoading, isError } = useGetTasksQuery(gid);
 	const [updateSection] = useUpdateSectionMutation();

@@ -1,6 +1,6 @@
 import { DragEvent, useMemo, useState } from 'react';
 
-import { Card, ModalWindow } from '../../../../components/ui';
+import { Card, DropIndicator, ModalWindow } from '../../../../components/ui';
 import { removeLinks } from '../../../../utils/removeLinks';
 import { useGetAttachmentsQuery } from '../../api/attachmentsApi';
 import { BoardCardType } from '../../types/card';
@@ -14,24 +14,24 @@ type BoardCardProps = BoardCardType & {
 };
 
 export const BoardCard = ({
+	gid,
 	name,
 	notes,
 	tags,
-	gid,
 	sectionGid,
 }: BoardCardProps) => {
-	const [isModalVisible, setIsModalVisible] = useState(false);
-	const description = useMemo(() => removeLinks(notes), [notes]);
-
 	const { data: attachments, isError } = useGetAttachmentsQuery(gid, {
 		skip: !gid,
 	});
+	const [isModalVisible, setIsModalVisible] = useState(false);
 
+	const description = useMemo(() => removeLinks(notes), [notes]);
+	
 	const imgSrc = useMemo(
 		() => attachments?.data[attachments.data.length - 1]?.download_url,
 		[attachments?.data]
 	);
-
+	
 	if (isError) return <div>Error</div>;
 
 	const handleDragStart = (
@@ -39,13 +39,14 @@ export const BoardCard = ({
 		taskGid: string,
 		sectionGid: string
 	) => {
-		event.dataTransfer.setData('text/plain', taskGid);
+		event.dataTransfer.setData('taskGid', taskGid);
 		event.dataTransfer.setData('sectionGid', sectionGid);
 		event.dataTransfer.effectAllowed = 'move';
 	};
 
 	return (
 		<>
+			<DropIndicator beforeId={gid} column={sectionGid} />
 			<Card
 				className={styles.card}
 				draggable
