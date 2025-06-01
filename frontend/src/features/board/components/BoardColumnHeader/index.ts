@@ -1,1 +1,2 @@
-export * from "./BoardColumnHeader";
+export * from './BoardColumnHeader';
+export * from './BoardColumnHeaderSkeleton';

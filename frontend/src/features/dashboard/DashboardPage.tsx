@@ -1,27 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { useMemo } from 'react';
 
 import { PageHeader } from '../../components/ui';
-import { useGetProjectQuery } from '../../stores/service/projectsApi';
-import { Board } from '../board/Board';
+import { useGetProfileQuery } from '../../stores/service/authApi';
 
 import styles from './DashboardPage.module.scss';
 
 export const DashboardPage = () => {
-	const { id: projectGid } = useParams() as { id: string };
-	const {
-		data: project,
-		isLoading,
-		isError,
-	} = useGetProjectQuery(projectGid);
+	const { data: user } = useGetProfileQuery();
 
-	if (isLoading) return <div>Loading...</div>;
-
-	if (isError || !project) return null;
+	const firstName = useMemo(
+		() => user?.data.name.split(' ')[0],
+		[user?.data.name]
+	);
 
 	return (
 		<section className={styles.section}>
-			<PageHeader title={project.data.name} />
-			<Board />
+			<PageHeader title={`Welcome ${firstName}`} />
 		</section>
 	);
 };

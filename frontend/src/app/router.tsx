@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { DashboardPage } from '../features/dashboard/DashboardPage';
+import { ProjectPage } from '../features/project/ProjectPage';
 import { RegisterPage } from '../features/register/RegisterPage';
 import { TagsPage } from '../features/tags/TagsPage';
 import { Authenticated } from '../layouts/Authenticated';
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/:id',
-				element: <DashboardPage />,
+				element: <ProjectPage />,
 			},
 		],
 	},

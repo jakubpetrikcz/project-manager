@@ -26,13 +26,9 @@ type BoardColumnHeaderProps = {
 
 export const BoardColumnHeader = ({ gid, title }: BoardColumnHeaderProps) => {
 	const dispatch = useDispatch<AppDispatch>();
-	const { data: tasks, isLoading, isError } = useGetTasksQuery(gid);
+	const { data: tasks } = useGetTasksQuery(gid);
 	const [updateSection] = useUpdateSectionMutation();
 	const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-
-	if (isLoading) return <div>Loading...</div>;
-
-	if (isError || !tasks) return <div>Error</div>;
 
 	const handleUpdateSection = (text: string) => {
 		updateSection({
@@ -69,7 +65,7 @@ export const BoardColumnHeader = ({ gid, title }: BoardColumnHeaderProps) => {
 						{title || UNTITLED_SECTION}
 					</span>
 				</EditableText>
-				<Badge text={tasks.data.length.toString() || '0'} />
+				<Badge text={tasks?.data.length.toString() || '0'} />
 			</div>
 			<div className={styles.right}>
 				<IconButton

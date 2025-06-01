@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import styles from "./PageHeader.module.scss";
 
 type PageHeaderProps = {
-	title: string;
+	title?: string;
 	children?: ReactNode;
 };
 

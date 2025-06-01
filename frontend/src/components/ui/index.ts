@@ -13,6 +13,7 @@ export * from './NavLink';
 export * from './Options';
 export * from './PageHeader';
 export * from './Portal';
+export * from './Spinner';
 export * from './Tag';
 export * from './TextArea';
 export * from './TextInput';
