@@ -5,6 +5,7 @@ import { baseQueryWithReauth } from '../../../stores/service/baseQueryWithReauth
 import { ATTACHMENT } from '../constants';
 import {
   AttachmentResponse,
+  DeleteAttachmentArgs,
   UploadAttachmentsArgs,
   UploadAttachmentsResponse,
 } from '../types/attachment';
@@ -17,7 +18,16 @@ export const attachmentsApi = createApi({
     getAttachments: builder.query<AttachmentResponse, string>({
       query: (taskGid) =>
         `attachments?parent=${taskGid}&opt_fields=download_url`,
-      providesTags: [ATTACHMENT],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.data.map(({ gid }) => ({
+                type: ATTACHMENT,
+                id: gid,
+              })),
+              ATTACHMENT,
+            ]
+          : [ATTACHMENT],
     }),
     uploadAttachments: builder.mutation<
       UploadAttachmentsResponse,
@@ -38,12 +48,14 @@ export const attachmentsApi = createApi({
         }
       },
     }),
-    deleteAttachment: builder.mutation<void, string>({
-      query: (attachmentGid) => ({
+    deleteAttachment: builder.mutation<void, DeleteAttachmentArgs>({
+      query: ({ attachmentGid }) => ({
         url: `/attachments/${attachmentGid}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [ATTACHMENT],
+      invalidatesTags: (_result, _error, { attachmentGid }) => [
+        { type: ATTACHMENT, id: attachmentGid },
+      ],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;

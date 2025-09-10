@@ -1,12 +1,12 @@
 .sidebar {
-	width: 100%;
-	max-width: fit-content;
-	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-	min-height: 100vh;
-	padding: 30px;
-	z-index: 0;
+  width: 100%;
+  max-width: fit-content;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  min-height: 100vh;
+  padding: 30px;
+  z-index: 0;
 
-	&.active {
-		min-width: 300px;
-	}
+  &.active {
+    min-width: 300px;
+  }
 }

@@ -8,11 +8,17 @@ type Attachment = {
 };
 
 export type UploadAttachmentsResponse = {
-  gid: string;
-  name: string;
+  data: {
+    gid: string;
+    name: string;
+  };
 };
 
 export type UploadAttachmentsArgs = {
   taskGid: string;
   file: FormData;
+};
+
+export type DeleteAttachmentArgs = {
+  attachmentGid: string;
 };

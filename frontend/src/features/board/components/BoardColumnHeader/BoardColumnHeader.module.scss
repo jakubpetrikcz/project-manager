@@ -1,31 +1,31 @@
 @import '/src/styles/utils.scss';
 
 .card {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	max-width: 300px;
-	margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
 
-	.left {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		color: var(--primary);
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary);
 
-		.text {
-			display: block;
-			padding: 5px;
-		}
-	}
+    .text {
+      display: block;
+      padding: 5px;
+    }
+  }
 
-	.right {
-		position: relative;
-	}
+  .right {
+    position: relative;
+  }
 
-	input {
-		color: var(--primary);
-		@include font-size(16px, 16px);
-	}
+  input {
+    color: var(--primary);
+    @include font-size(16px, 16px);
+  }
 }

@@ -1,42 +1,42 @@
 .badge {
-    font-size: 0.8rem;
-    border-radius: 10px;
-    padding: 5px 8px;
-    max-width: fit-content;
-    color: var(--other);
-    background-color: var(--other-hover);
+  font-size: 0.8rem;
+  border-radius: 10px;
+  padding: 5px 8px;
+  max-width: fit-content;
+  color: var(--other);
+  background-color: var(--other-hover);
 
-    &.one {
-        border-radius: 50%;
-    }
+  &.one {
+    border-radius: 50%;
+  }
 }
 
 .light-blue {
-	color: var(--primary);
-	background-color: var(--primary-hover);
+  color: var(--primary);
+  background-color: var(--primary-hover);
 }
 
 .dark-brown {
-    color: var(--warning);
-    background-color: var(--warning-hover);
+  color: var(--warning);
+  background-color: var(--warning-hover);
 }
 
 .light-green {
-    color: var(--success);
-    background-color: var(--success-hover);
+  color: var(--success);
+  background-color: var(--success-hover);
 }
 
 .dark-red {
-    color: var(--error);
-    background-color: var(--error-hover);
+  color: var(--error);
+  background-color: var(--error-hover);
 }
 
 .dark-purple {
-    color: var(--violet);
-    background-color: var(--violet-hover);
+  color: var(--violet);
+  background-color: var(--violet-hover);
 }
 
 .none {
-    color: var(--other);
-    background-color: var(--other-hover);
+  color: var(--other);
+  background-color: var(--other-hover);
 }

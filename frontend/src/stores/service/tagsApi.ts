@@ -11,8 +11,9 @@ export const tagsApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: [TAGS],
   endpoints: (builder) => ({
-    getTags: builder.query<TagResponse, void>({
-      query: () => '/tags?opt_fields=color,name',
+    getTags: builder.query<TagResponse, string>({
+      query: (workspaceGid) =>
+        `/tags?workspace=${workspaceGid}&opt_fields=color,name`,
       providesTags: [TAGS],
     }),
     createTag: builder.mutation<void, CreateTagMutation>({

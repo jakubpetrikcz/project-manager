@@ -14,7 +14,6 @@ import {
   useCreateTagMutation,
   useUpdateTagMutation,
 } from '../../../../stores/service/tagsApi';
-import { useGetWorkspacesQuery } from '../../../../stores/service/workspacesApi';
 import { TagType } from '../../../../stores/types';
 import { tagNameMap } from '../../constants';
 
@@ -23,14 +22,10 @@ import styles from './TagModal.module.scss';
 type TagModalProps = {
   tag?: TagType;
   close: () => void;
+  workspaceId: string;
 };
 
-export const TagModal = ({ tag, close }: TagModalProps) => {
-  const {
-    data: workspaces,
-    isLoading: isWorkspacesLoading,
-    isError: isWorkspacesError,
-  } = useGetWorkspacesQuery();
+export const TagModal = ({ tag, close, workspaceId }: TagModalProps) => {
   const [createTag] = useCreateTagMutation();
   const [updateTag] = useUpdateTagMutation();
 
@@ -58,10 +53,6 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
     },
   });
 
-  if (isWorkspacesLoading) return <div>Loading...</div>;
-
-  if (isWorkspacesError || !workspaces) return <div>Error</div>;
-
   const onSubmit: SubmitHandler<TagSchema> = async (data) => {
     try {
       if (data.gid) {
@@ -69,7 +60,7 @@ export const TagModal = ({ tag, close }: TagModalProps) => {
       } else {
         await createTag({
           ...data,
-          workspaceGid: workspaces.data[0].gid,
+          workspaceGid: workspaceId,
         });
       }
       close();

@@ -1,7 +1,9 @@
-import { Badge, BadgeProps } from "../Badge";
+import { memo } from 'react';
 
-import styles from "./Tag.module.scss";
+import { Badge, BadgeProps } from '../Badge';
 
-export const Tag = ({ text, variant }: BadgeProps) => {
-	return <Badge text={text} variant={variant} className={styles.tag} />;
-};
+import styles from './Tag.module.scss';
+
+export const Tag = memo(({ text, variant }: BadgeProps) => {
+  return <Badge text={text} variant={variant} className={styles.tag} />;
+});

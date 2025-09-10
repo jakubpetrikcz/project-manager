@@ -1,14 +1,14 @@
 export type ProjectsResponse = {
-	data: Project[];
-}
+  data: Project[];
+};
 
 export type ProjectResponse = {
-	data: Project;
-}
+  data: Project;
+};
 
 export type Project = {
-	gid: string;
-	name: string;
-	color: string;
-	icon: string;
+  gid: string;
+  name: string;
+  color: string;
+  icon: string;
 };

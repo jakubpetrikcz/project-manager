@@ -15,5 +15,6 @@ export * from './PageHeader';
 export * from './Portal';
 export * from './Spinner';
 export * from './Tag';
+export * from './TagWrapper';
 export * from './TextArea';
 export * from './TextInput';

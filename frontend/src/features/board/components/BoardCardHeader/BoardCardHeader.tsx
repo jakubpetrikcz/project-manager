@@ -9,11 +9,9 @@ import {
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { VerticalDotsIcon } from '../../../../components/icons';
 import {
   Button,
   ButtonEnum,
-  IconButton,
   Options,
   Tag,
   TextInput,
@@ -43,7 +41,6 @@ export const BoardCardHeader = ({
   const { id: projectGid } = useParams() as { id: string };
   const [deleteTask] = useDeleteTaskMutation();
   const [createTask] = useCreateTaskMutation();
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [editableText, setEditableText] = useState('');
   const [isCreating, setIsCreating] = useState<boolean>(!gid);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -57,7 +54,7 @@ export const BoardCardHeader = ({
   const deleteItem = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     dispatch(removeTask({ sectionGid, gid }));
-    deleteTask(gid);
+    deleteTask({ taskGid: gid });
   };
 
   const handleKeyUp = async (event: KeyboardEvent<HTMLInputElement>) => {
@@ -81,11 +78,6 @@ export const BoardCardHeader = ({
     setIsCreating(false);
   };
 
-  const toggleMenu = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    setIsOptionsOpen((prevState) => !prevState);
-  };
-
   return (
     <>
       {imgSrc && (
@@ -95,7 +87,7 @@ export const BoardCardHeader = ({
         <Tag key={tag.gid} text={tag.name} variant={tag.color} />
       ))}
       <div className={styles.title}>
-        <div className={styles.text}>
+        <div>
           {!name && isCreating ? (
             <TextInput
               value={editableText}
@@ -111,20 +103,13 @@ export const BoardCardHeader = ({
             <h5>{name ? name : editableText}</h5>
           )}
         </div>
-        <IconButton
-          icon={<VerticalDotsIcon />}
-          onClick={toggleMenu}
-          className={styles.icon}
-        />
-        {isOptionsOpen && (
-          <Options setIsOptionsOpen={setIsOptionsOpen}>
-            <Button
-              text='Delete'
-              variant={ButtonEnum.transparent}
-              onClick={deleteItem}
-            />
-          </Options>
-        )}
+        <Options vertical>
+          <Button
+            text='Delete'
+            variant={ButtonEnum.transparent}
+            onClick={deleteItem}
+          />
+        </Options>
       </div>
     </>
   );

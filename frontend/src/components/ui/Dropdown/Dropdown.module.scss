@@ -1,50 +1,50 @@
-@import "/src/styles/utils.scss";
+@import '/src/styles/utils.scss';
 
 .dropdown {
-	border-radius: 5px;
-	border: 1px solid var(--gray);
-	height: 38px;
-	width: 100%;
-	padding: 2px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px;
-	position: relative;
-	cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid var(--gray);
+  height: 38px;
+  width: 100%;
+  padding: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  cursor: pointer;
 
-	&.active {
-		border-radius: 5px 5px 0px 0px;
-		border-bottom: 0px;
-	}
+  &.active {
+    border-radius: 5px 5px 0px 0px;
+    border-bottom: 0px;
+  }
 }
 
 .icon {
-	width: 15px;
-	height: 15px;
-	display: grid;
-	place-items: center;
+  width: 15px;
+  height: 15px;
+  display: grid;
+  place-items: center;
 }
 
 .options {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	z-index: 10;
-	list-style: none;
-	background-color: var(--white);
-	border-radius: 0px 0px 5px 5px;
-	border: 1px solid var(--gray);
-	border-top: none;
-	width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  list-style: none;
+  background-color: var(--white);
+  border-radius: 0px 0px 5px 5px;
+  border: 1px solid var(--gray);
+  border-top: none;
+  width: 100%;
 
-	li {
-		padding: 10px;
-		cursor: pointer;
+  li {
+    padding: 10px;
+    cursor: pointer;
 
-		&:hover {
-			background-color: var(--primary);
-			color: var(--white);
-		}
-	}
+    &:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+  }
 }

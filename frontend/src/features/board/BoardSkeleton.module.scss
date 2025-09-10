@@ -1,21 +1,21 @@
 .board {
-	background-color: var(--background);
-	width: 100%;
-	height: 100%;
-	padding: 20px;
-	overflow: auto;
-	overscroll-behavior-inline: contain;
-	scroll-snap-type: inline mandatory;
-	scroll-padding-inline: 20px;
+  background-color: var(--background);
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline mandatory;
+  scroll-padding-inline: 20px;
 
-	> * {
-		min-width: 1700px;
-	}
+  > * {
+    min-width: 1700px;
+  }
 
-	.content {
-		display: grid;
-		grid-template-columns: repeat(4, 300px);
-		gap: 20px;
-		height: 1700px;
-	}
+  .content {
+    display: grid;
+    grid-template-columns: repeat(4, 300px);
+    gap: 20px;
+    height: 1700px;
+  }
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import { EditableText } from '../../../../components/ui';
 import { useUpdateTaskMutation } from '../../api/tasksApi';
@@ -8,35 +8,37 @@ import styles from './BoardDescriptionCardModal.module.scss';
 
 type BoardDescriptionCardModalProps = Pick<BoardCardType, 'gid' | 'notes'>;
 
-export const BoardDescriptionCardModal = ({
-	gid,
-	notes,
-}: BoardDescriptionCardModalProps) => {
-	const [updateTask] = useUpdateTaskMutation();
-	const [editableText, setEditableText] = useState(notes);
+export const BoardDescriptionCardModal = memo(
+  ({ gid, notes }: BoardDescriptionCardModalProps) => {
+    const [updateTask] = useUpdateTaskMutation();
+    const [editableText, setEditableText] = useState(notes);
 
-	const handleUpdateText = (text: string) => {
-		setEditableText(text);
-		updateTask({
-			gid,
-			notes: text,
-		});
-	};
+    const handleUpdateText = (text: string) => {
+      setEditableText(text);
 
-	return (
-		<div className={styles.description}>
-			<span>
-				<strong>Description</strong>
-			</span>
-			<EditableText
-				gid={`editText-${gid}`}
-				value={editableText}
-				updateText={(text) => handleUpdateText(text)}
-				className={styles.edit}
-				textarea
-			>
-				<p className={styles.text}>{editableText}</p>
-			</EditableText>
-		</div>
-	);
-};
+      if (text !== editableText) {
+        updateTask({
+          gid,
+          notes: text,
+        });
+      }
+    };
+
+    return (
+      <div className={styles.description}>
+        <span>
+          <strong>Description</strong>
+        </span>
+        <EditableText
+          gid={`editText-${gid}`}
+          value={editableText}
+          updateText={(text) => handleUpdateText(text)}
+          className={styles.edit}
+          textarea
+        >
+          <p className={styles.text}>{editableText}</p>
+        </EditableText>
+      </div>
+    );
+  }
+);

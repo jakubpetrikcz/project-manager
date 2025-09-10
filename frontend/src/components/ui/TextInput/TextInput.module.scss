@@ -1,26 +1,26 @@
-@import "/src/styles/utils.scss";
+@import '/src/styles/utils.scss';
 
 .container {
-	width: 100%;
-	position: relative;
+  width: 100%;
+  position: relative;
 
-	input {
-		padding: 2px;
-		border-radius: 5px;
-		width: 100%;
-	}
+  input {
+    padding: 2px;
+    border-radius: 5px;
+    width: 100%;
+  }
 
-	&.error {
-		input {
-			border: 1px solid var(--error);
-		}
-	}
+  &.error {
+    input {
+      border: 1px solid var(--error);
+    }
+  }
 }
 
 .errorMessage {
-	position: absolute;
-	bottom: -30px;
-	left: 0;
-	padding-top: 5px;
-	color: var(--error);
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  padding-top: 5px;
+  color: var(--error);
 }

@@ -1,8 +1,8 @@
 export type WorkspaceResponse = {
-	data: Workspace[];
+  data: Workspace[];
 };
 
 export type Workspace = {
-	gid: string;
-	name: string;
+  gid: string;
+  name: string;
 };

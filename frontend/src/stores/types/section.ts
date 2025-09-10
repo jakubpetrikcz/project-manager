@@ -1,8 +1,8 @@
 export type SectionResponse = {
-	data: Section[];
-}
+  data: Section[];
+};
 
 export type Section = {
-	gid: string;
-	name: string;
+  gid: string;
+  name: string;
 };

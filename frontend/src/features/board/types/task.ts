@@ -34,6 +34,10 @@ export type UpdateTaskArgs = {
   notes?: string;
 };
 
+export type DeleteTaskArgs = {
+  taskGid: string;
+};
+
 export type Task = {
   gid: string;
   memberships: Membership[];

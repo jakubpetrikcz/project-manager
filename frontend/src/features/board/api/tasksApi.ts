@@ -6,6 +6,7 @@ import { TASK } from '../constants';
 import {
   CreateTaskArgs,
   CreateTaskResponse,
+  DeleteTaskArgs,
   TaskResponse,
   TaskSectionArgs,
   TaskTagArgs,
@@ -20,7 +21,16 @@ export const tasksApi = createApi({
     getTasks: builder.query<TaskResponse, string>({
       query: (sectionGid) =>
         `/sections/${sectionGid}/tasks?opt_fields=memberships.section.name,notes,name,tags.name,tags.color`,
-      providesTags: [TASK],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.data.map(({ gid }) => ({
+                type: TASK,
+                id: gid,
+              })),
+              TASK,
+            ]
+          : [TASK],
     }),
     createTask: builder.mutation<CreateTaskResponse, CreateTaskArgs>({
       query: ({ projectGid, sectionGid, name }) => ({
@@ -56,7 +66,7 @@ export const tasksApi = createApi({
         method: 'PUT',
         body: JSON.stringify({ data: { name, notes } }),
       }),
-      invalidatesTags: [TASK],
+      invalidatesTags: (_result, _error, { gid }) => [{ type: TASK, id: gid }],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -66,12 +76,14 @@ export const tasksApi = createApi({
         }
       },
     }),
-    deleteTask: builder.mutation<void, string>({
-      query: (taskGid) => ({
+    deleteTask: builder.mutation<void, DeleteTaskArgs>({
+      query: ({ taskGid }) => ({
         url: `/tasks/${taskGid}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [TASK],
+      invalidatesTags: (_result, _error, { taskGid }) => [
+        { type: TASK, id: taskGid },
+      ],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -87,7 +99,9 @@ export const tasksApi = createApi({
         method: 'POST',
         body: JSON.stringify({ data: { tag: tagGid } }),
       }),
-      invalidatesTags: [TASK],
+      invalidatesTags: (_result, _error, { taskGid }) => [
+        { type: TASK, id: taskGid },
+      ],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -103,7 +117,9 @@ export const tasksApi = createApi({
         method: 'POST',
         body: JSON.stringify({ data: { tag: tagGid } }),
       }),
-      invalidatesTags: [TASK],
+      invalidatesTags: (_result, _error, { taskGid }) => [
+        { type: TASK, id: taskGid },
+      ],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -121,7 +137,9 @@ export const tasksApi = createApi({
           data: { task: taskGid, insert_before },
         }),
       }),
-      invalidatesTags: [TASK],
+      invalidatesTags: (_result, _error, { taskGid }) => [
+        { type: TASK, id: taskGid },
+      ],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;

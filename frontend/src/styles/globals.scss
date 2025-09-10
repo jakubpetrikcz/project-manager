@@ -2,61 +2,61 @@
 @import './utils.scss';
 
 :root {
-	--white: #ffffff;
-	--black: #000000;
-	--gray: #797979;
+  --white: #ffffff;
+  --black: #000000;
+  --gray: #797979;
 
-	--gray-element: #e9e9e9;
+  --gray-element: #e9e9e9;
 
-	--primary: #304dff;
-	--primary-hover: #e7eafe;
-	--warning: #9a3a0d;
-	--warning-hover: #f5f9dd;
-	--success: #008933;
-	--success-hover: #e1f5ec;
-	--error: #ff5278;
-	--error-hover: #ffe8ee;
-	--violet: #461672;
-	--violet-hover: #f3e5fe;
-	--other: #565656;
-	--other-hover: #e1e1e1;
+  --primary: #304dff;
+  --primary-hover: #e7eafe;
+  --warning: #9a3a0d;
+  --warning-hover: #f5f9dd;
+  --success: #008933;
+  --success-hover: #e1f5ec;
+  --error: #ff5278;
+  --error-hover: #ffe8ee;
+  --violet: #461672;
+  --violet-hover: #f3e5fe;
+  --other: #565656;
+  --other-hover: #e1e1e1;
 
-	--neutral: #161616;
+  --neutral: #161616;
 
-	--background: #f7f7f7;
-	--darker-background: #e0e0e0;
+  --background: #f7f7f7;
+  --darker-background: #e0e0e0;
 
-	--pink: #ff00ff;
+  --pink: #ff00ff;
 }
 
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
-	font-family: Inter, sans-serif;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
 }
 
 html,
 body {
-	padding: 0;
-	margin: 0;
-	overflow: hidden;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
 img {
-	display: block;
-	max-width: 100%;
+  display: block;
+  max-width: 100%;
 }
 
 a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 p,
@@ -67,8 +67,8 @@ h4,
 h5,
 h6,
 li {
-	margin: 0;
-	font-style: normal;
+  margin: 0;
+  font-style: normal;
 }
 
 h1,
@@ -77,36 +77,36 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: 700;
+  font-weight: 700;
 }
 
 p {
-	@include font-size(16px, 16px);
-	line-height: 1.3;
+  @include font-size(16px, 16px);
+  line-height: 1.3;
 
-	@include tablet {
-		line-height: 1.8;
-	}
+  @include tablet {
+    line-height: 1.8;
+  }
 }
 
 h1 {
-	@include font-size(30px, 52px);
-	line-height: 1.2;
+  @include font-size(30px, 52px);
+  line-height: 1.2;
 }
 
 h2 {
-	@include font-size(24px, 38px);
+  @include font-size(24px, 38px);
 }
 
 h3 {
-	@include font-size(22px, 34px);
-	line-height: 1.4;
+  @include font-size(22px, 34px);
+  line-height: 1.4;
 }
 
 h4 {
-	@include font-size(16px, 24px);
+  @include font-size(16px, 24px);
 }
 
 h5 {
-	@include font-size(16px, 20px);
+  @include font-size(16px, 20px);
 }

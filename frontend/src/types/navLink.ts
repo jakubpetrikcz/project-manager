@@ -1,8 +1,8 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export type NavLinkType = {
-	name: string;
-	icon: ReactNode;
-	fillIcon: ReactNode;
-	path: string;
+  name: string;
+  icon: ReactNode;
+  fillIcon: ReactNode;
+  path: string;
 };

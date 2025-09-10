@@ -7,104 +7,120 @@ import { DROP_DISTANCE_OFFSET } from '../constants';
 import { moveTask } from '../stores/tasksSlice';
 
 export const useColumnDragAndDrop = (sectionGid: string) => {
-	const dispatch = useDispatch<AppDispatch>();
-	const [moveTaskToSection] = useAddTaskToSectionMutation();
-	const [isDraggingOver, setIsDraggingOver] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const [moveTaskToSection] = useAddTaskToSectionMutation();
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
-	const handleDragEnd = async (event: DragEvent<HTMLDivElement>) => {
-		const taskGid = event.dataTransfer.getData('taskGid');
-		const oldSectionGid = event.dataTransfer.getData('sectionGid');
-		const targetSectionGid =
-			event.currentTarget.getAttribute('data-section-gid');
-		setIsDraggingOver(false);
-		clearHighlights();
+  const handleDragStart = (
+    event: DragEvent<HTMLElement>,
+    taskGid: string,
+    sectionGid: string
+  ) => {
+    event.dataTransfer.setData('taskGid', taskGid);
+    event.dataTransfer.setData('sectionGid', sectionGid);
+    event.dataTransfer.effectAllowed = 'move';
+  };
 
-		const indicators = getIndicators();
-		const { element } = getNearestIndicator(event, indicators);
+  const handleDragEnd = async (event: DragEvent<HTMLDivElement>) => {
+    const taskGid = event.dataTransfer.getData('taskGid');
+    const oldSectionGid = event.dataTransfer.getData('sectionGid');
+    const targetSectionGid =
+      event.currentTarget.getAttribute('data-section-gid');
+    setIsDraggingOver(false);
+    clearHighlights();
 
-		const before = element.dataset.before || '-1';
+    const indicators = getIndicators();
+    const { element } = getNearestIndicator(event, indicators);
 
-		if (targetSectionGid && oldSectionGid && before !== taskGid) {
-			try {
-				dispatch(
-					moveTask({
-						fromSectionGid: oldSectionGid,
-						toSectionGid: targetSectionGid,
-						taskGid,
-						before,
-					})
-				);
-				await moveTaskToSection({
-					sectionGid: targetSectionGid,
-					taskGid,
-					insert_before: before === '-1' ? null : before,
-				}).unwrap();
-			} catch (error) {
-				console.error('Error moving task to section:', error);
-			}
-		}
-	};
+    const before = element.dataset.before || '-1';
 
-	const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
-		event.preventDefault();
-		highlightIndicator(event);
-		event.dataTransfer.dropEffect = 'move';
-		setIsDraggingOver(true);
-	};
+    if (targetSectionGid && oldSectionGid && before !== taskGid) {
+      try {
+        dispatch(
+          moveTask({
+            fromSectionGid: oldSectionGid,
+            toSectionGid: targetSectionGid,
+            taskGid,
+            before,
+          })
+        );
+        await moveTaskToSection({
+          sectionGid: targetSectionGid,
+          taskGid,
+          insert_before: before === '-1' ? null : before,
+        }).unwrap();
+      } catch (error) {
+        console.error('Error moving task to section:', error);
+      }
+    }
+  };
 
-	const handleDragLeave = () => {
-		clearHighlights();
-		setIsDraggingOver(false);
-	};
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    highlightIndicator(event);
+    event.dataTransfer.dropEffect = 'move';
+    setIsDraggingOver(true);
+  };
 
-	const clearHighlights = (els?: HTMLElement[]) => {
-		const indicators = els || getIndicators();
+  const handleDragLeave = () => {
+    clearHighlights();
+    setIsDraggingOver(false);
+  };
 
-		indicators.forEach((indicator) => {
-			indicator.style.opacity = '0';
-		});
-	};
+  const clearHighlights = (els?: HTMLElement[]) => {
+    const indicators = els || getIndicators();
 
-	const highlightIndicator = (event: DragEvent<HTMLDivElement>) => {
-		const indicators = getIndicators();
+    indicators.forEach((indicator) => {
+      indicator.style.opacity = '0';
+    });
+  };
 
-		clearHighlights(indicators);
+  const highlightIndicator = (event: DragEvent<HTMLDivElement>) => {
+    const indicators = getIndicators();
 
-		const el = getNearestIndicator(event, indicators);
+    clearHighlights(indicators);
 
-		el.element.style.opacity = '1';
-	};
+    const el = getNearestIndicator(event, indicators);
 
-	const getNearestIndicator = (
-		event: DragEvent<HTMLDivElement>,
-		indicators: HTMLElement[]
-	) => {
-		const el = indicators.reduce(
-			(closest, child) => {
-				const box = child.getBoundingClientRect();
+    el.element.style.opacity = '1';
+  };
 
-				const offset = event.clientY - (box.top + DROP_DISTANCE_OFFSET);
+  const getNearestIndicator = (
+    event: DragEvent<HTMLDivElement>,
+    indicators: HTMLElement[]
+  ) => {
+    const el = indicators.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
 
-				if (offset < 0 && offset > closest.offset) {
-					return { offset: offset, element: child };
-				} else {
-					return closest;
-				}
-			},
-			{
-				offset: Number.NEGATIVE_INFINITY,
-				element: indicators[indicators.length - 1],
-			}
-		);
+        const offset = event.clientY - (box.top + DROP_DISTANCE_OFFSET);
 
-		return el;
-	};
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      {
+        offset: Number.NEGATIVE_INFINITY,
+        element: indicators[indicators.length - 1],
+      }
+    );
 
-	const getIndicators = () => {
-		return Array.from(
-			document.querySelectorAll(`[data-column="${sectionGid}"]`)
-		) as HTMLElement[];
-	};
+    return el;
+  };
 
-	return { isDraggingOver, handleDragOver, handleDragEnd, handleDragLeave };
+  const getIndicators = () => {
+    return Array.from(
+      document.querySelectorAll(`[data-column="${sectionGid}"]`)
+    ) as HTMLElement[];
+  };
+
+  return {
+    handleDragStart,
+    isDraggingOver,
+    handleDragOver,
+    handleDragEnd,
+    handleDragLeave,
+  };
 };

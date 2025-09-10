@@ -4,13 +4,13 @@ import { BoardColumnHeaderSkeleton } from '../BoardColumnHeader';
 import styles from './BoardColumnSkeleton.module.scss';
 
 export const BoardColumnSkeleton = () => {
-	return (
-		<div className={styles.column}>
-			<BoardColumnHeaderSkeleton />
+  return (
+    <div className={styles.column}>
+      <BoardColumnHeaderSkeleton />
 
-			<div className={styles.container}>
-				<BoardCardSkeleton cards={2} />
-			</div>
-		</div>
-	);
+      <div className={styles.container}>
+        <BoardCardSkeleton cards={2} />
+      </div>
+    </div>
+  );
 };

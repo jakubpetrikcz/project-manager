@@ -1,13 +1,12 @@
-import { useMemo, useState } from 'react';
+import { memo, MouseEvent, useCallback, useMemo, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { PlusIcon } from '../../../../components/icons';
 import {
-  DeleteWrapper,
   Dropdown,
   EditableText,
   IconButton,
-  Tag,
+  TagWrapper,
 } from '../../../../components/ui';
 import { useGetTagsQuery } from '../../../../stores/service/tagsApi';
 import { TagType } from '../../../../stores/types';
@@ -17,92 +16,100 @@ import {
   useRemoveTagFromTaskMutation,
   useUpdateTaskMutation,
 } from '../../api/tasksApi';
-import { BoardCardType } from '../../types/card';
 
 import styles from './BoardHeaderCardModal.module.scss';
 
-type BoardHeaderCardModalProps = Pick<BoardCardType, 'gid' | 'name' | 'tags'>;
+type BoardHeaderCardModalProps = {
+  gid: string;
+  name: string;
+  tags: TagType[];
+  workspaceId: string;
+};
 
-export const BoardHeaderCardModal = ({
-  gid,
-  name,
-  tags,
-}: BoardHeaderCardModalProps) => {
-  const { data, isLoading } = useGetTagsQuery();
-  const [editableTitle, setEditableTitle] = useState(name);
-  const [isSelectingTags, setIsSelectingTags] = useState(false);
+export const BoardHeaderCardModal = memo(
+  ({ gid, name, tags, workspaceId }: BoardHeaderCardModalProps) => {
+    const { data, isLoading } = useGetTagsQuery(workspaceId);
+    const [editableTitle, setEditableTitle] = useState(name);
+    const [isSelectingTags, setIsSelectingTags] = useState(false);
 
-  const [updateTask] = useUpdateTaskMutation();
-  const [deleteTask] = useDeleteTaskMutation();
+    const [updateTask] = useUpdateTaskMutation();
+    const [deleteTask] = useDeleteTaskMutation();
 
-  const [addTagToTask] = useAddTagToTaskMutation();
-  const [removeTagFromTask] = useRemoveTagFromTaskMutation();
+    const [addTagToTask] = useAddTagToTaskMutation();
+    const [removeTagFromTask] = useRemoveTagFromTaskMutation();
 
-  const dropdownOptions = useMemo(
-    () =>
-      data?.data.map((tag) => ({
-        id: tag.gid,
-        value: tag.name,
-      })),
-    [data?.data]
-  );
+    const dropdownOptions = useMemo(
+      () =>
+        data?.data.map((tag) => ({
+          id: tag.gid,
+          value: tag.name,
+        })),
+      [data?.data]
+    );
 
-  const handleSelectTag = (selectedId: string) => {
-    setIsSelectingTags(false);
-    addTagToTask({ taskGid: gid, tagGid: selectedId });
-  };
+    const handleSelectTag = (selectedId: string) => {
+      setIsSelectingTags(false);
+      addTagToTask({ taskGid: gid, tagGid: selectedId });
+    };
 
-  const handleUpdateTitle = (title: string) => {
-    setEditableTitle(title);
-    updateTask({
-      gid,
-      name: title,
-    });
-    if (!title) deleteTask(gid);
-  };
+    const handleUpdateTitle = (title: string) => {
+      setEditableTitle(title);
 
-  const handleRemoveTagFromTask = (tag: TagType) => {
-    removeTagFromTask({
-      taskGid: gid,
-      tagGid: tag.gid,
-    });
-  };
+      if (title !== editableTitle) {
+        updateTask({
+          gid,
+          name: title,
+        });
+      }
 
-  return (
-    <div className={styles.content}>
-      <div className={styles.text}>
-        {isLoading ? (
-          <Skeleton height={60} />
+      if (!title) deleteTask({ taskGid: gid });
+    };
+
+    const handleRemoveTagFromTask = useCallback(
+      (_: MouseEvent<HTMLButtonElement>, tagGid: string) => {
+        removeTagFromTask({
+          taskGid: gid,
+          tagGid,
+        });
+      },
+      [gid, removeTagFromTask]
+    );
+
+    return (
+      <div className={styles.content}>
+        <div className={styles.text}>
+          {isLoading ? (
+            <Skeleton height={60} />
+          ) : (
+            <EditableText
+              gid={`editTitle-${gid}`}
+              value={name}
+              updateText={handleUpdateTitle}
+            >
+              <h3 className={styles.title}>{editableTitle}</h3>
+            </EditableText>
+          )}
+        </div>
+        {tags.length > 0 ? (
+          tags.map((tag) => (
+            <TagWrapper
+              key={tag.gid}
+              tag={tag}
+              handleRemove={handleRemoveTagFromTask}
+            />
+          ))
+        ) : !isSelectingTags ? (
+          <IconButton
+            icon={<PlusIcon />}
+            onClick={() => setIsSelectingTags(true)}
+          />
         ) : (
-          <EditableText
-            gid={`editTitle-${gid}`}
-            value={name}
-            updateText={(text) => handleUpdateTitle(text)}
-          >
-            <h3 className={styles.title}>{editableTitle}</h3>
-          </EditableText>
+          <Dropdown
+            options={dropdownOptions ? dropdownOptions : []}
+            onSelect={handleSelectTag}
+          />
         )}
       </div>
-      {tags.length > 0 ? (
-        tags.map((tag) => (
-          <DeleteWrapper
-            key={tag.gid}
-            element={<Tag text={tag.name} variant={tag.color} />}
-            handleRemove={() => handleRemoveTagFromTask(tag)}
-            showActionButton={!!tag}
-          />
-        ))
-      ) : !isSelectingTags ? (
-        <IconButton
-          icon={<PlusIcon />}
-          onClick={() => setIsSelectingTags(true)}
-        />
-      ) : (
-        <Dropdown
-          options={dropdownOptions ? dropdownOptions : []}
-          onSelect={handleSelectTag}
-        />
-      )}
-    </div>
-  );
-};
+    );
+  }
+);
