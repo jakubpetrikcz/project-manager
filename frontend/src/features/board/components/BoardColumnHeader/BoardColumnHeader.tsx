@@ -1,19 +1,10 @@
 import { memo } from 'react';
-import { useDispatch } from 'react-redux';
 
-import {
-  Badge,
-  Button,
-  ButtonEnum,
-  Card,
-  EditableText,
-  Options,
-} from '../../../../components/ui';
-import { setEditMode } from '../../../../stores/features/uiSlice';
-import { AppDispatch } from '../../../../stores/store';
+import { Badge, Card, EditableText, Options } from '../../../../components/ui';
 import { useUpdateSectionMutation } from '../../api/sectionsApi';
 import { useGetTasksQuery } from '../../api/tasksApi';
 import { UNTITLED_SECTION } from '../../constants';
+import { useBoardColumnHeaderOptions } from '../../hooks/useBoardColumnHeaderOptions';
 
 import styles from './BoardColumnHeader.module.scss';
 
@@ -24,9 +15,9 @@ type BoardColumnHeaderProps = {
 
 export const BoardColumnHeader = memo(
   ({ gid, title }: BoardColumnHeaderProps) => {
-    const dispatch = useDispatch<AppDispatch>();
     const { data: tasks } = useGetTasksQuery(gid);
     const [updateSection] = useUpdateSectionMutation();
+    const renderOptions = useBoardColumnHeaderOptions(gid);
 
     const handleUpdateSection = (text: string) => {
       if (text !== title) {
@@ -35,15 +26,6 @@ export const BoardColumnHeader = memo(
           name: text || UNTITLED_SECTION,
         });
       }
-    };
-
-    const handleRenameClick = () => {
-      dispatch(
-        setEditMode({
-          id: `editHeader-${gid}`,
-          isEdit: true,
-        })
-      );
     };
 
     return (
@@ -60,18 +42,7 @@ export const BoardColumnHeader = memo(
           <Badge text={tasks?.data.length.toString() || '0'} />
         </div>
         <div className={styles.right}>
-          <Options>
-            {(setIsOptionsOpen) => (
-              <Button
-                text='Rename'
-                variant={ButtonEnum.transparent}
-                onClick={() => {
-                  handleRenameClick();
-                  setIsOptionsOpen(false);
-                }}
-              />
-            )}
-          </Options>
+          <Options renderOptions={renderOptions} />
         </div>
       </Card>
     );

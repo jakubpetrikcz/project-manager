@@ -14,13 +14,13 @@ import { IconButton } from '../IconButton';
 import styles from './Options.module.scss';
 
 type OptionsProps = {
-  children:
-    | ((setIsOptionsOpen: Dispatch<SetStateAction<boolean>>) => ReactNode)
-    | ReactNode;
   vertical?: boolean;
+  renderOptions: (
+    setIsOptionsOpen?: Dispatch<SetStateAction<boolean>>
+  ) => ReactNode;
 };
 
-export const Options = ({ children, vertical }: OptionsProps) => {
+export const Options = ({ vertical, renderOptions }: OptionsProps) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -39,9 +39,7 @@ export const Options = ({ children, vertical }: OptionsProps) => {
       />
       {isOptionsOpen && (
         <div className={styles.menu} ref={ref}>
-          {typeof children === 'function'
-            ? children(setIsOptionsOpen)
-            : children}
+          {renderOptions(setIsOptionsOpen)}
         </div>
       )}
     </>

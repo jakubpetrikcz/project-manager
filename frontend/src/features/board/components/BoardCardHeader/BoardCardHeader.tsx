@@ -1,26 +1,11 @@
-import {
-  ChangeEvent,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import {
-  Button,
-  ButtonEnum,
-  Options,
-  Tag,
-  TextInput,
-} from '../../../../components/ui';
+import { Options, Tag, TextInput } from '../../../../components/ui';
 import { AppDispatch } from '../../../../stores/store';
-import {
-  useCreateTaskMutation,
-  useDeleteTaskMutation,
-} from '../../api/tasksApi';
+import { useCreateTaskMutation } from '../../api/tasksApi';
+import { useTaskOptions } from '../../hooks/useTaskOptions';
 import { removeTask } from '../../stores/tasksSlice';
 import { BoardCardType } from '../../types/card';
 
@@ -39,23 +24,17 @@ export const BoardCardHeader = ({
 }: BoardCardHeaderProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const { id: projectGid } = useParams() as { id: string };
-  const [deleteTask] = useDeleteTaskMutation();
   const [createTask] = useCreateTaskMutation();
   const [editableText, setEditableText] = useState('');
   const [isCreating, setIsCreating] = useState<boolean>(!gid);
   const inputRef = useRef<HTMLInputElement>(null);
+  const renderOptions = useTaskOptions(sectionGid, gid);
 
   useEffect(() => {
     if (isCreating) {
       inputRef.current?.focus();
     }
   }, [isCreating]);
-
-  const deleteItem = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    dispatch(removeTask({ sectionGid, gid }));
-    deleteTask({ taskGid: gid });
-  };
 
   const handleKeyUp = async (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && editableText) {
@@ -103,13 +82,7 @@ export const BoardCardHeader = ({
             <h5>{name ? name : editableText}</h5>
           )}
         </div>
-        <Options vertical>
-          <Button
-            text='Delete'
-            variant={ButtonEnum.transparent}
-            onClick={deleteItem}
-          />
-        </Options>
+        <Options vertical renderOptions={renderOptions} />
       </div>
     </>
   );
