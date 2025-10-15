@@ -1,4 +1,4 @@
-export const CLIENT_ID = import.meta.env.VITE_ASANA_CLIENT_ID;
+export const CLIENT_ID = '1207618978522208';
 export const REDIRECT_URI = 'http://localhost:5173/callback';
 export const LOCAL_SERVER = 'http://localhost:3000';
 export const ASANA_BASE_URL = 'https://app.asana.com/api/1.0/';
