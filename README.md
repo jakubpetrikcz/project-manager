@@ -1,5 +1,4 @@
-![Image](https://github.com/user-attachments/assets/8b179cf5-e519-4737-8ab3-8c4bcbb67925)
-
+![Image](https://github.com/user-attachments/assets/ac8a1f3c-7109-421d-9bdc-72d3fe67e4e5)
 
 <h2>How to start a project:</h2>
 
