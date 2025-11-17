@@ -3,12 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
-  BadgeTypeEnum,
   Button,
   Dropdown,
   ModalWindow,
   TextInput,
 } from '../../../../components/ui';
+import { BadgeVariant } from '../../../../components/ui/Badge/BadgeVariants';
 import { newTagSchema, TagSchema, tagSchema } from '../../../../schema/tag';
 import {
   useCreateTagMutation,
@@ -49,7 +49,7 @@ export const TagModal = ({ tag, close, workspaceId }: TagModalProps) => {
     defaultValues: {
       gid: tag?.gid || '',
       name: tag?.name || '',
-      color: tag?.color || BadgeTypeEnum.lightBlue,
+      color: tag?.color || 'dark-pink',
     },
   });
 
@@ -88,7 +88,7 @@ export const TagModal = ({ tag, close, workspaceId }: TagModalProps) => {
                 tag ? tagNameMap[tag.color] : dropdownOptions[0].value
               }
               options={dropdownOptions}
-              onSelect={(id) => setValue('color', id as BadgeTypeEnum)}
+              onSelect={(id) => setValue('color', id as BadgeVariant)}
             />
           </div>
         </div>

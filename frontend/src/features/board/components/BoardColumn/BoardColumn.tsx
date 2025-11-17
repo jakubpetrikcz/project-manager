@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import { CirclePlusIcon } from '../../../../components/icons';
-import { Button, ButtonEnum, DropIndicator } from '../../../../components/ui';
+import { Button, DropIndicator } from '../../../../components/ui';
 import { AppDispatch } from '../../../../stores/store';
 import { useGetTasksQuery } from '../../api/tasksApi';
 import { useColumnDragAndDrop } from '../../hooks/useColumnDragAndDrop';
@@ -76,7 +76,7 @@ export const BoardColumn = memo(({ sectionGid, title }: BoardColumnProps) => {
           text='Add new'
           icon={<CirclePlusIcon />}
           onClick={handleCreate}
-          variant={ButtonEnum.secondary}
+          variant='secondary'
           className={styles.createButton}
         />
       </div>

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Button, ButtonEnum } from '../../../components/ui';
+import { Button } from '../../../components/ui';
 import { setEditMode } from '../../../stores/features/uiSlice';
 import { AppDispatch } from '../../../stores/store';
 
@@ -22,7 +22,7 @@ export const useBoardColumnHeaderOptions = (gid: string) => {
   ) => (
     <Button
       text='Rename'
-      variant={ButtonEnum.transparent}
+      variant='transparent'
       onClick={() => {
         handleRenameClick();
         setIsOptionsOpen?.(false);

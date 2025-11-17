@@ -1,4 +1,4 @@
-import { BadgeTypeEnum } from '../../components/ui';
+import { BadgeVariant } from '../../components/ui/Badge/BadgeVariants';
 
 export type TagResponse = {
   data: TagType[];
@@ -7,7 +7,7 @@ export type TagResponse = {
 export type TagType = {
   gid: string;
   name: string;
-  color: BadgeTypeEnum;
+  color: BadgeVariant;
 };
 
 export type CreateTagMutation = {

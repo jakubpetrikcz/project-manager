@@ -1,10 +1,13 @@
 import { z } from 'zod';
 
-import { BadgeTypeEnum } from '../components/ui';
+import {
+  BADGE_VARIANT,
+  BadgeVariant,
+} from '../components/ui/Badge/BadgeVariants';
 
 export const newTagSchema = z.object({
   name: z.string().min(2).max(10),
-  color: z.nativeEnum(BadgeTypeEnum),
+  color: z.enum(Object.keys(BADGE_VARIANT) as [BadgeVariant]),
 });
 
 export const tagSchema = newTagSchema.extend({

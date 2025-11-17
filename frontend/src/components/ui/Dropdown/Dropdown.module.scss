@@ -37,6 +37,9 @@
   border: 1px solid var(--gray);
   border-top: none;
   width: 100%;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 
   li {
     padding: 10px;

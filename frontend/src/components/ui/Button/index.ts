@@ -1,2 +1,1 @@
-export * from "./Button";
-export * from "./ButtonEnums";
+export * from './Button';

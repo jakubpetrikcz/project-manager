@@ -1,5 +1,5 @@
 import { AsanaLogo } from '../../components/icons';
-import { Button, ButtonEnum } from '../../components/ui';
+import { Button } from '../../components/ui';
 import { CLIENT_ID, REDIRECT_URI } from '../../constants';
 
 import styles from './RegisterPage.module.scss';
@@ -16,13 +16,13 @@ export const RegisterPage = () => {
         <Button
           text='Login with ASANA'
           icon={<AsanaLogo color='white' />}
-          variant={ButtonEnum.primary}
+          variant='primary'
           onClick={handleLogin}
         />
         <Button
           text='Register with ASANA'
           icon={<AsanaLogo />}
-          variant={ButtonEnum.secondary}
+          variant='secondary'
           link='https://asana.com/create-account'
         />
       </div>

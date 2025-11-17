@@ -16,27 +16,82 @@
   background-color: var(--primary-hover);
 }
 
-.dark-brown {
-  color: var(--warning);
-  background-color: var(--warning-hover);
-}
-
-.light-green {
-  color: var(--success);
-  background-color: var(--success-hover);
-}
-
-.dark-red {
-  color: var(--error);
-  background-color: var(--error-hover);
-}
-
-.dark-purple {
-  color: var(--violet);
-  background-color: var(--violet-hover);
-}
-
 .none {
-  color: var(--other);
-  background-color: var(--other-hover);
+  color: #1e1f21;
+  background-color: #e8e5e4;
+}
+
+.aqua {
+  color: #00312d;
+  background-color: #a1e7dd;
+}
+
+.blue {
+  color: #142b51;
+  background-color: #79abff;
+}
+
+.blue-green {
+  color: #00303a;
+  background-color: #77d3e9;
+}
+
+.cool-gray {
+  color: #2b2b2b;
+  background-color: #aaa;
+}
+
+.green {
+  color: #06321b;
+  background-color: #85d7a2;
+}
+
+.hot-pink {
+  color: #4a1a34;
+  background-color: #ff95c9;
+}
+
+.indigo {
+  color: #2d2452;
+  background-color: #b8acff;
+}
+
+.magenta {
+  color: #461c3e;
+  background-color: #faaee9;
+}
+
+.orange {
+  color: #4b1f00;
+  background-color: #fea06a;
+}
+
+.pink {
+  color: #4e1929;
+  background-color: #ffafc1;
+}
+
+.purple {
+  color: #3f1f47;
+  background-color: #e39ef2;
+}
+
+.red {
+  color: #4f1a1d;
+  background-color: #ff878a;
+}
+
+.yellow {
+  color: #352b00;
+  background-color: #f6d861;
+}
+
+.yellow-green {
+  color: #232f07;
+  background-color: #c3e684;
+}
+
+.yellow-orange {
+  color: #3c2800;
+  background-color: #f7bd51;
 }

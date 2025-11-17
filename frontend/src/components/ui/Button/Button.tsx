@@ -1,7 +1,7 @@
 import { HTMLProps, MouseEvent, ReactNode } from 'react';
 import classNames from 'classnames';
 
-import { ButtonEnum } from './ButtonEnums';
+import { ButtonVariant } from './ButtonVariants';
 
 import styles from './Button.module.scss';
 
@@ -9,14 +9,14 @@ type ButtonProps = HTMLProps<HTMLButtonElement> & {
   text: string;
   link?: string;
   icon?: ReactNode;
-  variant?: ButtonEnum;
+  variant?: ButtonVariant;
 };
 
 export const Button = ({
   text,
   link,
   icon,
-  variant = ButtonEnum.primary,
+  variant = 'primary',
   onClick,
   className,
   disabled = false,
