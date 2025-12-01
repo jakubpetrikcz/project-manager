@@ -1,5 +1,5 @@
 import { menu } from '../../constants/navLinksArray';
-import { NavLink } from '../ui';
+import { NavItem } from '../ui';
 
 export const NavMenu = () => {
   return (
@@ -7,7 +7,7 @@ export const NavMenu = () => {
       <ul>
         {menu.map((link) => (
           <li key={link.name}>
-            <NavLink key={link.name} {...link} />
+            <NavItem key={link.name} {...link} />
           </li>
         ))}
       </ul>

@@ -9,34 +9,34 @@ import { Authenticated } from '../layouts/Authenticated';
 import { Callback } from './Callback';
 
 const router = createBrowserRouter([
-	{
-		path: '/',
-		element: <Authenticated />,
-		children: [
-			{
-				index: true,
-				element: <DashboardPage />,
-			},
-			{
-				path: 'tags',
-				element: <TagsPage />,
-			},
-			{
-				path: '/:id',
-				element: <ProjectPage />,
-			},
-		],
-	},
-	{
-		path: '/register',
-		element: <RegisterPage />,
-	},
-	{
-		path: '/callback',
-		element: <Callback />,
-	},
+  {
+    path: '/',
+    element: <Authenticated />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />,
+      },
+      {
+        path: 'tags',
+        element: <TagsPage />,
+      },
+      {
+        path: '/:projectId',
+        element: <ProjectPage />,
+      },
+    ],
+  },
+  {
+    path: '/register',
+    element: <RegisterPage />,
+  },
+  {
+    path: '/callback',
+    element: <Callback />,
+  },
 ]);
 
 export const Router = () => {
-	return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />;
 };

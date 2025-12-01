@@ -6,7 +6,7 @@ import { BoardColumn, BoardColumnSkeleton } from './components';
 import styles from './Board.module.scss';
 
 export const Board = () => {
-  const { id: projectGid } = useParams() as { id: string };
+  const { projectId: projectGid } = useParams() as { projectId: string };
   const { data: sections, isLoading: isSectionsLoading } =
     useGetSectionsQuery(projectGid);
 

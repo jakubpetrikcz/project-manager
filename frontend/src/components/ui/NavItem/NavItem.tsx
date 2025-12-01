@@ -3,9 +3,9 @@ import classNames from 'classnames';
 
 import { NavLinkType } from '../../../types/navLink';
 
-import styles from './NavLink.module.scss';
+import styles from './NavItem.module.scss';
 
-export const NavLink = ({ name, icon, fillIcon, path }: NavLinkType) => {
+export const NavItem = ({ name, icon, fillIcon, path }: NavLinkType) => {
   const { pathname } = useLocation();
   const isActive = pathname === path;
 

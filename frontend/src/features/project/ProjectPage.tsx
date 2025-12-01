@@ -8,7 +8,7 @@ import { BoardSkeleton } from '../board/BoardSkeleton';
 import styles from './ProjectPage.module.scss';
 
 export const ProjectPage = () => {
-  const { id: projectGid } = useParams() as { id: string };
+  const { projectId: projectGid } = useParams() as { projectId: string };
   const { data: project, isLoading } = useGetProjectQuery(projectGid);
 
   return (

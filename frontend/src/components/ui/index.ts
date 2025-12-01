@@ -9,7 +9,7 @@ export * from './EditableText';
 export * from './IconButton';
 export * from './MenuButton';
 export * from './ModalWindow';
-export * from './NavLink';
+export * from './NavItem';
 export * from './Options';
 export * from './PageHeader';
 export * from './Portal';
