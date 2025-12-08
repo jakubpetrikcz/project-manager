@@ -1,9 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { Spinner } from '../components/ui';
 import { DashboardPage } from '../features/dashboard/DashboardPage';
 import { ProjectPage } from '../features/project/ProjectPage';
 import { RegisterPage } from '../features/register/RegisterPage';
 import { TagsPage } from '../features/tags/TagsPage';
+import { tagsPageLoader } from '../features/tags/utils/tagsPageLoader';
 import { Authenticated } from '../layouts/Authenticated';
 
 import { Callback } from './Callback';
@@ -20,6 +22,8 @@ const router = createBrowserRouter([
       {
         path: 'tags',
         element: <TagsPage />,
+        errorElement: <div>Error</div>,
+        loader: tagsPageLoader,
       },
       {
         path: '/:projectId',
@@ -38,5 +42,5 @@ const router = createBrowserRouter([
 ]);
 
 export const Router = () => {
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} fallbackElement={<Spinner />} />;
 };
