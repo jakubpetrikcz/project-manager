@@ -1,4 +1,4 @@
-import { memo, MouseEvent, useCallback } from 'react';
+import { memo, MouseEvent } from 'react';
 
 import { TagType } from '../../../stores/types';
 import { DeleteWrapper } from '../DeleteWrapper';
@@ -12,19 +12,13 @@ type TagWrapperProps = {
 
 export const TagWrapper = memo(
   ({ tag, onClick, handleRemove }: TagWrapperProps) => {
-    const handleOnClick = useCallback(
-      (event?: MouseEvent<HTMLElement>) => {
-        onClick?.(event, tag);
-      },
-      [onClick, tag]
-    );
+    const handleOnClick = (event?: MouseEvent<HTMLElement>) => {
+      onClick?.(event, tag);
+    };
 
-    const removeTag = useCallback(
-      (event: MouseEvent<HTMLButtonElement>) => {
-        handleRemove(event, tag.gid);
-      },
-      [handleRemove, tag.gid]
-    );
+    const removeTag = (event: MouseEvent<HTMLButtonElement>) => {
+      handleRemove(event, tag.gid);
+    };
 
     return (
       <DeleteWrapper

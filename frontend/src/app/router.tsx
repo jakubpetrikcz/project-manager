@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         loader: tagsPageLoader,
       },
       {
-        path: '/:projectId',
+        path: ':projectId',
         element: <ProjectPage />,
       },
     ],

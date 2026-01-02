@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -29,14 +28,10 @@ export const TagModal = ({ tag, close, workspaceId }: TagModalProps) => {
   const [createTag] = useCreateTagMutation();
   const [updateTag] = useUpdateTagMutation();
 
-  const dropdownOptions = useMemo(
-    () =>
-      Object.entries(tagNameMap).map(([id, value]) => ({
-        id,
-        value,
-      })),
-    []
-  );
+  const dropdownOptions = Object.entries(tagNameMap).map(([id, value]) => ({
+    id,
+    value,
+  }));
 
   const {
     register,

@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useState } from 'react';
 
 import { Card, DropIndicator, ModalWindow } from '../../../../components/ui';
 import { removeLinks } from '../../../../utils/removeLinks';
@@ -22,7 +22,7 @@ export const BoardCard = memo(
     const { handleDragStart } = useColumnDragAndDrop(sectionGid);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const description = useMemo(() => removeLinks(notes), [notes]);
+    const description = removeLinks(notes);
 
     const imgSrc = attachments?.data[attachments.data.length - 1]?.download_url;
 

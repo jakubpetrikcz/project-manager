@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback } from 'react';
+import { MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setModalOpen } from '../../../../stores/features/uiSlice';
@@ -27,7 +27,7 @@ export const TagsPageContent = ({
   const isTagModalOpen = useSelector(isModalOpenSelector(TAG_MODAL));
   const tag = useSelector(modalDataSelector(TAG_MODAL)) as TagType;
 
-  const closeTagModal = useCallback(() => {
+  const closeTagModal = () => {
     dispatch(
       setModalOpen({
         id: TAG_MODAL,
@@ -35,7 +35,7 @@ export const TagsPageContent = ({
         data: undefined,
       })
     );
-  }, [dispatch]);
+  };
 
   return (
     <>

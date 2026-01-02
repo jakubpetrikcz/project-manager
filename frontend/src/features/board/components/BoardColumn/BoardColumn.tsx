@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
@@ -28,7 +28,7 @@ export const BoardColumn = memo(({ sectionGid, title }: BoardColumnProps) => {
   const sectionTasks = useSelector(sectionTasksSelector(sectionGid));
   const { isLoading } = useGetTasksQuery(sectionGid);
 
-  const handleCreate = useCallback(() => {
+  const handleCreate = () => {
     const newTask = {
       gid: '',
       name: '',
@@ -43,7 +43,7 @@ export const BoardColumn = memo(({ sectionGid, title }: BoardColumnProps) => {
         task: newTask,
       })
     );
-  }, [dispatch, sectionGid]);
+  };
 
   const { isDraggingOver, handleDragOver, handleDragEnd, handleDragLeave } =
     useColumnDragAndDrop(sectionGid);

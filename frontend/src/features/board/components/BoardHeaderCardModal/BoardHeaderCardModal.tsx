@@ -1,4 +1,4 @@
-import { memo, MouseEvent, useCallback, useMemo, useState } from 'react';
+import { memo, MouseEvent, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { PlusIcon } from '../../../../components/icons';
@@ -38,14 +38,10 @@ export const BoardHeaderCardModal = memo(
     const [addTagToTask] = useAddTagToTaskMutation();
     const [removeTagFromTask] = useRemoveTagFromTaskMutation();
 
-    const dropdownOptions = useMemo(
-      () =>
-        data?.data.map((tag) => ({
-          id: tag.gid,
-          value: tag.name,
-        })),
-      [data?.data]
-    );
+    const dropdownOptions = data?.data.map((tag) => ({
+      id: tag.gid,
+      value: tag.name,
+    }));
 
     const handleSelectTag = (selectedId: string) => {
       setIsSelectingTags(false);
@@ -65,15 +61,15 @@ export const BoardHeaderCardModal = memo(
       if (!title) deleteTask({ taskGid: gid });
     };
 
-    const handleRemoveTagFromTask = useCallback(
-      (_: MouseEvent<HTMLButtonElement>, tagGid: string) => {
-        removeTagFromTask({
-          taskGid: gid,
-          tagGid,
-        });
-      },
-      [gid, removeTagFromTask]
-    );
+    const handleRemoveTagFromTask = (
+      _: MouseEvent<HTMLButtonElement>,
+      tagGid: string
+    ) => {
+      removeTagFromTask({
+        taskGid: gid,
+        tagGid,
+      });
+    };
 
     return (
       <div className={styles.content}>

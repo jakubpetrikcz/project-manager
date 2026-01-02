@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback } from 'react';
+import { MouseEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLoaderData } from 'react-router-dom';
 
@@ -17,12 +17,9 @@ export const TagsPage = () => {
   const workspaces = useLoaderData() as WorkspaceResponse;
   const dispatch = useDispatch<AppDispatch>();
 
-  const openTagModal = useCallback(
-    (_?: MouseEvent<HTMLElement>, tag?: TagType) => {
-      dispatch(setModalOpen({ id: TAG_MODAL, isOpen: true, data: tag }));
-    },
-    [dispatch]
-  );
+  const openTagModal = (_?: MouseEvent<HTMLElement>, tag?: TagType) => {
+    dispatch(setModalOpen({ id: TAG_MODAL, isOpen: true, data: tag }));
+  };
 
   return (
     <section className={styles.section}>

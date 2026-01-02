@@ -1,4 +1,4 @@
-import { memo, MouseEvent, useCallback } from 'react';
+import { memo, MouseEvent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { TagWrapper } from '../../../../components/ui';
@@ -17,13 +17,10 @@ export const Tags = memo(({ openTagModal, workspaceId }: TagsProps) => {
   const { data: tags, isLoading, isError } = useGetTagsQuery(workspaceId);
   const [deleteTag] = useDeleteTagMutation();
 
-  const handleDelete = useCallback(
-    (event: MouseEvent<HTMLButtonElement>, gid: string) => {
-      event.stopPropagation();
-      deleteTag(gid);
-    },
-    [deleteTag]
-  );
+  const handleDelete = (event: MouseEvent<HTMLButtonElement>, gid: string) => {
+    event.stopPropagation();
+    deleteTag(gid);
+  };
 
   if (isLoading) {
     return Array(8)
