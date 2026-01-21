@@ -1,5 +1,6 @@
 import { memo, useState } from 'react';
 
+import { ErrorDisplay } from '../../../../components/ErrorDisplay';
 import { Card, DropIndicator, ModalWindow } from '../../../../components/ui';
 import { removeLinks } from '../../../../utils/removeLinks';
 import { useGetAttachmentsQuery } from '../../api/attachmentsApi';
@@ -26,7 +27,7 @@ export const BoardCard = memo(
 
     const imgSrc = attachments?.data[attachments.data.length - 1]?.download_url;
 
-    if (isError) return <div>Error</div>;
+    if (isError) return <ErrorDisplay />;
 
     return (
       <>
@@ -63,5 +64,5 @@ export const BoardCard = memo(
         )}
       </>
     );
-  }
+  },
 );

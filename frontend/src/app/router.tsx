@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { ErrorDisplay } from '../components/ErrorDisplay';
 import { Spinner } from '../components/ui';
 import { DashboardPage } from '../features/dashboard/DashboardPage';
 import { ProjectPage } from '../features/project/ProjectPage';
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       {
         path: 'tags',
         element: <TagsPage />,
-        errorElement: <div>Error</div>,
+        errorElement: <ErrorDisplay />,
         loader: tagsPageLoader,
       },
       {

@@ -1,5 +1,7 @@
 import { ChangeEvent } from 'react';
 
+import { ErrorDisplay } from '../../../../components/ErrorDisplay';
+import { LoadingIndicator } from '../../../../components/LoadingIndicator';
 import { Attachment, DeleteWrapper } from '../../../../components/ui';
 import { useGetWorkspacesQuery } from '../../../../stores/service/workspacesApi';
 import { compressImg } from '../../../../utils/compressImg';
@@ -53,9 +55,9 @@ export const BoardCardModal = ({
     }
   };
 
-  if (isWorkspacesLoading) return <div>Loading...</div>;
+  if (isWorkspacesLoading) return <LoadingIndicator />;
 
-  if (isWorkspacesError || !workspaces) return <div>Error</div>;
+  if (isWorkspacesError || !workspaces) return <ErrorDisplay />;
 
   return (
     <>

@@ -1,6 +1,7 @@
 import { memo, MouseEvent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
+import { ErrorDisplay } from '../../../../components/ErrorDisplay';
 import { TagWrapper } from '../../../../components/ui';
 import {
   useDeleteTagMutation,
@@ -28,7 +29,7 @@ export const Tags = memo(({ openTagModal, workspaceId }: TagsProps) => {
       .map((_, i) => <Skeleton key={i} width={100} height={30} />);
   }
 
-  if (isError || !tags) return <div>Error</div>;
+  if (isError || !tags) return <ErrorDisplay />;
 
   return tags.data.map((tag) => (
     <TagWrapper

@@ -1,4 +1,5 @@
 import { useGetWorkspacesQuery } from '../../../../stores/service/workspacesApi';
+import { ErrorDisplay } from '../../../ErrorDisplay';
 import { ProjectItemSkeleton } from '../ProjectItem';
 import { Projects } from '../Projects/Projects';
 
@@ -11,7 +12,7 @@ export const Spaces = () => {
     isError: isWorkspacesError,
   } = useGetWorkspacesQuery();
 
-  if (isWorkspacesError) return <div>Error</div>;
+  if (isWorkspacesError) return <ErrorDisplay />;
 
   return (
     <div className={styles.container}>
