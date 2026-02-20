@@ -55,7 +55,7 @@ export const tasksApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Task has been successfully created.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to create a task.');
         }
       },
@@ -71,7 +71,7 @@ export const tasksApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Task was successfully modified.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to modify the task.');
         }
       },
@@ -88,7 +88,7 @@ export const tasksApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Task was successfully deleted.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to delete task.');
         }
       },
@@ -106,7 +106,7 @@ export const tasksApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Tag has been successfully added to the task.');
-        } catch (err) {
+        } catch {
           toast.error('Tag could not be added to the task.');
         }
       },
@@ -124,7 +124,7 @@ export const tasksApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Tag has been successfully deleted from the task.');
-        } catch (err) {
+        } catch {
           toast.error('Tag could not be deleted from the task.');
         }
       },
@@ -144,7 +144,7 @@ export const tasksApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Task has been successfully moved.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to move task.');
         }
       },

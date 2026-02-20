@@ -1,4 +1,4 @@
-@import '/src/styles/utils.scss';
+@use '/src/styles/utils.scss';
 
 .card {
   display: flex;
@@ -26,6 +26,6 @@
 
   input {
     color: var(--primary);
-    @include font-size(16px, 16px);
+    @include utils.font-size(16px, 16px);
   }
 }

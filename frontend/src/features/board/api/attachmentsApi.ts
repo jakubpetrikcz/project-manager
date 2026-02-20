@@ -43,7 +43,7 @@ export const attachmentsApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Attachment has been successfully uploaded.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to upload attachment.');
         }
       },
@@ -60,7 +60,7 @@ export const attachmentsApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Attachment has been successfully deleted.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to delete attachment.');
         }
       },

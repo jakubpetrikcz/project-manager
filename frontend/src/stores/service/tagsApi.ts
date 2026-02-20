@@ -27,7 +27,7 @@ export const tagsApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Tag has been successfully created.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to create a tag.');
         }
       },
@@ -43,7 +43,7 @@ export const tagsApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Tag was successfully modified.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to modify the tag.');
         }
       },
@@ -58,7 +58,7 @@ export const tagsApi = createApi({
         try {
           await queryFulfilled;
           toast.success('Tag was successfully deleted.');
-        } catch (err) {
+        } catch {
           toast.error('Failed to delete tag.');
         }
       },

@@ -8,7 +8,7 @@ import {
   TextInput,
 } from '../../../../components/ui';
 import { BadgeVariant } from '../../../../components/ui/Badge/BadgeVariants';
-import { newTagSchema, TagSchema, tagSchema } from '../../../../schema/tag';
+import { TagSchema, tagSchema } from '../../../../schema/tag';
 import {
   useCreateTagMutation,
   useUpdateTagMutation,
@@ -40,7 +40,7 @@ export const TagModal = ({ tag, close, workspaceId }: TagModalProps) => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<TagSchema>({
-    resolver: zodResolver(tag ? tagSchema : newTagSchema),
+    resolver: zodResolver(tagSchema),
     defaultValues: {
       gid: tag?.gid || '',
       name: tag?.name || '',

@@ -1,9 +1,9 @@
-@import './breakpoints.scss';
+@use './breakpoints';
 
 @mixin font-size($minSize, $maxSize) {
   font-size: calc($minSize / 16px) * 1rem;
 
-  @include tablet {
+  @include breakpoints.tablet {
     font-size: calc($maxSize / 16px) * 1rem;
   }
 }

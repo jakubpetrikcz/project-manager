@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { ErrorDisplay } from '../components/ErrorDisplay';
@@ -43,5 +44,9 @@ const router = createBrowserRouter([
 ]);
 
 export const Router = () => {
-  return <RouterProvider router={router} fallbackElement={<Spinner />} />;
+  return (
+    <Suspense fallback={<Spinner />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 };
